@@ -869,7 +869,7 @@ footer {
     <h1 class="anim">Kolkata LKG / K1 Admissions Directory 2026–27</h1>
     <p class="lead anim d1">A comprehensive directory of schools across the Kolkata Metropolitan Area for Pre‑Nursery, Nursery, and LKG (K1) admissions — with a focused lens on <strong>early‑years pedagogy</strong> and <strong>inclusion / SEN</strong> (speech &amp; developmental needs).</p>
     <div class="hero-stats anim d2">
-      <div class="stat-chip"><span class="num">84</span><span class="label">Schools Scored</span></div>
+      <div class="stat-chip"><span class="num">86</span><span class="label">Schools Scored</span></div>
       <div class="stat-chip"><span class="num">5</span><span class="label">SEN Score Scale</span></div>
       <div class="stat-chip"><span class="num">7</span><span class="label">Board Types</span></div>
       <div class="stat-chip"><span class="num">6</span><span class="label">Clusters</span></div>
@@ -1321,7 +1321,7 @@ Thank you for considering our request.
 
 <!-- DIRECTORY TABLE -->
 <section class="section" id="directory">
-  <div class="section-label">Full Directory — 84 Schools (Recalibrated)</div>
+  <div class="section-label">Full Directory — 86 Schools (Recalibrated)</div>
   <h2>Evidence‑Based Scored Directory</h2>
   <p>Scores recalibrated with strict evidence-based rubric. <strong>SEN 5</strong> = dedicated SEN dept/programme with documented staff + public evidence page (CIS: SEN dept; Heritage: 100 children + 12 SEs). <strong>SEN 3</strong> = multiple SEs in CBSE disclosure OR explicit nurturing ethos OR IB pacing. <strong>SEN 2</strong> = compliance-only SE listing. <strong>SEN 1</strong> = ZERO SEN evidence + competitive/pressure. "SEN Evidence" column links to proof.</p>
 
@@ -1583,7 +1583,7 @@ Thank you for considering our request.
 
 <footer>
   <p><strong>Kolkata LKG/K1 Admissions Directory 2026–27 — v4 Recalibrated + Tracker</strong></p>
-  <p style="margin-top:0.3rem;">84 schools. SEN/Academic scores recalibrated with strict evidence-based rubric. Personal tracker with localStorage notes. Data: 24–26 Mar 2026.</p>
+  <p style="margin-top:0.3rem;">86 schools. SEN/Academic scores recalibrated with strict evidence-based rubric. Personal tracker with localStorage notes. Data: 24–26 Mar 2026.</p>
   <p style="margin-top:0.3rem; color:var(--text-muted);">Scoring rule: CBSE mandatory disclosure SE ≠ SEN-friendly. Only explicit SEN dept/programme/ethos earns SEN 3+. "ZERO SEN data" schools marked honestly.</p>
 </footer>
 
@@ -1715,7 +1715,9 @@ const S=[
 {n:"Kidzee",a:"Multiple (40+ centres across Kolkata)",b:"Pre-Primary",t:"Coed",adm:"High",ac:2,se:2,ph:"kidzee.com",url:"kidzee.com",ev:"",no:"India's largest preschool chain; 40+ Kolkata centres incl. Garia, Salt Lake, Kankurgachi, Ultadanga; structured franchise curriculum; iLLUME methodology; no SEN data"},
 {n:"EuroKids",a:"Ballygunge / Salt Lake / Laketown / Phoolbagan + others",b:"Pre-Primary",t:"Coed",adm:"High",ac:2,se:2,ph:"eurokidsindia.com",url:"eurokidsindia.com",ev:"",no:"National preschool chain (23 yrs); multiple Kolkata branches; ≈₹6,000-10,000/mo; Playgroup-KG; EUNOIA curriculum; no SEN data"},
 {n:"Podar Jumbo Kids",a:"New Town",b:"Pre-Primary",t:"Coed",adm:"High",ac:2,se:2,ph:"+91 62948 40317",url:"jumbokids.com",ev:"",no:"Premium preschool; New Town branch at Candor Techspace; Playgroup-KG; Podar Group (est. 1927); no SEN data"},
-{n:"Shemrock Preschool",a:"Multiple branches",b:"Pre-Primary",t:"Coed",adm:"High",ac:2,se:2,ph:"shemrock.com",url:"shemrock.com",ev:"",no:"India's first playschool chain (34 yrs); 525+ branches nationwide; multiple Kolkata locations; play-based curriculum; no SEN data"}
+{n:"Shemrock Preschool",a:"Multiple branches",b:"Pre-Primary",t:"Coed",adm:"High",ac:2,se:2,ph:"shemrock.com",url:"shemrock.com",ev:"",no:"India's first playschool chain (34 yrs); 525+ branches nationwide; multiple Kolkata locations; play-based curriculum; no SEN data"},
+{n:"Bachpan Play School",a:"Behala / Garia / Dum Dum / Howrah / New Town + others",b:"Pre-Primary",t:"Coed",adm:"High",ac:2,se:2,ph:"bachpanglobal.com",url:"bachpanglobal.com",ev:"",no:"1000+ centres nationally (S.K. Education Group); multiple Kolkata branches; budget-friendly ≈₹15K-40K/yr; activity-based + ABACUS mental maths; no SEN data"},
+{n:"Little Millennium",a:"Salt Lake / New Town / Garia / Behala",b:"Pre-Primary",t:"Coed",adm:"High",ac:2,se:2,ph:"littlemillennium.com",url:"littlemillennium.com",ev:"",no:"National preschool chain; multiple Kolkata centres; Millennium Learning System (MLS) — skills-based approach; ≈₹30K-60K/yr; no SEN data"}
 ];
 
 // === ADMISSION DATES LOOKUP (researched from school websites & notices) ===
@@ -1763,6 +1765,8 @@ const DATES = {
 "Kidzee":{classes:"PN,NUR,LKG",form:"Year-round (rolling)",window:"40+ centres in Kolkata; apply online or walk in",next:"Apply anytime at kidzee.com",src:"kidzee.com"},
 "EuroKids":{classes:"PN,NUR,LKG",form:"Year-round (2026-27 OPEN)",window:"Multiple branches; online admission form available",next:"Apply now at eurokidsindia.com",src:"eurokidsindia.com"},
 "Podar Jumbo Kids":{classes:"PN,NUR,LKG",form:"Open (rolling)",window:"New Town branch open; contact +91 62948 40317",next:"Apply now",src:"jumbokids.com"},
+"Bachpan Play School":{classes:"PN,NUR,LKG,UKG",form:"Year-round (rolling)",window:"Multiple Kolkata centres; walk-in or online",next:"Apply anytime at bachpanglobal.com",src:"bachpanglobal.com"},
+"Little Millennium":{classes:"PN,NUR,LKG,UKG",form:"Year-round (rolling)",window:"Centres in Salt Lake, New Town, Garia, Behala",next:"Apply anytime at littlemillennium.com",src:"littlemillennium.com"},
 "MP Birla Foundation School":{classes:"NUR,LKG",form:"Online admission portal",window:"Apply at mpbfhsschool.com/online-admission",next:"Check mpbfhsschool.com from Apr-May 2026",src:"mpbfhsschool.com"},
 "Sri Sri Academy":{classes:"NUR,LKG,UKG",form:"Open (2026-27)",window:"Nursery-XI; online applications per vacancy; test + interaction",next:"Apply now at kolkata.ssa.org.in/admissions",src:"kolkata.ssa.org.in"},
 };
