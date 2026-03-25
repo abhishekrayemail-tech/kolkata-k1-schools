@@ -8,7 +8,6 @@
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 <script>
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  FIREBASE CONFIG — FILL THIS IN (see SETUP.md for steps)   ║
@@ -865,7 +864,7 @@ footer {
   </div>
 
   <div style="margin-top:1.2rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);">
-    <strong>💡 How it works:</strong> Files are uploaded to Firebase Storage under your PIN. Max 5MB per file. Supported: PDF, JPG, PNG, DOC/DOCX. Access from any device with the same PIN. Keep originals safe — these are digital copies for quick reference during school visits.
+    <strong>💡 How it works:</strong> Files are converted to Base64 and stored in Firebase Realtime Database under your PIN. Max <strong>750KB per file</strong> (no billing upgrade needed). Supported: PDF, JPG, PNG, DOC/DOCX. Tip: compress PDFs at <a href="https://smallpdf.com/compress-pdf" target="_blank" style="color:var(--blue);">smallpdf.com</a> and shrink photos before uploading. Access from any device with the same PIN.
   </div>
 </section>
 
@@ -913,7 +912,7 @@ footer {
     <div class="file-drop" id="schoolFileDrop" onclick="document.getElementById('schoolFileInput').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault();this.classList.remove('dragover');handleSchoolFiles(event.dataTransfer.files)">
       <input type="file" id="schoolFileInput" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="handleSchoolFiles(this.files)">
       <div class="drop-icon">📄</div>
-      <div class="drop-text">Drop files here or click to upload<br><span style="font-size:0.72rem;color:var(--text-muted);">PDF, JPG, PNG, DOC — max 5MB each</span></div>
+      <div class="drop-text">Drop files here or click to upload<br><span style="font-size:0.72rem;color:var(--text-muted);">PDF, JPG, PNG, DOC — max 750KB each (compress first)</span></div>
     </div>
     <div id="schoolUploadProgress" class="upload-progress" style="display:none;"><div id="schoolProgressBar" class="upload-progress-bar" style="width:0%"></div></div>
     <div class="file-list" id="schoolFileList"></div>
@@ -1425,7 +1424,6 @@ const NOTES_KEY = 'kolkata_k1_notes';
 const PIN_KEY = 'kolkata_k1_pin';
 let fbDb = null;
 let fbRef = null;
-let fbStorage = null;
 let userPin = '';
 let notesCache = {};
 let firebaseReady = false;
@@ -1436,7 +1434,6 @@ function initFirebase(pin){
   try {
     if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
     fbDb = firebase.database();
-    fbStorage = firebase.storage();
     fbRef = fbDb.ref('users/' + pin + '/notes');
     // Listen for realtime changes
     fbRef.on('value', snap => {
@@ -1537,9 +1534,9 @@ function removeNote(schoolName){
 // Load local cache on start
 try { notesCache = JSON.parse(localStorage.getItem(NOTES_KEY)||'{}'); } catch(e){ notesCache = {}; }
 
-// === FILE UPLOAD ENGINE (Firebase Storage) ===
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_TYPES = ['application/pdf','image/jpeg','image/png','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+// === FILE ENGINE (Base64 → Realtime Database, no Storage needed) ===
+const MAX_FILE_SIZE = 750 * 1024; // 750KB (Base64 adds ~33%, keeps under DB write limits)
+const ALLOWED_EXT = ['pdf','jpg','jpeg','png','doc','docx'];
 
 function getFileIcon(name){
   const ext = name.split('.').pop().toLowerCase();
@@ -1555,19 +1552,40 @@ function formatSize(bytes){
   return (bytes/1048576).toFixed(1) + ' MB';
 }
 
+function fileToBase64(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Read failed'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function base64ToBlob(dataUrl){
+  const parts = dataUrl.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const b64 = atob(parts[1]);
+  const arr = new Uint8Array(b64.length);
+  for(let i = 0; i < b64.length; i++) arr[i] = b64.charCodeAt(i);
+  return new Blob([arr], {type: mime});
+}
+
+function validateFile(file){
+  const ext = file.name.split('.').pop().toLowerCase();
+  if(!ALLOWED_EXT.includes(ext)){ alert(file.name + ': Invalid type. Use PDF, JPG, PNG, or DOC.'); return false; }
+  if(file.size > MAX_FILE_SIZE){ alert(file.name + ': Too large (' + formatSize(file.size) + '). Max 750KB per file.\n\nTip: Compress PDFs at smallpdf.com or shrink images before uploading.'); return false; }
+  return true;
+}
+
 // --- Vault Uploads (central documents) ---
 async function handleVaultFiles(category, fileList){
-  if(!firebaseReady || !fbStorage){ alert('Firebase not connected. Enter your PIN first.'); return; }
+  if(!firebaseReady || !fbDb){ alert('Firebase not connected. Enter your PIN first.'); return; }
   for(const file of fileList){
-    if(file.size > MAX_FILE_SIZE){ alert(file.name + ' exceeds 5MB limit.'); continue; }
-    const path = 'users/' + userPin + '/vault/' + category + '/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    if(!validateFile(file)) continue;
     try {
-      const ref = fbStorage.ref(path);
-      const snap = await ref.put(file);
-      const url = await snap.ref.getDownloadURL();
-      // Save metadata to DB
+      const b64 = await fileToBase64(file);
       const metaRef = fbDb.ref('users/' + userPin + '/vault/' + category).push();
-      await metaRef.set({ name: file.name, size: file.size, url: url, path: path, uploadedAt: new Date().toISOString() });
+      await metaRef.set({ name: file.name, size: file.size, data: b64, uploadedAt: new Date().toISOString() });
     } catch(e){ alert('Upload failed: ' + file.name + ' — ' + e.message); }
   }
   loadVaultFiles(category);
@@ -1577,24 +1595,34 @@ async function loadVaultFiles(category){
   if(!firebaseReady || !fbDb) return;
   const container = document.getElementById('vault' + category.charAt(0).toUpperCase() + category.slice(1) + 'Files');
   if(!container) return;
-  const snap = await fbDb.ref('users/' + userPin + '/vault/' + category).once('value');
-  const data = snap.val();
-  if(!data){ container.innerHTML = '<div style="font-size:0.78rem;color:var(--text-muted);padding:6px;">No files uploaded yet.</div>'; return; }
-  container.innerHTML = Object.entries(data).map(([key, f]) =>
-    `<div class="file-item">
-      <span>${getFileIcon(f.name)}</span>
-      <span class="fname">${f.name}</span>
-      <span class="fsize">${formatSize(f.size)}</span>
-      <a href="${f.url}" target="_blank" rel="noopener">View</a>
-      <button class="fdel" onclick="deleteVaultFile('${category}','${key}','${f.path.replace(/'/g,"\\'")}')">✕</button>
-    </div>`
-  ).join('');
+  try {
+    const snap = await fbDb.ref('users/' + userPin + '/vault/' + category).once('value');
+    const data = snap.val();
+    if(!data){ container.innerHTML = '<div style="font-size:0.78rem;color:var(--text-muted);padding:6px;">No files uploaded yet.</div>'; return; }
+    container.innerHTML = Object.entries(data).map(([key, f]) =>
+      `<div class="file-item">
+        <span>${getFileIcon(f.name)}</span>
+        <span class="fname">${f.name}</span>
+        <span class="fsize">${formatSize(f.size)}</span>
+        <a href="#" onclick="event.preventDefault();viewBase64File('${category}','${key}')">View</a>
+        <button class="fdel" onclick="deleteVaultFile('${category}','${key}')">✕</button>
+      </div>`
+    ).join('');
+  } catch(e){ container.innerHTML = '<div style="font-size:0.78rem;color:var(--red);">Error loading files.</div>'; }
 }
 
-async function deleteVaultFile(category, key, storagePath){
+async function viewBase64File(category, key){
+  const snap = await fbDb.ref('users/' + userPin + '/vault/' + category + '/' + key + '/data').once('value');
+  const b64 = snap.val();
+  if(!b64){ alert('File data not found.'); return; }
+  const blob = base64ToBlob(b64);
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+}
+
+async function deleteVaultFile(category, key){
   if(!confirm('Delete this file?')) return;
   try {
-    await fbStorage.ref(storagePath).delete();
     await fbDb.ref('users/' + userPin + '/vault/' + category + '/' + key).remove();
     loadVaultFiles(category);
   } catch(e){ alert('Delete failed: ' + e.message); }
@@ -1607,10 +1635,10 @@ function loadAllVaultFiles(){
   loadVaultFiles('other');
 }
 
-// --- School-Level Uploads (per-school documents) ---
+// --- School-Level Uploads (per-school documents in notes modal) ---
 async function handleSchoolFiles(fileList){
   if(!currentModalSchool){ alert('No school selected.'); return; }
-  if(!firebaseReady || !fbStorage){ alert('Firebase not connected.'); return; }
+  if(!firebaseReady || !fbDb){ alert('Firebase not connected.'); return; }
   const schoolKey = currentModalSchool.replace(/[^a-zA-Z0-9 ]/g,'').replace(/ /g,'_');
   const progDiv = document.getElementById('schoolUploadProgress');
   const progBar = document.getElementById('schoolProgressBar');
@@ -1618,21 +1646,17 @@ async function handleSchoolFiles(fileList){
 
   for(let i = 0; i < fileList.length; i++){
     const file = fileList[i];
-    if(file.size > MAX_FILE_SIZE){ alert(file.name + ' exceeds 5MB limit.'); continue; }
+    if(!validateFile(file)) continue;
     progBar.style.width = ((i/fileList.length)*100) + '%';
-    const path = 'users/' + userPin + '/schools/' + schoolKey + '/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
     try {
-      const ref = fbStorage.ref(path);
-      const snap = await ref.put(file);
-      const url = await snap.ref.getDownloadURL();
+      const b64 = await fileToBase64(file);
       const metaRef = fbDb.ref('users/' + userPin + '/schoolFiles/' + schoolKey).push();
-      await metaRef.set({ name: file.name, size: file.size, url: url, path: path, uploadedAt: new Date().toISOString() });
+      await metaRef.set({ name: file.name, size: file.size, data: b64, uploadedAt: new Date().toISOString() });
     } catch(e){ alert('Upload failed: ' + file.name + ' — ' + e.message); }
   }
   progBar.style.width = '100%';
   setTimeout(()=>{ progDiv.style.display = 'none'; progBar.style.width = '0%'; }, 800);
   loadSchoolFiles(currentModalSchool);
-  // Reset file input
   document.getElementById('schoolFileInput').value = '';
 }
 
@@ -1641,36 +1665,36 @@ async function loadSchoolFiles(schoolName){
   const container = document.getElementById('schoolFileList');
   if(!container) return;
   if(!firebaseReady || !fbDb){ container.innerHTML = ''; return; }
-  const snap = await fbDb.ref('users/' + userPin + '/schoolFiles/' + schoolKey).once('value');
-  const data = snap.val();
-  if(!data){ container.innerHTML = '<div style="font-size:0.78rem;color:var(--text-muted);padding:4px;">No files for this school yet.</div>'; return; }
-  container.innerHTML = Object.entries(data).map(([key, f]) =>
-    `<div class="file-item">
-      <span>${getFileIcon(f.name)}</span>
-      <span class="fname">${f.name}</span>
-      <span class="fsize">${formatSize(f.size)}</span>
-      <a href="${f.url}" target="_blank" rel="noopener">View</a>
-      <button class="fdel" onclick="deleteSchoolFile('${schoolKey}','${key}','${f.path.replace(/'/g,"\\'")}')">✕</button>
-    </div>`
-  ).join('');
+  try {
+    const snap = await fbDb.ref('users/' + userPin + '/schoolFiles/' + schoolKey).once('value');
+    const data = snap.val();
+    if(!data){ container.innerHTML = '<div style="font-size:0.78rem;color:var(--text-muted);padding:4px;">No files for this school yet.</div>'; return; }
+    container.innerHTML = Object.entries(data).map(([key, f]) =>
+      `<div class="file-item">
+        <span>${getFileIcon(f.name)}</span>
+        <span class="fname">${f.name}</span>
+        <span class="fsize">${formatSize(f.size)}</span>
+        <a href="#" onclick="event.preventDefault();viewSchoolFile('${schoolKey}','${key}')">View</a>
+        <button class="fdel" onclick="deleteSchoolFile('${schoolKey}','${key}')">✕</button>
+      </div>`
+    ).join('');
+  } catch(e){ container.innerHTML = '<div style="font-size:0.78rem;color:var(--red);">Error loading files.</div>'; }
 }
 
-async function deleteSchoolFile(schoolKey, key, storagePath){
+async function viewSchoolFile(schoolKey, key){
+  const snap = await fbDb.ref('users/' + userPin + '/schoolFiles/' + schoolKey + '/' + key + '/data').once('value');
+  const b64 = snap.val();
+  if(!b64){ alert('File data not found.'); return; }
+  const blob = base64ToBlob(b64);
+  window.open(URL.createObjectURL(blob), '_blank');
+}
+
+async function deleteSchoolFile(schoolKey, key){
   if(!confirm('Delete this file?')) return;
   try {
-    await fbStorage.ref(storagePath).delete();
     await fbDb.ref('users/' + userPin + '/schoolFiles/' + schoolKey + '/' + key).remove();
     if(currentModalSchool) loadSchoolFiles(currentModalSchool);
   } catch(e){ alert('Delete failed: ' + e.message); }
-}
-
-// Get school file count for display
-async function getSchoolFileCount(schoolName){
-  if(!firebaseReady || !fbDb) return 0;
-  const schoolKey = schoolName.replace(/[^a-zA-Z0-9 ]/g,'').replace(/ /g,'_');
-  const snap = await fbDb.ref('users/' + userPin + '/schoolFiles/' + schoolKey).once('value');
-  const data = snap.val();
-  return data ? Object.keys(data).length : 0;
 }
 
 let currentModalSchool = null;
