@@ -86,24 +86,33 @@ Replace the rules with:
     "users": {
       "$pin": {
         ".read": true,
-        ".write": true,
-        "notes": {
-          "$school": {
-            ".validate": "newData.hasChildren(['status','updatedAt'])"
-          }
-        }
+        ".write": true
       }
     }
   }
 }
 ```
 
-Click **Publish**. This ensures:
-- Anyone with a PIN can read/write their own notes
-- Notes must have a status and updatedAt field
-- No one can write outside the users/{pin}/notes/ path
+Click **Publish**.
 
-> **Note:** For a family tracker this is sufficient. If you want stronger security, you can enable Firebase Authentication and add auth rules later.
+### 1f. Enable & Secure Firebase Storage
+
+1. In Firebase Console sidebar, click **Build → Storage**
+2. Click **Get started** → Start in **Test mode** → Choose **asia-south1** (Mumbai) → **Done**
+3. Go to **Storage → Rules** tab and replace with:
+
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /users/{pin}/{allPaths=**} {
+      allow read, write: if request.resource == null || request.resource.size < 5 * 1024 * 1024;
+    }
+  }
+}
+```
+
+Click **Publish**. This allows uploads up to 5MB per file under each PIN's folder.
 
 ---
 
