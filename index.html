@@ -66,35 +66,139 @@ body {
 h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.25; }
 ::selection { background: var(--accent-light); color: var(--text-primary); }
 
-/* NAV */
-.topnav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(250,250,247,0.92);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border-light);
-  padding: 0 2rem;
-}
-.topnav-inner {
-  max-width: 1320px; margin: 0 auto;
-  display: flex; align-items: center; gap: 1.4rem;
-  height: 58px; overflow-x: auto;
-}
-.topnav-inner::-webkit-scrollbar { display: none; }
-.topnav a {
-  font-size: 0.78rem; font-weight: 600; text-decoration: none;
-  color: var(--text-muted); white-space: nowrap;
-  padding: 4px 0; border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-}
-.topnav a:hover, .topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
-.topnav .brand {
-  font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700;
-  color: var(--text-primary); margin-right: auto; border: none;
+/* APP LAYOUT */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
 }
 
-/* HERO */
+/* SIDEBAR */
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 230px; z-index: 100;
+  background: #1a1a2e;
+  color: #aaa;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a4e #1a1a2e;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: #2a2a4e; border-radius: 2px; }
+.sidebar-brand {
+  padding: 18px 20px 14px;
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--accent);
+  border-bottom: 1px solid #2a2a4e;
+  flex-shrink: 0;
+}
+.sidebar-nav {
+  flex: 1; padding: 8px 0;
+}
+.sidebar-nav a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  font-size: 0.82rem; font-weight: 500;
+  color: #999; text-decoration: none;
+  transition: all 0.15s;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.sidebar-nav a:hover {
+  color: #ddd;
+  background: rgba(255,255,255,0.04);
+}
+.sidebar-nav a.active {
+  color: var(--accent);
+  background: rgba(184,74,28,0.12);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+.sidebar-nav a .nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+.sidebar-divider {
+  padding: 14px 20px 6px;
+  font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: #555;
+  border-top: 1px solid #2a2a4e;
+  margin-top: 6px;
+}
+.sidebar-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #2a2a4e;
+  flex-shrink: 0;
+}
+.sidebar-footer button {
+  width: 100%; padding: 7px 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  background: rgba(255,255,255,0.06);
+  color: #888; border: 1px solid #2a2a4e;
+  border-radius: 6px; cursor: pointer;
+  transition: all 0.15s;
+}
+.sidebar-footer button:hover { background: rgba(255,255,255,0.1); color: #ccc; }
+
+/* MAIN CONTENT */
+.main-content {
+  margin-left: 230px;
+  flex: 1;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* MOBILE BOTTOM BAR */
+.bottom-bar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  background: #1a1a2e;
+  padding: 6px 0 max(6px, env(safe-area-inset-bottom));
+  justify-content: space-around;
+}
+.bottom-bar a {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 4px 8px;
+  font-size: 0.62rem; font-weight: 600;
+  color: #777; text-decoration: none;
+  cursor: pointer; transition: color 0.15s;
+}
+.bottom-bar a .bar-icon { font-size: 1.15rem; }
+.bottom-bar a.active { color: var(--accent); }
+.bottom-bar a:hover { color: #ccc; }
+
+/* MORE MENU (mobile overlay) */
+.more-menu {
+  display: none;
+  position: fixed; bottom: 56px; left: 0; right: 0;
+  z-index: 99;
+  background: #1a1a2e;
+  border-top: 1px solid #2a2a4e;
+  padding: 12px 0 max(12px, env(safe-area-inset-bottom));
+  max-height: 65vh; overflow-y: auto;
+}
+.more-menu.open { display: block; }
+.more-menu a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px;
+  font-size: 0.85rem; font-weight: 500;
+  color: #999; text-decoration: none;
+}
+.more-menu a:hover, .more-menu a.active { color: var(--accent); background: rgba(184,74,28,0.1); }
+.more-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 98;
+  background: rgba(0,0,0,0.4);
+}
+.more-overlay.open { display: block; }
+
+/* Hide topnav (replaced by sidebar) */
+.topnav { display: none; }
+
+/* HERO (compact, inside main content) */
 .hero {
-  max-width: 1320px; margin: 0 auto; padding: 4rem 2rem 3rem;
+  max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 1.5rem;
   position: relative;
 }
 .hero::before {
@@ -148,10 +252,12 @@ h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.25; }
 
 /* SECTIONS */
 .section {
-  max-width: 1320px; margin: 0 auto;
-  padding: 3rem 2rem;
+  max-width: 1100px; margin: 0 auto;
+  padding: 2rem 2rem 3rem;
+  display: none; /* hidden by default, shown by JS */
 }
-.section + .section { border-top: 1px solid var(--border-light); }
+.section.active-section { display: block; }
+.section + .section { border-top: none; }
 .section-label {
   font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem;
@@ -350,16 +456,20 @@ td:first-child { font-weight: 600; color: var(--text-primary); min-width: 180px;
 
 /* FOOTER */
 footer {
-  max-width: 1320px; margin: 0 auto; padding: 2rem;
+  max-width: 1100px; margin: 0 auto; padding: 2rem;
   border-top: 1px solid var(--border); text-align: center;
   color: var(--text-muted); font-size: 0.78rem;
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-  .hero { padding: 2.5rem 1.2rem 2rem; }
-  .section { padding: 2rem 1.2rem; }
-  .topnav { padding: 0 1rem; }
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; padding-bottom: 70px; }
+  .bottom-bar { display: flex; }
+  .hero { padding: 1.5rem 1.2rem 1rem; }
+  .hero h1 { font-size: 1.5rem; }
+  .hero p.lead { font-size: 0.9rem; }
+  .section { padding: 1.5rem 1.2rem 2rem; }
   .rec-grid, .checklist-grid, .cluster-grid, .method-sources { grid-template-columns: 1fr; }
   .timeline-track { flex-direction: column; }
   .hero-stats { gap: 0.6rem; }
@@ -609,11 +719,13 @@ footer {
 
 /* PRINT STYLES */
 @media print {
+  .sidebar, .bottom-bar, .more-menu, .more-overlay,
   .topnav, .hero-badge, .hero-stats, .search-box, #pagination, .modal-overlay,
   #pinScreen, #syncBadge, .note-btn, .info-btn, .tab-bar, .file-drop,
   .wa-actions, .compare-picker, .visit-select button, footer { display: none !important; }
+  .main-content { margin-left: 0 !important; }
+  .section { display: block !important; padding: 1rem 0; page-break-inside: avoid; }
   body { font-size: 11pt; background: #fff; }
-  .section { padding: 1rem 0; page-break-inside: avoid; }
   .rec-card, .cluster-card, .checklist-card, .tracker-card, .vault-category, .wa-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
   .table-wrap { overflow: visible; }
   table { font-size: 8pt; }
@@ -695,39 +807,74 @@ footer {
   <span id="syncText">Offline</span>
 </div>
 
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a href="#" class="brand">KolkataK1</a>
-    <a href="#recommendations">Top Picks</a>
-    <a href="#tracker">My Tracker</a>
-    <a href="#vault">Documents</a>
-    <a href="#compare">Compare</a>
-    <a href="#calendar">Calendar</a>
-    <a href="#whatsapp">Templates</a>
-    <a href="#visitgen">Visit Prep</a>
-    <a href="#directory">Directory</a>
-    <a href="#timeline">Cycle</a>
-    <a href="#clusters">Clusters</a>
-    <a href="#checklist">Checklist</a>
-    <a href="#sen">SEN</a>
-    <a href="#methodology">Methodology</a>
-  </div>
-</nav>
+<div class="app-layout">
 
-<header class="hero">
-  <div class="hero-badge">Enhanced Edition — 25 Mar 2026</div>
-  <h1 class="anim">Kolkata LKG / K1 Admissions Directory 2026–27</h1>
-  <p class="lead anim d1">A comprehensive directory of schools across the Kolkata Metropolitan Area for Pre‑Nursery, Nursery, and LKG (K1) admissions — with a focused lens on <strong>early‑years pedagogy</strong> and <strong>inclusion / SEN</strong> (speech &amp; developmental needs).</p>
-  <div class="hero-stats anim d2">
-    <div class="stat-chip"><span class="num">72</span><span class="label">Schools Scored</span></div>
-    <div class="stat-chip"><span class="num">5</span><span class="label">SEN Score Scale</span></div>
-    <div class="stat-chip"><span class="num">5</span><span class="label">Board Types</span></div>
-    <div class="stat-chip"><span class="num">6</span><span class="label">Clusters</span></div>
+<!-- SIDEBAR (desktop) -->
+<aside class="sidebar">
+  <div class="sidebar-brand">🎓 KolkataK1</div>
+  <nav class="sidebar-nav">
+    <a data-section="recommendations" class="active" onclick="showSection('recommendations')">
+      <span class="nav-icon">★</span> Top Picks
+    </a>
+    <a data-section="directory" onclick="showSection('directory')">
+      <span class="nav-icon">📋</span> Directory
+    </a>
+    <a data-section="tracker" onclick="showSection('tracker')">
+      <span class="nav-icon">📊</span> My Tracker
+    </a>
+    <a data-section="compare" onclick="showSection('compare')">
+      <span class="nav-icon">🔍</span> Compare
+    </a>
+    <a data-section="calendar" onclick="showSection('calendar')">
+      <span class="nav-icon">📅</span> Calendar
+    </a>
+    <a data-section="vault" onclick="showSection('vault')">
+      <span class="nav-icon">📁</span> Documents
+    </a>
+    <a data-section="whatsapp" onclick="showSection('whatsapp')">
+      <span class="nav-icon">💬</span> Templates
+    </a>
+    <a data-section="visitgen" onclick="showSection('visitgen')">
+      <span class="nav-icon">✅</span> Visit Prep
+    </a>
+    <div class="sidebar-divider">Reference</div>
+    <a data-section="timeline" onclick="showSection('timeline')">
+      <span class="nav-icon">🕒</span> Admissions Cycle
+    </a>
+    <a data-section="clusters" onclick="showSection('clusters')">
+      <span class="nav-icon">🗺</span> Clusters
+    </a>
+    <a data-section="checklist" onclick="showSection('checklist')">
+      <span class="nav-icon">📄</span> Checklist
+    </a>
+    <a data-section="sen" onclick="showSection('sen')">
+      <span class="nav-icon">🧩</span> SEN Questions
+    </a>
+    <a data-section="methodology" onclick="showSection('methodology')">
+      <span class="nav-icon">📖</span> Methodology
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <button onclick="changePin()">🔐 Change PIN</button>
   </div>
-</header>
+</aside>
 
-<!-- RECOMMENDATIONS -->
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+<!-- RECOMMENDATIONS (includes hero) -->
 <section class="section" id="recommendations">
+  <header class="hero">
+    <div class="hero-badge">Enhanced Edition — 25 Mar 2026</div>
+    <h1 class="anim">Kolkata LKG / K1 Admissions Directory 2026–27</h1>
+    <p class="lead anim d1">A comprehensive directory of schools across the Kolkata Metropolitan Area for Pre‑Nursery, Nursery, and LKG (K1) admissions — with a focused lens on <strong>early‑years pedagogy</strong> and <strong>inclusion / SEN</strong> (speech &amp; developmental needs).</p>
+    <div class="hero-stats anim d2">
+      <div class="stat-chip"><span class="num">72</span><span class="label">Schools Scored</span></div>
+      <div class="stat-chip"><span class="num">5</span><span class="label">SEN Score Scale</span></div>
+      <div class="stat-chip"><span class="num">5</span><span class="label">Board Types</span></div>
+      <div class="stat-chip"><span class="num">6</span><span class="label">Clusters</span></div>
+    </div>
+  </header>
   <div class="section-label">Top Picks</div>
   <h2>Recommendations for Mild Speech / Developmental Needs</h2>
   <p>Prioritised where there is <strong>explicit, verifiable evidence</strong> of SEN/learning support capability, child‑centred early‑years programme, and/or unusually low student–teacher ratio.</p>
@@ -1439,6 +1586,42 @@ Thank you for considering our request.
   <p style="margin-top:0.3rem;">72 schools. SEN/Academic scores recalibrated with strict evidence-based rubric. Personal tracker with localStorage notes. Data: 24–25 Mar 2026.</p>
   <p style="margin-top:0.3rem; color:var(--text-muted);">Scoring rule: CBSE mandatory disclosure SE ≠ SEN-friendly. Only explicit SEN dept/programme/ethos earns SEN 3+. "ZERO SEN data" schools marked honestly.</p>
 </footer>
+
+</main><!-- end main-content -->
+</div><!-- end app-layout -->
+
+<!-- MOBILE BOTTOM TAB BAR -->
+<nav class="bottom-bar">
+  <a data-section="recommendations" class="active" onclick="showSection('recommendations')">
+    <span class="bar-icon">★</span>Picks
+  </a>
+  <a data-section="directory" onclick="showSection('directory')">
+    <span class="bar-icon">📋</span>Schools
+  </a>
+  <a data-section="tracker" onclick="showSection('tracker')">
+    <span class="bar-icon">📊</span>Tracker
+  </a>
+  <a data-section="calendar" onclick="showSection('calendar')">
+    <span class="bar-icon">📅</span>Calendar
+  </a>
+  <a onclick="toggleMoreMenu()">
+    <span class="bar-icon">⋯</span>More
+  </a>
+</nav>
+
+<!-- MOBILE MORE MENU -->
+<div class="more-overlay" id="moreOverlay" onclick="toggleMoreMenu()"></div>
+<div class="more-menu" id="moreMenu">
+  <a data-section="compare" onclick="showSection('compare')">🔍 Compare</a>
+  <a data-section="vault" onclick="showSection('vault')">📁 Documents</a>
+  <a data-section="whatsapp" onclick="showSection('whatsapp')">💬 Templates</a>
+  <a data-section="visitgen" onclick="showSection('visitgen')">✅ Visit Prep</a>
+  <a data-section="timeline" onclick="showSection('timeline')">🕒 Admissions Cycle</a>
+  <a data-section="clusters" onclick="showSection('clusters')">🗺 Clusters</a>
+  <a data-section="checklist" onclick="showSection('checklist')">📄 Checklist</a>
+  <a data-section="sen" onclick="showSection('sen')">🧩 SEN Questions</a>
+  <a data-section="methodology" onclick="showSection('methodology')">📖 Methodology</a>
+</div>
 
 <script>
 const S=[
@@ -2190,7 +2373,7 @@ function render(){
   pg.innerHTML=html;
 }
 
-function goPage(p){page=p;render();document.getElementById('directory').scrollIntoView({behavior:'smooth',block:'start'});}
+function goPage(p){page=p;render();document.querySelector('.main-content')?.scrollTo({top:0,behavior:'smooth'});}
 
 // Init
 filtered=[...S];
@@ -2199,14 +2382,39 @@ checkSavedPin();
 render();
 renderTracker();
 
-// Nav highlighting
-const navLinks=document.querySelectorAll('.topnav a:not(.brand)');
-const sections=document.querySelectorAll('.section[id]');
-window.addEventListener('scroll',()=>{
-  let current='';
-  sections.forEach(s=>{if(pageYOffset>=s.offsetTop-100)current=s.id;});
-  navLinks.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+current);});
-});
+// === SECTION SWITCHING ===
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.section[id]').forEach(s => s.classList.remove('active-section'));
+  // Show the target
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active-section');
+  // Update sidebar active state
+  document.querySelectorAll('.sidebar-nav a[data-section]').forEach(a => {
+    a.classList.toggle('active', a.dataset.section === id);
+  });
+  // Update bottom bar active state
+  document.querySelectorAll('.bottom-bar a[data-section]').forEach(a => {
+    a.classList.toggle('active', a.dataset.section === id);
+  });
+  // Update more menu active state
+  document.querySelectorAll('.more-menu a[data-section]').forEach(a => {
+    a.classList.toggle('active', a.dataset.section === id);
+  });
+  // Close more menu if open
+  document.getElementById('moreMenu')?.classList.remove('open');
+  document.getElementById('moreOverlay')?.classList.remove('open');
+  // Scroll main content to top
+  document.querySelector('.main-content')?.scrollTo(0, 0);
+}
+
+function toggleMoreMenu() {
+  document.getElementById('moreMenu')?.classList.toggle('open');
+  document.getElementById('moreOverlay')?.classList.toggle('open');
+}
+
+// Show the first section on load
+showSection('recommendations');
 
 // Change PIN
 function changePin(){
