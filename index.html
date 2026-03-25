@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kolkata LKG/K1 Admissions Directory 2026–27 — Enhanced</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  FIREBASE CONFIG — FILL THIS IN (see SETUP.md for steps)   ║
+// ╚══════════════════════════════════════════════════════════════╝
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDdO03euXPPWHKjXAbj6HXuHoupRro-dgE",
+  authDomain: "kolkata-k1-tracker.firebaseapp.com",
+  databaseURL: "https://kolkata-k1-tracker-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "kolkata-k1-tracker",
+  storageBucket: "kolkata-k1-tracker.firebasestorage.app",
+  messagingSenderId: "931402600065",
+  appId: "1:931402600065:web:65651f191a995dba144780"
+};
+// Set to true after you fill in the config above
+const FIREBASE_ENABLED = FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY_HERE";
+</script>
+<style>
+:root {
+  --bg: #FAFAF7;
+  --bg-warm: #F0EDE6;
+  --bg-card: #FFFFFF;
+  --text-primary: #151515;
+  --text-secondary: #4A463E;
+  --text-muted: #8A8279;
+  --accent: #B84A1C;
+  --accent-light: #E8A88C;
+  --accent-bg: #FFF5F0;
+  --green: #1B6B3A;
+  --green-bg: #E4F3E9;
+  --blue: #1E4FAF;
+  --blue-bg: #EAF0FF;
+  --amber: #9A7209;
+  --amber-bg: #FFF8E1;
+  --red: #B83030;
+  --red-bg: #FFF0F0;
+  --purple: #6B3FA0;
+  --purple-bg: #F5F0FF;
+  --border: #DDD6CA;
+  --border-light: #EDE8E0;
+  --shadow-sm: 0 1px 3px rgba(21,21,21,0.06);
+  --shadow-md: 0 4px 16px rgba(21,21,21,0.08);
+  --shadow-lg: 0 8px 32px rgba(21,21,21,0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: 'Fraunces', serif; line-height: 1.25; }
+::selection { background: var(--accent-light); color: var(--text-primary); }
+
+/* NAV */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,250,247,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0 2rem;
+}
+.topnav-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: center; gap: 1.4rem;
+  height: 58px; overflow-x: auto;
+}
+.topnav-inner::-webkit-scrollbar { display: none; }
+.topnav a {
+  font-size: 0.78rem; font-weight: 600; text-decoration: none;
+  color: var(--text-muted); white-space: nowrap;
+  padding: 4px 0; border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.topnav a:hover, .topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+.topnav .brand {
+  font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 700;
+  color: var(--text-primary); margin-right: auto; border: none;
+}
+
+/* HERO */
+.hero {
+  max-width: 1320px; margin: 0 auto; padding: 4rem 2rem 3rem;
+  position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; top: -60px; right: -100px;
+  width: 380px; height: 380px; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+  opacity: 0.2; pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -40px; left: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, #B8DFC6 0%, transparent 70%);
+  opacity: 0.2; pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.73rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--accent);
+  background: var(--accent-bg); padding: 6px 14px;
+  border-radius: 100px; margin-bottom: 1.2rem;
+}
+.hero-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700;
+  max-width: 820px; margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--text-primary) 55%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p.lead {
+  font-size: 1.05rem; color: var(--text-secondary);
+  max-width: 700px; margin-bottom: 1.5rem;
+}
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;
+}
+.stat-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: var(--radius-sm);
+  background: var(--bg-card); border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.stat-chip .num {
+  font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700;
+  color: var(--accent);
+}
+.stat-chip .label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+
+/* SECTIONS */
+.section {
+  max-width: 1320px; margin: 0 auto;
+  padding: 3rem 2rem;
+}
+.section + .section { border-top: 1px solid var(--border-light); }
+.section-label {
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem;
+}
+.section h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.7rem; }
+.section h3 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 0.8rem; }
+.section p, .section li {
+  color: var(--text-secondary); font-size: 0.92rem; max-width: 800px;
+}
+.section ul, .section ol { padding-left: 1.4rem; }
+.section li { margin-bottom: 0.4rem; }
+
+/* REC CARDS */
+.rec-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1rem; margin-top: 1.5rem;
+}
+.rec-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.rec-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.rec-card .rank {
+  position: absolute; top: 10px; right: 12px;
+  font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700;
+  color: var(--border); line-height: 1;
+}
+.rec-card h4 {
+  font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem;
+  padding-right: 2.5rem;
+}
+.rec-card .board-tag {
+  display: inline-block; font-size: 0.68rem; font-weight: 600;
+  padding: 2px 8px; border-radius: 4px; margin-bottom: 0.5rem;
+  background: var(--blue-bg); color: var(--blue);
+}
+.rec-card .board-tag.cbse { background: var(--green-bg); color: var(--green); }
+.rec-card .board-tag.ib { background: var(--amber-bg); color: var(--amber); }
+.rec-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; max-width: unset; }
+.rec-card .meta-row {
+  margin-top: 0.7rem; display: flex; flex-wrap: wrap; gap: 0.6rem;
+  font-size: 0.73rem;
+}
+.rec-card .meta-chip {
+  padding: 3px 8px; border-radius: 4px;
+  background: var(--bg-warm); color: var(--text-muted); font-weight: 500;
+}
+.rec-card .status {
+  margin-top: 0.6rem; font-size: 0.75rem; font-weight: 600;
+  display: flex; align-items: center; gap: 5px;
+}
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.status-dot.open { background: var(--green); }
+.status-dot.closed { background: var(--red); }
+.status-dot.unspecified { background: var(--text-muted); }
+.status-dot.rolling { background: var(--blue); }
+
+/* TABLE */
+.table-wrap {
+  overflow-x: auto; margin-top: 1rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg-card); box-shadow: var(--shadow-sm);
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+thead { background: var(--bg-warm); position: sticky; top: 0; z-index: 2; }
+th {
+  text-align: left; padding: 9px 10px; font-weight: 700;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-muted); border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+td {
+  padding: 9px 10px; border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary); vertical-align: top;
+  min-width: 130px; max-width: 240px;
+}
+tr:hover td { background: var(--accent-bg); }
+td:first-child { font-weight: 600; color: var(--text-primary); min-width: 180px; }
+.cell-truncate {
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.new-badge {
+  display: inline-block; font-size: 0.6rem; font-weight: 700;
+  padding: 1px 5px; border-radius: 3px;
+  background: var(--green); color: #fff; vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* FILTERS */
+.search-box {
+  display: flex; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap;
+}
+.search-box input, .search-box select {
+  padding: 9px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+  background: var(--bg-card); outline: none; transition: border-color 0.2s;
+}
+.search-box input:focus, .search-box select:focus { border-color: var(--accent); }
+.search-box input { flex: 1; min-width: 200px; }
+.search-box select { cursor: pointer; }
+.result-count { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+
+/* TIMELINE */
+.timeline-track {
+  display: flex; gap: 0; overflow-x: auto; padding-bottom: 1rem; margin-top: 1.5rem;
+}
+.timeline-item {
+  flex: 1; min-width: 155px; padding: 1rem;
+  border-left: 3px solid var(--accent-light);
+  position: relative;
+}
+.timeline-item::before {
+  content: ''; position: absolute; left: -7px; top: 1rem;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg);
+}
+.timeline-item .month { font-weight: 700; font-size: 0.8rem; color: var(--accent); margin-bottom: 0.3rem; }
+.timeline-item p { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; max-width: unset; }
+
+/* CLUSTER */
+.cluster-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem; margin-top: 1.5rem;
+}
+.cluster-card {
+  background: var(--bg-card); border-radius: var(--radius);
+  border: 1px solid var(--border); padding: 1.4rem;
+  border-top: 4px solid var(--accent);
+}
+.cluster-card h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+.cluster-card .areas { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
+.cluster-card p { font-size: 0.83rem; color: var(--text-secondary); max-width: unset; }
+.cluster-card .school-list { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic; }
+
+/* CHECKLIST */
+.checklist-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1rem; margin-top: 1.5rem;
+}
+.checklist-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow-sm);
+}
+.checklist-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 8px; }
+.checklist-card h4 .icon {
+  width: 26px; height: 26px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+}
+.checklist-card ul { list-style: none; padding: 0; }
+.checklist-card li {
+  font-size: 0.83rem; padding: 5px 0 5px 22px;
+  position: relative; color: var(--text-secondary);
+  border-bottom: 1px dashed var(--border-light);
+}
+.checklist-card li:last-child { border: none; }
+.checklist-card li::before { content: '☐'; position: absolute; left: 0; top: 5px; color: var(--accent); font-size: 0.85rem; }
+
+/* SEN */
+.sen-category {
+  margin-bottom: 1rem; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden;
+}
+.sen-category-header {
+  padding: 0.9rem 1.1rem; background: var(--bg-warm);
+  font-weight: 700; font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.sen-category ul { padding: 0.9rem 1.1rem 0.9rem 2.2rem; }
+.sen-category li { font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-secondary); max-width: unset; }
+
+/* METHOD */
+.method-sources {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem; margin-top: 1rem;
+}
+.method-card { padding: 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.method-card.primary { background: var(--green-bg); border-color: #B8DFC6; }
+.method-card.secondary { background: var(--amber-bg); border-color: #E8D5A0; }
+.method-card h4 { font-size: 0.88rem; margin-bottom: 0.4rem; }
+.method-card ul { padding-left: 1.2rem; }
+.method-card li { font-size: 0.8rem; margin-bottom: 0.25rem; color: var(--text-secondary); max-width: unset; }
+
+.rules-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+.rule-chip {
+  font-size: 0.78rem; padding: 7px 12px;
+  background: var(--bg-warm); border-radius: 100px;
+  color: var(--text-secondary); border: 1px solid var(--border);
+}
+.rule-chip strong { color: var(--text-primary); }
+
+/* FOOTER */
+footer {
+  max-width: 1320px; margin: 0 auto; padding: 2rem;
+  border-top: 1px solid var(--border); text-align: center;
+  color: var(--text-muted); font-size: 0.78rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero { padding: 2.5rem 1.2rem 2rem; }
+  .section { padding: 2rem 1.2rem; }
+  .topnav { padding: 0 1rem; }
+  .rec-grid, .checklist-grid, .cluster-grid, .method-sources { grid-template-columns: 1fr; }
+  .timeline-track { flex-direction: column; }
+  .hero-stats { gap: 0.6rem; }
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim { animation: fadeUp 0.45s ease-out both; }
+.d1 { animation-delay: 0.08s; } .d2 { animation-delay: 0.16s; } .d3 { animation-delay: 0.24s; }
+
+/* TABS */
+.tab-bar { display: flex; gap: 2px; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border-light); flex-wrap: wrap; }
+.tab-btn {
+  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600;
+  padding: 7px 14px; border: none; background: none; cursor: pointer;
+  color: var(--text-muted); border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: all 0.2s;
+}
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Tooltip */
+.tip { position: relative; cursor: help; border-bottom: 1px dotted var(--text-muted); }
+.tip:hover::after {
+  content: attr(data-tip); position: absolute; bottom: 100%; left: 0;
+  background: var(--text-primary); color: #fff; padding: 4px 8px;
+  border-radius: 4px; font-size: 0.72rem; white-space: nowrap; z-index: 10;
+}
+
+/* MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(21,21,21,0.45); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+
+/* PIN SCREEN */
+#pinScreen {
+  position: fixed; inset: 0; z-index: 300;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1rem;
+}
+#pinScreen.hidden { display: none; }
+#pinScreen h2 { font-family: 'Fraunces', serif; font-size: 1.6rem; }
+#pinScreen p { font-size: 0.88rem; color: var(--text-secondary); max-width: 400px; text-align: center; }
+#pinScreen input {
+  padding: 12px 18px; font-size: 1.2rem; text-align: center;
+  border: 2px solid var(--border); border-radius: var(--radius);
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.15em;
+  width: 240px; outline: none;
+}
+#pinScreen input:focus { border-color: var(--accent); }
+#pinScreen button {
+  padding: 10px 28px; background: var(--accent); color: #fff;
+  border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem; font-weight: 600; cursor: pointer;
+}
+#pinScreen .pin-note { font-size: 0.75rem; color: var(--text-muted); max-width: 360px; text-align: center; }
+.sync-indicator {
+  position: fixed; bottom: 14px; right: 14px; z-index: 150;
+  padding: 6px 14px; border-radius: 100px; font-size: 0.72rem; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: var(--shadow-md);
+}
+.sync-indicator.online { background: var(--green-bg); color: var(--green); border: 1px solid #A8D5B8; }
+.sync-indicator.offline { background: var(--amber-bg); color: var(--amber); border: 1px solid #E0D0A0; }
+.modal {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg); width: 100%; max-width: 560px;
+  max-height: 90vh; overflow-y: auto; padding: 1.8rem;
+  position: relative;
+}
+.modal h3 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+.modal .modal-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+.modal label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.3rem; margin-top: 0.8rem; }
+.modal select, .modal textarea, .modal input[type="text"], .modal input[type="date"] {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem; background: var(--bg);
+  outline: none; transition: border-color 0.2s;
+}
+.modal select:focus, .modal textarea:focus, .modal input:focus { border-color: var(--accent); }
+.modal textarea { min-height: 100px; resize: vertical; }
+.modal-actions { display: flex; gap: 0.6rem; margin-top: 1.2rem; }
+.modal-actions button {
+  padding: 9px 18px; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+  transition: all 0.15s;
+}
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { opacity: 0.9; }
+.btn-secondary { background: var(--bg-card); color: var(--text-secondary); }
+.btn-danger { background: var(--red-bg); color: var(--red); border-color: #E8BBBB; }
+.modal-close {
+  position: absolute; top: 12px; right: 14px; background: none; border: none;
+  font-size: 1.3rem; cursor: pointer; color: var(--text-muted); line-height: 1;
+}
+
+/* NOTE BADGE in table */
+.note-btn {
+  padding: 4px 10px; border-radius: 5px; font-size: 0.72rem; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border); background: var(--bg-warm);
+  color: var(--text-muted); transition: all 0.15s; white-space: nowrap;
+}
+.note-btn:hover { border-color: var(--accent); color: var(--accent); }
+.note-btn.has-note { background: var(--blue-bg); color: var(--blue); border-color: #B8CCE8; }
+.note-btn.applied { background: var(--green-bg); color: var(--green); border-color: #A8D5B8; }
+.note-btn.rejected { background: var(--red-bg); color: var(--red); border-color: #E8BBBB; }
+.note-btn.visited { background: var(--amber-bg); color: var(--amber); border-color: #E0D0A0; }
+.note-btn.shortlisted { background: var(--purple-bg); color: var(--purple); border-color: #C8B8E8; }
+.note-btn.researching { background: var(--bg-warm); color: var(--text-muted); border-color: var(--border); }
+.note-btn.admitted { background: var(--green-bg); color: var(--green); border-color: #A8D5B8; }
+.note-btn.waitlist { background: var(--blue-bg); color: var(--blue); border-color: #B8CCE8; }
+
+/* INFO EXPAND BUTTON */
+.info-btn {
+  padding: 4px 10px; border-radius: 5px; font-size: 0.72rem; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border); background: var(--bg-card);
+  color: var(--blue); transition: all 0.15s; white-space: nowrap;
+}
+.info-btn:hover { background: var(--blue-bg); border-color: var(--blue); }
+
+/* EXPANDED DETAIL ROW */
+.detail-row td {
+  background: var(--bg-warm) !important; padding: 0 !important;
+  border-bottom: 2px solid var(--accent-light) !important;
+}
+.detail-inner {
+  padding: 1rem 1.2rem; display: flex; gap: 1.2rem; flex-wrap: wrap;
+  animation: fadeUp 0.25s ease-out;
+}
+.detail-block {
+  flex: 1; min-width: 220px; background: var(--bg-card);
+  border-radius: var(--radius-sm); padding: 0.9rem 1rem;
+  border: 1px solid var(--border-light);
+}
+.detail-block h5 {
+  font-family: 'DM Sans', sans-serif; font-size: 0.72rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-muted); margin-bottom: 0.5rem;
+}
+.detail-block p, .detail-block div {
+  font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55;
+}
+.detail-block a { color: var(--blue); word-break: break-all; }
+
+/* TRACKER CARDS */
+.tracker-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem; margin-top: 1rem;
+}
+.tracker-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--text-muted);
+}
+.tracker-card.st-applied { border-left-color: var(--green); }
+.tracker-card.st-shortlisted { border-left-color: var(--purple); }
+.tracker-card.st-visited { border-left-color: var(--amber); }
+.tracker-card.st-rejected { border-left-color: var(--red); }
+.tracker-card.st-waitlist { border-left-color: var(--blue); }
+.tracker-card h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+.tracker-card .tc-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.tracker-card .tc-status {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 2px 8px;
+  border-radius: 4px; margin-bottom: 0.5rem;
+}
+.tracker-card .tc-notes { font-size: 0.82rem; color: var(--text-secondary); white-space: pre-wrap; line-height: 1.5; }
+.tracker-card .tc-date { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem; }
+.tracker-card .tc-actions { margin-top: 0.6rem; display: flex; gap: 0.4rem; }
+.tracker-empty {
+  text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem;
+  border: 2px dashed var(--border); border-radius: var(--radius); margin-top: 1rem;
+}
+</style>
+</head>
+<body>
+
+<!-- PIN ENTRY SCREEN (shown only if Firebase is enabled) -->
+<div id="pinScreen" class="hidden">
+  <h2>🔐 Your School Tracker</h2>
+  <p>Enter a PIN to sync your notes across all devices. Use the same PIN on your phone, laptop, or tablet.</p>
+  <input type="text" id="pinInput" placeholder="e.g. abhishek2026" maxlength="30" autocomplete="off" onkeydown="if(event.key==='Enter')enterPin()">
+  <button onclick="enterPin()">Open My Tracker</button>
+  <div class="pin-note">This is not a password — it's a namespace for your notes in Firebase. Anyone with this PIN can see your notes. Use something unique like your name + year.</div>
+</div>
+
+<!-- SYNC STATUS INDICATOR -->
+<div id="syncBadge" class="sync-indicator offline" style="display:none;">
+  <span id="syncDot" style="width:7px;height:7px;border-radius:50%;background:currentColor;"></span>
+  <span id="syncText">Offline</span>
+</div>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#" class="brand">KolkataK1</a>
+    <a href="#recommendations">Top Picks</a>
+    <a href="#tracker">My Tracker</a>
+    <a href="#directory">Directory</a>
+    <a href="#timeline">Cycle</a>
+    <a href="#clusters">Clusters</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#sen">SEN</a>
+    <a href="#methodology">Methodology</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge">Enhanced Edition — 25 Mar 2026</div>
+  <h1 class="anim">Kolkata LKG / K1 Admissions Directory 2026–27</h1>
+  <p class="lead anim d1">A comprehensive directory of schools across the Kolkata Metropolitan Area for Pre‑Nursery, Nursery, and LKG (K1) admissions — with a focused lens on <strong>early‑years pedagogy</strong> and <strong>inclusion / SEN</strong> (speech &amp; developmental needs).</p>
+  <div class="hero-stats anim d2">
+    <div class="stat-chip"><span class="num">72</span><span class="label">Schools Scored</span></div>
+    <div class="stat-chip"><span class="num">5</span><span class="label">SEN Score Scale</span></div>
+    <div class="stat-chip"><span class="num">5</span><span class="label">Board Types</span></div>
+    <div class="stat-chip"><span class="num">6</span><span class="label">Clusters</span></div>
+  </div>
+</header>
+
+<!-- RECOMMENDATIONS -->
+<section class="section" id="recommendations">
+  <div class="section-label">Top Picks</div>
+  <h2>Recommendations for Mild Speech / Developmental Needs</h2>
+  <p>Prioritised where there is <strong>explicit, verifiable evidence</strong> of SEN/learning support capability, child‑centred early‑years programme, and/or unusually low student–teacher ratio.</p>
+
+  <div class="rec-grid">
+
+    <div class="rec-card">
+      <span class="rank">01</span>
+      <h4>Calcutta International School</h4>
+      <span class="board-tag ib">IB + Cambridge IGCSE + A‑Level</span>
+      <p>Explicitly describes <strong>SEN Department support</strong> (emotional/behavioural/learning) and states a <strong>1:8 student–teacher ratio</strong>. Over 600 students with well-trained teachers and modern infrastructure. Welcomes students throughout the academic year (rolling admissions).</p>
+      <div class="meta-row">
+        <span class="meta-chip">724, Anandapur, 700107</span>
+        <span class="meta-chip">+91 7044499660</span>
+        <span class="meta-chip">1:8 ratio</span>
+      </div>
+      <div class="status"><span class="status-dot rolling"></span> Rolling / Year‑round</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">02</span>
+      <h4>The Heritage School</h4>
+      <span class="board-tag ib">CISCE + IB + Cambridge</span>
+      <p>The <strong>strongest documented SEN programme</strong> in Kolkata: <strong>100 SEN children + 12 Special Educators</strong> since 2001. Covers learning disabilities, ADHD, autism, physical/cognitive impairment. Personalised programmes in dedicated resource centres. Special educators monitor progress and administer needs-based support in mainstream classes. SEN reg fee ₹1,500. ≈₹14–19.5K/mo.</p>
+      <div class="meta-row">
+        <span class="meta-chip">994, Chowbaga Rd, Anandapur, 700107</span>
+        <span class="meta-chip">SEN programme listed</span>
+        <span class="meta-chip">≈₹1.56L–₹4.33L admission</span>
+      </div>
+      <div class="status"><span class="status-dot open"></span> Open — selected classes 2026–27</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">03</span>
+      <h4>Mahadevi Birla World Academy</h4>
+      <span class="board-tag cbse">CBSE</span>
+      <p>Mandatory disclosure lists <strong>special educators + counsellors</strong>. AISSE 2025: 100% pass, avg 86.66%, highest 98.8%. AISSCE 2025: 100% pass, avg 87.5, highest 99. Nursery/LKG/UKG admission links active for 2026–27. Teacher–section ratio 17:1.</p>
+      <div class="meta-row">
+        <span class="meta-chip">17A, Darga Road, 700017</span>
+        <span class="meta-chip">033 4006 3913</span>
+        <span class="meta-chip">17:1 T–S ratio</span>
+      </div>
+      <div class="status"><span class="status-dot open"></span> Open — 2026–27</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">04</span>
+      <h4>South City International School</h4>
+      <span class="board-tag">CISCE + Cambridge</span>
+      <p>Toddlers page frames early learning around <strong>Montessori‑aligned capabilities</strong>. Published fee tables: ≈₹1.33L/yr for LN/UN/KG recurring. Admissions explicitly open for 2026–27 Toddlers (2+), Lower Nursery, Upper Nursery, KG. Established 2009; nearly 6,000 students.</p>
+      <div class="meta-row">
+        <span class="meta-chip">375, Prince Anwar Shah Rd, 700068</span>
+        <span class="meta-chip">033 4007 2000</span>
+        <span class="meta-chip">≈₹1.33L/yr KG</span>
+      </div>
+      <div class="status"><span class="status-dot open"></span> Open — Session 2026–27</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">05</span>
+      <h4>B. D. M. International</h4>
+      <span class="board-tag cbse">CBSE</span>
+      <p>Multiple <strong>special educators</strong> and <strong>counsellors/wellness teachers</strong> listed in mandatory disclosure. CBSE X pass: 100% (2022–2024). XII pass: 98.87–100% (2022–2024). 49‑acre campus with two playgrounds, 280+ faculty. Teacher–section ratio 1.77:1.</p>
+      <div class="meta-row">
+        <span class="meta-chip">Pratapgarh, Narendrapur, 700103</span>
+        <span class="meta-chip">033 2435 8402</span>
+        <span class="meta-chip">49-acre campus</span>
+      </div>
+      <div class="status"><span class="status-dot unspecified"></span> Unspecified — contact school</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">06</span>
+      <h4>Delhi Public School Ruby Park</h4>
+      <span class="board-tag cbse">CBSE</span>
+      <p><strong>Special educator + counsellors</strong> in disclosure. X pass: 100% (2022–2024). XII pass: 97.84–99.67%. 142 students cleared JEE Main 2024. First DPS Society initiative; won K-12 Excellence Award for Environmental Sustainability. Robotics facilities, swimming pools.</p>
+      <div class="meta-row">
+        <span class="meta-chip">254, Shanti Pally, RB Connector, 700107</span>
+        <span class="meta-chip">033 71300258</span>
+        <span class="meta-chip">1.63:1 T–S ratio</span>
+      </div>
+      <div class="status"><span class="status-dot unspecified"></span> Unspecified — verify intake</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">07</span>
+      <h4>Birla High School</h4>
+      <span class="board-tag cbse">CBSE</span>
+      <p>Established 1941 by Lakshmi Niwas Birla. 2,500+ students, Nursery to XII. 2026–27 forms were available Jun–Aug 2025; classes: Playgroup (2+), Nursery (3+), LKG (4+), UKG (5+). First quarter fees ≈₹1.38–₹1.42L. Structured interaction-based selection. Both campuses: Moira St (Junior) and Mukundapur.</p>
+      <div class="meta-row">
+        <span class="meta-chip">1, Moira Street, 700017</span>
+        <span class="meta-chip">birlahighschool.com</span>
+        <span class="meta-chip">≈₹1.42L 1st quarter</span>
+      </div>
+      <div class="status"><span class="status-dot closed"></span> Closed — 2026–27 cycle completed</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">08</span>
+      <h4>Lakshmipat Singhania Academy</h4>
+      <span class="board-tag cbse">CBSE</span>
+      <p><strong>Special educators + counsellors</strong> in mandatory disclosure. Board‑results PDFs show 100% pass (2020–2023) for both X and XII. Teacher–section ratio 18:1. Ask specifically about early‑years speech‑language scaffolding.</p>
+      <div class="meta-row">
+        <span class="meta-chip">12B, Alipore Road, 700027</span>
+        <span class="meta-chip">033 24793600</span>
+        <span class="meta-chip">18:1 T–S ratio</span>
+      </div>
+      <div class="status"><span class="status-dot unspecified"></span> Unspecified — verify intake</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">09</span>
+      <h4>South Point (School / High School)</h4>
+      <span class="board-tag cbse">CBSE</span>
+      <p><strong>Special educator + counsellors</strong> in disclosure. X pass: 100% (2021–2023). XII pass: 98.96–100%. Monthly fees ₹5,600 (Nursery I) / ₹5,800 (Nursery II). Nursery registration window was Jun–Jul 2025 — by March 2026 this cycle is closed. Plan for next cycle.</p>
+      <div class="meta-row">
+        <span class="meta-chip">9/1 R.N. Mukherjee Rd, 700001</span>
+        <span class="meta-chip">033 2440 6208</span>
+        <span class="meta-chip">₹5,600–5,800/mo</span>
+      </div>
+      <div class="status"><span class="status-dot closed"></span> Closed — next cycle planning</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">10</span>
+      <h4>La Martiniere (Boys &amp; Girls)</h4>
+      <span class="board-tag">CISCE (ICSE/ISC)</span>
+      <p>Founded <strong>1836</strong>; among India's oldest schools. ICSE/ISC affiliated. Lower Nursery forms for 2026–27 were posted in July 2025 (DOB: Jan–Dec 2023 eligible). Admission through interaction (LN to KG), test + interaction for higher classes. Twin campuses: Boys &amp; Girls at Loudon Street.</p>
+      <div class="meta-row">
+        <span class="meta-chip">11, Dr. U.N. Brahmachari St, 700017</span>
+        <span class="meta-chip">033 22902419</span>
+        <span class="meta-chip">Est. 1836</span>
+      </div>
+      <div class="status"><span class="status-dot closed"></span> Likely closed — verify late vacancies</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">11</span>
+      <h4>RP Goenka International School</h4>
+      <span class="board-tag ib">IB Authorised</span>
+      <p>IB authorisation confirmed in IBO directory. Nursery process page exists with published admission steps. International‑programme structures can allow flexibility in pacing — helpful for speech‑delay accommodations. Confirm SEN staffing and IB outcome summaries.</p>
+      <div class="meta-row">
+        <span class="meta-chip">Diamond Harbour Rd, 700027</span>
+        <span class="meta-chip">IB World School</span>
+        <span class="meta-chip">Nursery intake listed</span>
+      </div>
+      <div class="status"><span class="status-dot unspecified"></span> Unspecified — verify intake</div>
+    </div>
+
+    <div class="rec-card">
+      <span class="rank">12</span>
+      <h4>The Newtown School, Kolkata</h4>
+      <span class="board-tag">Board: verify on site</span>
+      <p>Admissions page explicitly states <strong>2026–27 process is open</strong> for Pre‑Nursery through IX including LKG. Early‑years selection described as <strong>teacher assessment + parent interaction</strong> with orientation and schedule details. New Town location with potentially flexible intake.</p>
+      <div class="meta-row">
+        <span class="meta-chip">New Town, Kolkata</span>
+        <span class="meta-chip">2026–27 open</span>
+        <span class="meta-chip">Teacher assessment model</span>
+      </div>
+      <div class="status"><span class="status-dot open"></span> Open — 2026–27</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MY TRACKER -->
+<section class="section" id="tracker">
+  <div class="section-label">Personal Tracker</div>
+  <h2>My School Tracker</h2>
+  <p>Click <strong>"+ Note"</strong> on any school in the directory below to track your discussions, update admission status, and save call notes. All data is saved locally in your browser.</p>
+  
+  <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin:1rem 0;">
+    <select id="trackerFilter" onchange="renderTracker()" style="padding:8px 12px; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:'DM Sans',sans-serif; font-size:0.82rem; background:var(--bg-card);">
+      <option value="">All Tracked Schools</option>
+      <option value="shortlisted">Shortlisted</option>
+      <option value="applied">Applied</option>
+      <option value="visited">Visited</option>
+      <option value="waitlist">Waitlist</option>
+      <option value="admitted">Admitted</option>
+      <option value="rejected">Rejected</option>
+      <option value="researching">Researching</option>
+    </select>
+    <button onclick="exportNotes()" style="padding:8px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-card); cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600; color:var(--text-secondary);">📋 Export TXT</button>
+    <button onclick="exportNotesJSON()" style="padding:8px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-card); cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600; color:var(--text-secondary);">💾 Export JSON</button>
+    <button onclick="importNotesJSON()" style="padding:8px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-card); cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600; color:var(--text-secondary);">📥 Import JSON</button>
+    <button onclick="changePin()" style="padding:8px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-card); cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600; color:var(--text-secondary);">🔑 Change Sync PIN</button>
+    <span id="trackerCount" style="font-size:0.78rem; color:var(--text-muted); display:flex; align-items:center;"></span>
+  </div>
+  
+  <div id="trackerContainer"></div>
+</section>
+
+<!-- NOTES MODAL -->
+<div class="modal-overlay" id="noteModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h3 id="modalTitle">School Notes</h3>
+    <div class="modal-sub" id="modalSub"></div>
+    
+    <label>My Status</label>
+    <select id="noteStatus">
+      <option value="researching">🔍 Researching</option>
+      <option value="shortlisted">⭐ Shortlisted</option>
+      <option value="applied">📝 Applied</option>
+      <option value="visited">👁 Visited / Interacted</option>
+      <option value="waitlist">⏳ Waitlist</option>
+      <option value="admitted">✅ Admitted</option>
+      <option value="rejected">❌ Rejected / Not proceeding</option>
+    </select>
+
+    <label>Admission Status (as told by school)</label>
+    <select id="noteAdmStatus">
+      <option value="">— select —</option>
+      <option value="Open">Open - accepting applications</option>
+      <option value="Closed">Closed for this session</option>
+      <option value="Waitlist">Waitlist only</option>
+      <option value="Rolling">Rolling admissions</option>
+      <option value="Call back">Asked to call back later</option>
+    </select>
+
+    <label>Contact Person / Spoke With</label>
+    <input type="text" id="noteContact" placeholder="e.g. Mrs. Sharma (Admissions Coordinator)">
+
+    <label>Date of Last Contact</label>
+    <input type="date" id="noteDate">
+
+    <label>Discussion Notes</label>
+    <textarea id="noteText" placeholder="What did they say about SEN support? Fees discussed? Next steps? Documents needed?"></textarea>
+
+    <label>Follow-up Reminder</label>
+    <input type="text" id="noteFollowup" placeholder="e.g. Call back after 15 April for vacancy update">
+
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveNote()">Save Notes</button>
+      <button class="btn-danger" onclick="deleteNote()">Delete</button>
+      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- DIRECTORY TABLE -->
+<section class="section" id="directory">
+  <div class="section-label">Full Directory — 72 Schools (Recalibrated)</div>
+  <h2>Evidence‑Based Scored Directory</h2>
+  <p>Scores recalibrated with strict evidence-based rubric. <strong>SEN 5</strong> = dedicated SEN dept/programme with documented staff + public evidence page (CIS: SEN dept; Heritage: 100 children + 12 SEs). <strong>SEN 3</strong> = multiple SEs in CBSE disclosure OR explicit nurturing ethos OR IB pacing. <strong>SEN 2</strong> = compliance-only SE listing. <strong>SEN 1</strong> = ZERO SEN evidence + competitive/pressure. "SEN Evidence" column links to proof.</p>
+
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; margin:1rem 0 0.5rem;">
+    <div style="display:flex; align-items:center; gap:4px; font-size:0.75rem; color:var(--text-muted);">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--green);"></span> SEN 4–5
+      <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--amber);margin-left:8px;"></span> SEN 2–3
+      <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--red);margin-left:8px;"></span> SEN 1
+    </div>
+    <div style="display:flex; align-items:center; gap:4px; font-size:0.75rem; color:var(--text-muted);">
+      Academic: ★★★★★ = Very High (5) · ★★★★ = High (4) · ★★★ = Medium (3) · ★★ = Low-Med (2)
+    </div>
+  </div>
+
+  <div class="search-box" style="margin-top:0.8rem;">
+    <input type="text" id="tSearch" placeholder="Search name, area, board, notes…" oninput="applyFilters()">
+    <select id="fBoard" onchange="applyFilters()"><option value="">All Boards</option><option value="CBSE">CBSE</option><option value="CISCE">CISCE / ICSE</option><option value="IB">IB / Cambridge</option><option value="Verify">Other</option></select>
+    <select id="fType" onchange="applyFilters()"><option value="">All Types</option><option value="Coed">Co-ed</option><option value="Girls">Girls</option><option value="Boys">Boys</option></select>
+    <select id="fAdm" onchange="applyFilters()"><option value="">All Admission</option><option value="High">High (likely open)</option><option value="Medium">Medium</option><option value="Low">Low (competitive)</option></select>
+    <select id="fSEN" onchange="applyFilters()"><option value="">All SEN</option><option value="4">SEN 4–5 (best)</option><option value="3">SEN 3+</option><option value="2">SEN 2+</option></select>
+    <select id="fClass" onchange="applyFilters()"><option value="">All Entry Levels</option><option value="PN">Pre-Nursery / Playgroup (2+)</option><option value="NUR">Nursery / LN (3+)</option><option value="LKG">LKG / KG (4+)</option><option value="UKG">UKG (5+)</option><option value="C1">Class 1 (5.5–6+)</option></select>
+    <select id="fSort" onchange="applyFilters()"><option value="sen-d">Sort: SEN ↓</option><option value="acad-d">Academic ↓</option><option value="name-a">Name A–Z</option><option value="adm-d">Admission ease ↓</option><option value="combo-d">Combined Score ↓</option></select>
+  </div>
+  <div id="resultBar" style="font-size:0.78rem; color:var(--text-muted); margin:0.4rem 0;"></div>
+
+  <div class="table-wrap">
+    <table id="mainTable">
+      <thead>
+        <tr>
+          <th style="cursor:pointer" onclick="sortCol('n')">School ⇅</th>
+          <th>Area</th>
+          <th>Board</th>
+          <th>Type</th>
+          <th style="cursor:pointer" onclick="sortCol('adm')">Adm. ⇅</th>
+          <th style="cursor:pointer" onclick="sortCol('acad')">Academic ⇅</th>
+          <th style="cursor:pointer" onclick="sortCol('sen')">SEN ⇅</th>
+          <th>Phone / Contact</th>
+          <th>Website</th>
+          <th style="min-width:140px;text-align:center;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tBody"></tbody>
+    </table>
+  </div>
+  <div id="pagination" style="display:flex; justify-content:center; gap:4px; margin-top:1rem; flex-wrap:wrap;"></div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" id="timeline">
+  <div class="section-label">Planning</div>
+  <h2>Typical Pre‑Primary Admissions Cycle</h2>
+  <p>Several high‑demand schools show <strong>date‑bound windows</strong> (often mid‑year to early autumn). Some schools describe rolling admissions (e.g. CIS). Birla High School's 2026–27 forms opened Jun 26 – Aug 3, 2025; La Martiniere's Lower Nursery forms were posted in July 2025.</p>
+
+  <div class="timeline-track">
+    <div class="timeline-item"><div class="month">Jun–Jul</div><p>Registration / forms open. South Point (25 Jun–9 Jul 2025), Birla High (Jun 26), La Martiniere (Jul). Schools display explicit windows and "closed" banners after deadlines.</p></div>
+    <div class="timeline-item"><div class="month">Aug–Sep</div><p>Form submission + doc verification. Birla High deadline Aug 3. Sushila Birla forms till Aug 13. Interaction sessions begin.</p></div>
+    <div class="timeline-item"><div class="month">Aug–Oct</div><p>Interaction / observation (child + parent). Birla High interaction lists posted Aug 5. SBGS interaction Aug 30–Sep 1.</p></div>
+    <div class="timeline-item"><div class="month">Sep–Nov</div><p>Selected / waitlist publication + fee deposits. SBGS final list Sep 15. BSS School merit lists published.</p></div>
+    <div class="timeline-item"><div class="month">Dec–Feb</div><p>Late vacancies; sibling‑staff transfer seats; relocation opens. Shri Shikshayatan forms remain active.</p></div>
+    <div class="timeline-item"><div class="month">Mar–Apr</div><p>Session starts. Birla High: Apr 1, 2026. Orientation &amp; settling‑in period for most schools.</p></div>
+  </div>
+  <p style="margin-top:1rem; font-size:0.78rem; color:var(--text-muted); font-style:italic;">Synthesised from publicly posted schedules. Not a guarantee for any specific school.</p>
+</section>
+
+<!-- CLUSTERS -->
+<section class="section" id="clusters">
+  <div class="section-label">Geography</div>
+  <h2>Neighbourhood Cluster Insights</h2>
+  <p>A practical commute‑first shortlist across Kolkata's school corridors.</p>
+
+  <div class="cluster-grid">
+    <div class="cluster-card" style="border-top-color:#B84A1C;">
+      <h4>Central / South Kolkata</h4>
+      <div class="areas">Ballygunge · Park Street / Elgin · Kalighat · Alipore · Bhowanipore</div>
+      <p>Highest density of legacy schools with early application windows and intense competition. Premium ICSE/ISC and CBSE institutions.</p>
+      <div class="school-list">South Point, Birla High, La Martiniere, LSA, MBWA, Don Bosco, Modern High, Loreto schools, Sushila Birla, Shri Shikshayatan, St. Xavier's, Assembly Of God Church School</div>
+    </div>
+    <div class="cluster-card" style="border-top-color:#1B6B3A;">
+      <h4>EM Bypass / Anandapur</h4>
+      <div class="areas">Anandapur · East Kolkata Township · Kasba · Garia</div>
+      <p>Large‑campus schools and international pathways. More space, newer infrastructure, but longer commutes from Central Kolkata.</p>
+      <div class="school-list">CIS, Heritage School, DPS Ruby Park, BDM International, Garden High, Indus Valley World School, RP Goenka International</div>
+    </div>
+    <div class="cluster-card" style="border-top-color:#1E4FAF;">
+      <h4>New Town / Rajarhat</h4>
+      <div class="areas">New Town · Rajarhat · Action Area I–III</div>
+      <p>Growing cluster of newer schools; admissions can be more flexible. Modern campuses with technology-forward orientation.</p>
+      <div class="school-list">DPS Megacity, DPS Newtown, Orchids International, G.D. Goenka, The Newtown School</div>
+    </div>
+    <div class="cluster-card" style="border-top-color:#6B3FA0;">
+      <h4>Salt Lake / Sector Zones</h4>
+      <div class="areas">Salt Lake Sector I–V · Lake Town · Ultadanga</div>
+      <p>Accessible residential zone with a mix of CBSE and ICSE schools. Good metro connectivity.</p>
+      <div class="school-list">Hariyana Vidya Mandir (Sector-1), Frank Anthony Public School, Salt Lake Point School, Salt Lake School (CISCE)</div>
+    </div>
+    <div class="cluster-card" style="border-top-color:#9A7209;">
+      <h4>North Kolkata / Belgharia</h4>
+      <div class="areas">Belgharia · Barrackpore · Shyamnagar</div>
+      <p>Some established institutions and newer international schools. Longer commute from South Kolkata but typically lower fee ranges.</p>
+      <div class="school-list">Adamas International, Douglas Memorial, Starling International</div>
+    </div>
+    <div class="cluster-card" style="border-top-color:#B83030;">
+      <h4>Behala / South-West</h4>
+      <div class="areas">Behala · Joka · Thakurpukur</div>
+      <p>Growing educational hub with established and newer schools. More affordable options with reasonable commutes.</p>
+      <div class="school-list">MP Birla Foundation Higher Secondary</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="section" id="checklist">
+  <div class="section-label">Preparation</div>
+  <h2>Admission Checklist for Nursery / LKG</h2>
+
+  <div class="checklist-grid">
+    <div class="checklist-card">
+      <h4><span class="icon" style="background:var(--accent-bg); color:var(--accent);">📄</span> Child Documents</h4>
+      <ul>
+        <li>Birth certificate (original + 2–3 self‑attested copies)</li>
+        <li>Passport photos (child + parents) — 8 child + 4 each parent (some schools like G.D. Goenka require this)</li>
+        <li>Immunisation record (if requested)</li>
+        <li>Blood group report of child (required by Birla High, many others)</li>
+        <li>Aadhaar card of child (mandatory for Heritage School and many others)</li>
+        <li>Previous school record / TC if applicable</li>
+      </ul>
+    </div>
+    <div class="checklist-card">
+      <h4><span class="icon" style="background:var(--blue-bg); color:var(--blue);">👤</span> Parent / Guardian Documents</h4>
+      <ul>
+        <li>Address proof (Aadhaar / utility bill / rent agreement / voter ID)</li>
+        <li>ID proof — Aadhaar cards of both parents (mandatory at most schools)</li>
+        <li>Educational qualification certificates of both parents (Birla High, SBGS require)</li>
+        <li>Income proof — IT return / Form 16 / salary slip (Birla High, G.D. Goenka)</li>
+        <li>PAN card of both parents (some schools like The Newtown School explicitly require)</li>
+        <li>Caste certificate if applicable (SC/ST/OBC)</li>
+        <li>Medical certificate in prescribed format (La Martiniere requires from registered practitioner)</li>
+        <li>Court/legal guardianship papers if applicable (adoption, single parent: separation/custody decree)</li>
+      </ul>
+    </div>
+    <div class="checklist-card">
+      <h4><span class="icon" style="background:var(--green-bg); color:var(--green);">🎯</span> School‑Specific Prep</h4>
+      <ul>
+        <li>Fill online form early — Birla High uses admissiontree.in; many schools have own portals</li>
+        <li>Confirm "entry class" mapping: Playgroup / Lower Nursery / Upper Nursery / LKG / Balvatika — and the school's <strong>age cut-off date</strong> (31 Mar vs 1 Apr vs 1 Jan varies by school)</li>
+        <li>Note: <strong>both parents</strong> must attend interaction at most schools (SBGS, Birla, La Martiniere)</li>
+        <li>Carry original documents for verification at interaction — many schools won't accept screenshots</li>
+        <li>Watch for explicit "closed" banners — some sites display registration windows and close dates prominently</li>
+        <li>Plan commute trial at peak school hours (7:30–8:30 AM)</li>
+        <li>Track multiple school deadlines — set calendar reminders for Jun–Aug windows</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SEN QUESTIONS -->
+<section class="section" id="sen">
+  <div class="section-label">Inclusion &amp; SEN</div>
+  <h2>SEN / Speech‑Support Questions to Ask Schools</h2>
+  <p>Ask these in writing (email) so you have a record. Heritage School notably requires parents to disclose suspected/identified special needs at admission for support planning.</p>
+
+  <div style="margin-top:1.5rem;">
+    <div class="sen-category">
+      <div class="sen-category-header">🔍 Screening &amp; Support Model</div>
+      <ul>
+        <li>Do you have an on‑staff <strong>special educator / SEN coordinator / counsellor</strong>? How many, and how are they allocated across sections?</li>
+        <li>What is the support model in KG: <strong>push‑in support</strong>, pull‑out sessions, small‑group language work, or referrals only?</li>
+        <li>Do you run structured early‑years language development programmes (phonological awareness, vocabulary building, storytelling)? Or is speech/language support referral‑only to external therapists?</li>
+      </ul>
+    </div>
+    <div class="sen-category">
+      <div class="sen-category-header">🗣️ Speech &amp; Developmental Needs</div>
+      <ul>
+        <li>If a child has mild speech delay, what accommodations are typical (extra response time, visual supports, simplified instructions, peer‑buddying)?</li>
+        <li>Can parents bring external reports (SLP / OT / developmental paediatrician) and collaborate on an Individualised Education Plan?</li>
+        <li>Can parents share speech therapy notes, and will the class teacher coordinate routines (e.g. practising target sounds, visual schedules)?</li>
+      </ul>
+    </div>
+    <div class="sen-category">
+      <div class="sen-category-header">👩‍🏫 Classroom Staffing &amp; Ratios</div>
+      <ul>
+        <li>In Nursery/LKG, how many adults are in the room (lead teacher + assistant + floating staff)? Heritage School assigns a 'didi' companion for Nursery/KG.</li>
+        <li>Average class size in Nursery/LKG, and how the school handles high‑needs days (substitutes, co‑teaching)?</li>
+        <li>If special educators exist in the organisation, can they support a child in Nursery/LKG — and how often (daily, weekly, on‑request)?</li>
+      </ul>
+    </div>
+    <div class="sen-category">
+      <div class="sen-category-header">🤝 Inclusion Policies</div>
+      <ul>
+        <li>What is the school's policy on <strong>shadow teachers</strong> (if needed)? Who hires/trains/supervises them?</li>
+        <li>How are behavioural needs managed (positive behaviour support, sensory supports, quiet corner, <strong>movement breaks</strong>, counsellor involvement)?</li>
+      </ul>
+    </div>
+    <div class="sen-category">
+      <div class="sen-category-header">💬 Communication with Parents</div>
+      <ul>
+        <li>How frequently do teachers communicate developmental progress (monthly notes, termly meetings, digital logs)?</li>
+        <li><strong>In the first 90 days</strong>, will the teacher provide weekly settling-in updates, or only at standard termly PTMs?</li>
+        <li>What is the escalation pathway if a child is struggling (teacher → coordinator → counsellor / SEN lead)?</li>
+      </ul>
+    </div>
+    <div class="sen-category">
+      <div class="sen-category-header">🏠 Transition &amp; Settling‑In</div>
+      <ul>
+        <li>Is there a staggered start for young children?</li>
+        <li>What settling routine is used for separation anxiety?</li>
+      </ul>
+    </div>
+    <div class="sen-category">
+      <div class="sen-category-header">💰 Fees &amp; Transparency</div>
+      <ul>
+        <li>Request the latest fee sheet in writing — clarify whether <strong>one‑time deposits are refundable</strong> (several schools publish one‑time and recurring schedules separately).</li>
+        <li>Are there additional charges for SEN support, shadow teacher supervision, or pull‑out sessions?</li>
+        <li>What is the fee revision frequency and notice period?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="section" id="methodology">
+  <div class="section-label">Transparency</div>
+  <h2>Methodology &amp; Source Policy</h2>
+  <p>Compiled as of <strong>24–25 Mar 2026</strong>. Enhanced edition adds web-researched data from school official sites, admission portals, CISCE school locator expansion, and reputable aggregators.</p>
+
+  <div class="method-sources">
+    <div class="method-card primary">
+      <h4>Primary / Official Sources</h4>
+      <ul>
+        <li>School <strong>official websites</strong> (admission notices, fee tables, contact pages, early-years programme descriptions)</li>
+        <li><strong>CBSE SARAS</strong> affiliation records and mandatory public disclosure documents (staffing, ratios, board results)</li>
+        <li><strong>CISCE school locator</strong> — used to expand directory with 30+ ICSE/ISC schools and official contact coordinates</li>
+        <li><strong>IBO directory</strong> for IB authorisation status (CIS, RP Goenka confirmed)</li>
+        <li>School admission portals (admissiontree.in, AWES ERP, direct school portals)</li>
+      </ul>
+    </div>
+    <div class="method-card secondary">
+      <h4>Secondary Sources</h4>
+      <ul>
+        <li>Reputable news for attributable competitive‑exam mentions (NEET/JEE) — e.g. DPS Ruby Park JEE Main 2024</li>
+        <li>Parent‑directory platforms (ezyschooling, schoolmykids, schoolwiser) — labelled as <strong>non‑official</strong></li>
+        <li>Admission aggregator sites (uniapply, admissiontree) for process / fee estimates</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Data Quality Notes</h3>
+  <p style="font-size:0.88rem; color:var(--text-secondary); max-width:800px;">Some school sites require JavaScript rendering and were partially inaccessible to non-JS parsers at the time of access (e.g. DPS Newtown admissions page). In such cases, admissions status is not inferred and remains "Unspecified". One CISCE-listed site URL appeared to show unrelated content — directory relies on CISCE-listed phone/emails and labels the website as requiring verification.</p>
+
+  <h3>Rules Applied</h3>
+  <div class="rules-list">
+    <div class="rule-chip"><strong>Admissions:</strong> Only Open/Closed/Rolling when explicitly stated; else Unspecified</div>
+    <div class="rule-chip"><strong>Fees &amp; ratios:</strong> Only when explicitly available; else Unspecified</div>
+    <div class="rule-chip"><strong>Outcomes:</strong> Only from school/board disclosure or reputable report; else Unspecified</div>
+    <div class="rule-chip"><strong>New schools:</strong> Cross-verified from 2+ sources before inclusion</div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Kolkata LKG/K1 Admissions Directory 2026–27 — v4 Recalibrated + Tracker</strong></p>
+  <p style="margin-top:0.3rem;">72 schools. SEN/Academic scores recalibrated with strict evidence-based rubric. Personal tracker with localStorage notes. Data: 24–25 Mar 2026.</p>
+  <p style="margin-top:0.3rem; color:var(--text-muted);">Scoring rule: CBSE mandatory disclosure SE ≠ SEN-friendly. Only explicit SEN dept/programme/ethos earns SEN 3+. "ZERO SEN data" schools marked honestly.</p>
+</footer>
+
+<script>
+const S=[
+// === SEN 5: Explicit SEN dept + low ratio + early-years flexibility ===
+{n:"Calcutta International School",a:"Anandapur",b:"IB + Cambridge",t:"Coed",adm:"High",ac:4,se:5,ph:"+91 7044499660",url:"calcuttais.edu.in/admissions",ev:"calcuttais.edu.in/student-support-services/sen-department/",no:"Dedicated SEN Dept page: evidence-based practices, universal design, peer neurodiversity awareness, parent sessions, IEP support. 1:8 ratio. Rolling."},
+// === SEN 4: Named SEN programme + inclusive ethos + early-years evidence ===
+{n:"The Heritage School",a:"Anandapur",b:"CISCE + IB + Cambridge",t:"Coed",adm:"Low",ac:4,se:5,ph:"theheritageschool.org",url:"theheritageschool.org/admission.php",ev:"theheritageschool.org/niso.php",no:"STRONGEST SEN evidence: 100 SEN children + 12 Special Educators since 2001. Covers LD, ADHD, autism, physical/cognitive impairment. Personalised programmes in resource centres. SEN reg fee ₹1,500."},
+// === SEN 3: Multiple SEs + some signal, OR explicit nurturing ethos, OR IB pacing ===
+{n:"B. D. M. International",a:"Narendrapur",b:"CBSE",t:"Coed",adm:"Medium",ac:4,se:3,ph:"033 2435 8402",url:"bdmi.org",ev:"CBSE mandatory disclosure (SARAS portal)",no:"MULTIPLE special educators + counsellors (strongest CBSE staffing); confirm KG allocation; 49-acre; 100% pass X"},
+{n:"Mahadevi Birla World Academy",a:"Park Circus",b:"CBSE",t:"Coed",adm:"Low",ac:4,se:3,ph:"033 4006 3913",url:"mbwa.org.in",ev:"CBSE mandatory disclosure (SARAS portal)",no:"SEs + counsellors in disclosure; date-bound competitive; 17:1 section ratio ≠ KG ratio; 100% pass X"},
+{n:"Lakshmipat Singhania Academy",a:"Alipore",b:"CBSE",t:"Coed",adm:"Low",ac:4,se:3,ph:"033 24793600",url:"lsakolkata.com",ev:"CBSE mandatory disclosure (SARAS portal)",no:"2 SEs + 2 counsellors; confirm if any serve Nursery/LKG; 100% pass 2020-23; 18:1 section ratio"},
+{n:"South City International School",a:"Pr. Anwar Shah Rd",b:"CISCE + Cambridge",t:"Coed",adm:"Low",ac:4,se:3,ph:"033 4007 2000 / +91 9147064360",url:"scis.co.in",ev:"scis.co.in (Toddlers curriculum page)",no:"Montessori-aligned early-years (pedagogy signal); SEN staffing NOT on page; ≈₹1.33L/yr; open 2026-27"},
+{n:"Pratt Memorial School",a:"Alipore",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:3,ph:"Verify",url:"Verify",ev:"",no:"Explicitly 'nurturing'; smaller school = potentially more attention; Alipore"},
+{n:"Sri Sri Academy",a:"EM Bypass",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:3,ph:"Verify",url:"srisriacademy.com (verify)",ev:"",no:"Art of Living; 'calm environment' + holistic; may suit sensitive children; confirm SEN staffing"},
+{n:"The BSS School",a:"Gariahat Rd",b:"CISCE",t:"Girls",adm:"Medium",ac:3,se:3,ph:"thebssschool.com",url:"thebssschool.com",ev:"thebssschool.com (states 'progressive and inclusive')",no:"States 'progressive and inclusive'; AC smart classes; affordable; Girls-only; 2026-27 Nursery OPEN"},
+{n:"RP Goenka International School",a:"Diamond Harbour Rd",b:"IB",t:"Coed",adm:"Medium",ac:3,se:3,ph:"School site",url:"rpgoenkainternationalschool.com (verify)",ev:"IBO World School directory",no:"IB pacing flexibility (structural advantage); IBO authorised; confirm SEN staffing"},
+{n:"International School Kolkata",a:"South Kolkata",b:"IB / Cambridge",t:"Coed",adm:"High",ac:3,se:3,ph:"Verify",url:"Verify",ev:"",no:"International curriculum pacing flexibility; confirm SEN staffing"},
+{n:"Pathways World School",a:"New Town (verify campus)",b:"IB",t:"Coed",adm:"High",ac:3,se:3,ph:"pathways.in (verify Kolkata)",url:"pathways.in",ev:"IBO directory (Gurgaon campus)",no:"IB pacing advantage; HQ is Gurgaon — verify Kolkata campus existence"},
+// === SEN 2: Standard school — one SE in disclosure (compliance) or no SEN data but decent ===
+{n:"Delhi Public School Ruby Park",a:"Kasba / EM Bypass",b:"CBSE",t:"Coed",adm:"Low",ac:5,se:2,ph:"033 71300258 / 9831001841",url:"dpskolkata.com",ev:"CBSE mandatory disclosure (1 SE listed)",no:"ONE SE for large JEE-focused school (142 JEE 2024); 100% pass X; NOT an SEN signal; confirm KG support"},
+{n:"South Point School",a:"R.N. Mukherjee Rd",b:"CBSE",t:"Coed",adm:"Low",ac:5,se:2,ph:"+91 33 2440 6208",url:"southpoint.ac.in",no:"SE in disclosure but extremely competitive; reg 25 Jun-9 Jul; no SEN programme described; CLOSED"},
+{n:"South Point High School",a:"Ballygunge Place",b:"CBSE",t:"Coed",adm:"Low",ac:5,se:2,ph:"033 2440 5115",url:"southpoint.ac.in",no:"Same group; 100% pass; SE listed but no early-years SEN evidence"},
+{n:"Birla High School",a:"Moira St + Mukundapur",b:"CBSE",t:"Coed",adm:"Low",ac:4,se:2,ph:"birlahighschool.com",url:"birlahighschool.com/admissions",no:"Est. 1941; traditional competitive; no SEN detail; ≈₹1.42L 1st qtr; CLOSED"},
+{n:"MP Birla Foundation School",a:"Behala / Central",b:"CISCE",t:"Coed",adm:"Low",ac:4,se:2,ph:"Verify",url:"Verify",no:"20:1 ratio but no SEN data; structured CISCE"},
+{n:"Modern High School for Girls",a:"Ballygunge",b:"CISCE",t:"Girls",adm:"Low",ac:4,se:2,ph:"admissions@mhsforgirls.edu.in",url:"mhsforgirls.edu.in",no:"₹7,500/mo; legacy; no SEN info; Girls-only; date-bound"},
+{n:"Sushila Birla Girls' School",a:"Moira Street",b:"CBSE",t:"Girls",adm:"Low",ac:4,se:2,ph:"sbgskolkata.ac.in",url:"sbgskolkata.ac.in/nursery",no:"Holistic Award; no SEN detail; forms Jun-Aug; CLOSED; Girls-only"},
+{n:"Shri Shikshayatan School",a:"Lord Sinha Rd",b:"CBSE",t:"Girls",adm:"Medium",ac:4,se:2,ph:"+91 33 22821450 / 8100975564",url:"shrishikshayatanschool.com",no:"Est. 1954; NEET achiever; forms ACTIVE 2026-27; no SEN data; Girls-only"},
+{n:"Future Foundation School",a:"Regent Park",b:"CISCE",t:"Coed",adm:"High",ac:4,se:2,ph:"033 24116262 / 24116265",url:"sriaurobindoschools.org/tffs",no:"Ranked #2 Co-ed WB; NABET; ICSE; no SEN data; Sri Aurobindo; no transport"},
+{n:"Don Bosco School (Park Circus)",a:"Park Circus",b:"CISCE",t:"Boys",adm:"Medium",ac:4,se:2,ph:"donboscoschool.in",url:"donboscoschool.in/admission",no:"Est. 1958; value-based but no SEN data; ≈₹7,260/mo; KG entry; Catholic priority"},
+{n:"Don Bosco Liluah",a:"Howrah",b:"CISCE",t:"Boys",adm:"Medium",ac:3,se:2,ph:"Verify",url:"Verify",no:"Salesians; Howrah; no SEN data"},
+{n:"Garden High School",a:"Kasba / 700107",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"9830070770",url:"CISCE locator",no:"CISCE confirmed; no SEN or outcome data"},
+{n:"Assembly of God Church School",a:"Park Street / 700017",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"CISCE locator",url:"CISCE locator",no:"English strong; central; no SEN data"},
+{n:"DPS Newtown",a:"New Town",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"98306 88888",url:"dpsnewtownkolkata.com",no:"No published results or SEN data; JS-blocked page"},
+{n:"DPS Megacity",a:"Rajarhat / New Town",b:"CISCE",t:"Coed",adm:"High",ac:3,se:2,ph:"08065138333",url:"dpsmegacity.in",no:"2026-27 OPEN; no SEN data"},
+{n:"DPS Barasat",a:"Duttapukur",b:"CBSE",t:"Coed",adm:"High",ac:3,se:2,ph:"dpsbarasat.com",url:"dpsbarasat.com/admission",no:"OPEN; KG via observation (no test); no SEN data"},
+{n:"DPS Howrah",a:"Domjur, Howrah",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"dpshowrah.in",url:"dpshowrah.in",no:"20:1; ≈₹1.67-1.72L; no SEN data"},
+{n:"DPS Joka",a:"Joka / Kanganberia",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"+91 77978 66021/22",url:"dpsjoka.com",no:"25:1; ≈₹1.26-1.51L; Playgroup-XII; no SEN data"},
+{n:"DPS South Kolkata",a:"Behala",b:"CBSE",t:"Coed",adm:"Medium",ac:2,se:2,ph:"Verify",url:"dpsjoka.com",no:"Smaller; limited data"},
+{n:"Indus Valley World School",a:"Pancha Sayar",b:"CBSE",t:"Coed",adm:"High",ac:3,se:2,ph:"ivws.org",url:"ivws.org",no:"Child-friendly; no SEN data; EM Bypass"},
+{n:"Orchids International School",a:"New Town / Joka",b:"CBSE",t:"Coed",adm:"High",ac:3,se:2,ph:"9999431999",url:"orchids.edu.in",no:"Chain — verify per campus; 12:1 (Joka); no SEN data; OPEN"},
+{n:"Adamas International School",a:"Belgharia / 700056",b:"CISCE",t:"Coed",adm:"High",ac:3,se:2,ph:"+91 8335008844",url:"adamasinternationalschool.com",no:"2026-27 OPEN; no SEN data"},
+{n:"Techno India Group Public School",a:"Salt Lake V / Garia",b:"CBSE",t:"Coed",adm:"High",ac:3,se:2,ph:"+91 9836127900 / 82408 82434",url:"tigpublicschool.org",ev:"schoolsuniverse.com (states 'inclusive, SEN eligible')",no:"States 'SEN eligible' for admission; but no SEN programme detail; forms Sep-Oct"},
+{n:"G.D. Goenka Public School",a:"New Town",b:"CBSE",t:"Coed",adm:"High",ac:3,se:2,ph:"gdgkolkata.com",url:"gdgkolkata.com/admission-guidelines",no:"2026-27 OPEN; first-come-first-served; no SEN data"},
+{n:"The Newtown School",a:"New Town",b:"Verify",t:"Coed",adm:"High",ac:3,se:2,ph:"School site",url:"Verify",no:"2026-27 OPEN; teacher assessment model; confirm board & SEN"},
+{n:"St. Paul's Mission School",a:"Scott Lane",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"9038044548 / 8232016670",url:"spmsscottlane.org (verify)",no:"≈₹61,600 Nursery; no SEN data"},
+{n:"Frank Anthony Public School",a:"Central / 700014",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"CISCE locator",url:"CISCE locator",no:"Est. 1965; ≈₹3,710/mo; no SEN data"},
+{n:"Salt Lake School",a:"Salt Lake / 700064",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"CISCE locator",url:"CISCE locator",no:"Salt Lake; no SEN data; metro accessible"},
+{n:"Army Public School Kolkata",a:"Ballygunge Camp",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"apskolkata.co.in",url:"apskolkata.co.in",no:"Apps till 30 Apr 2026; SEN not in notice; priority rules"},
+{n:"National Public School Garia",a:"Garia",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"Verify",url:"Verify",no:"Smaller; no SEN data"},
+{n:"Oxford House School",a:"Salt Lake",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"Verify",url:"Verify",no:"No SEN data; Salt Lake"},
+{n:"St. Augustine's Day School",a:"Barrackpore",b:"CISCE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"Verify",url:"Verify",no:"Growing; no SEN data"},
+{n:"GEMS Akademia",a:"Baruipur",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"Verify",url:"gemsakademia.com (verify)",no:"Boarding option; no SEN data"},
+{n:"Kendriya Vidyalaya (multiple)",a:"Various",b:"CBSE",t:"Coed",adm:"Low",ac:3,se:2,ph:"kvsonlineadmission.kvs.gov.in",url:"kvsonlineadmission.kvs.gov.in",no:"Govt CBSE; RTE provisions; no campus-specific SEN data"},
+{n:"DAV Public School (multiple)",a:"Various",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"Verify campus",url:"Verify campus",no:"DAV trust; no SEN data"},
+{n:"Bharatiya Vidya Bhavan",a:"Salt Lake",b:"CBSE",t:"Coed",adm:"Medium",ac:3,se:2,ph:"Verify",url:"Verify",no:"Culture-focused; no SEN data"},
+{n:"Julien Day School",a:"Ganganagar",b:"CISCE",t:"Coed",adm:"High",ac:3,se:2,ph:"Verify",url:"Verify",no:"Easy admission; no SEN data"},
+{n:"Adamas World School",a:"Barasat",b:"CISCE",t:"Coed",adm:"High",ac:2,se:2,ph:"Verify",url:"Verify",no:"Expanding; limited data"},
+{n:"St. Augustine's Shyamnagar",a:"North",b:"CISCE",t:"Coed",adm:"Medium",ac:2,se:2,ph:"Verify",url:"Verify",no:"Backup; limited data"},
+{n:"Bodhicariya Senior Secondary",a:"New Town",b:"CBSE",t:"Coed",adm:"Medium",ac:2,se:2,ph:"Verify",url:"Verify",no:"Buddhist org; calm; limited data"},
+{n:"Adamas International (IB wing)",a:"Barasat",b:"IB",t:"Coed",adm:"Medium",ac:2,se:2,ph:"+91 8335008844",url:"adamasinternationalschool.com",no:"New IB wing; limited track record"},
+{n:"The Cambridge School Kolkata",a:"New Town",b:"Cambridge",t:"Coed",adm:"Medium",ac:2,se:2,ph:"Verify",url:"Verify",no:"Emerging; limited data"},
+{n:"Mount Litera Zee School",a:"Various",b:"CBSE",t:"Coed",adm:"High",ac:2,se:2,ph:"Verify",url:"mountliterazee.com",no:"Franchise; no campus-specific SEN data"},
+{n:"Delhi World Public School",a:"Barasat etc.",b:"CBSE",t:"Coed",adm:"High",ac:2,se:2,ph:"+91 8585858012",url:"dwpsbarasat.com",no:"Franchise; Barasat OPEN; limited data"},
+// === SEN 1: ZERO SEN data + competitive/pressure OR backup with nothing ===
+{n:"La Martiniere for Boys",a:"Loudon St (Central)",b:"CISCE",t:"Boys",adm:"Low",ac:5,se:1,ph:"033 22902419",url:"lamartiniere.co",no:"Est. 1836; iconic; ZERO SEN data; highly competitive; ≈₹2.06-2.58L"},
+{n:"La Martiniere for Girls",a:"Rawdon St (Central)",b:"CISCE",t:"Girls",adm:"Low",ac:5,se:1,ph:"033 22902419",url:"lamartiniere.co",no:"Est. 1836; ZERO SEN data; highly competitive"},
+{n:"St. Xavier's Collegiate School",a:"Park Street",b:"CISCE",t:"Boys",adm:"Low",ac:5,se:1,ph:"CISCE locator",url:"sxccal.edu (verify)",no:"Elite; ZERO SEN data; Boys-only; extremely competitive"},
+{n:"St. James School",a:"Entally",b:"CISCE",t:"Boys",adm:"Low",ac:4,se:1,ph:"Verify",url:"Verify",no:"Legacy; ZERO SEN data; Boys-only"},
+{n:"Calcutta Boys School",a:"Park Street",b:"CISCE",t:"Boys",adm:"Low",ac:4,se:1,ph:"Verify",url:"Verify",no:"Legacy; ZERO SEN data; Boys-only; competitive"},
+{n:"Calcutta Girls High School",a:"Central",b:"CISCE",t:"Girls",adm:"Low",ac:4,se:1,ph:"Verify",url:"Verify",no:"ZERO SEN data; Girls-only"},
+{n:"Loreto House",a:"Middleton Row",b:"CISCE",t:"Girls",adm:"Low",ac:4,se:1,ph:"Admissions PDF",url:"Verify",no:"ZERO SEN data; competitive; CLOSED; Girls-only"},
+{n:"Loreto Convent Entally",a:"Entally",b:"CISCE",t:"Girls",adm:"Low",ac:4,se:1,ph:"Verify",url:"Verify",no:"ZERO SEN data; Girls-only"},
+{n:"Loreto Day School Dharamtala",a:"Lenin Sarani",b:"CISCE",t:"Girls",adm:"Low",ac:4,se:1,ph:"+91 33 2212 7560",url:"loretodharamtala.in",no:"ZERO SEN data; CLOSED; Girls-only"},
+{n:"Loreto Day School Bowbazar",a:"Bowbazar",b:"CISCE",t:"Girls",adm:"Low",ac:3,se:1,ph:"Verify",url:"loretobowbazar.in",no:"ZERO SEN data; Girls-only"},
+{n:"Auxilium Convent",a:"Bandel",b:"CISCE",t:"Girls",adm:"Low",ac:3,se:1,ph:"Verify",url:"Verify",no:"ZERO SEN data; Salesians; Girls-only"},
+{n:"Ruby Park Public School",a:"Alipore Mint",b:"CBSE",t:"Coed",adm:"High",ac:2,se:1,ph:"rubypark.com",url:"admission.rubypark.com",no:"ZERO SEN data; ZERO outcome data; online portal"},
+{n:"Narayana School Newtown",a:"New Town (behind TCS)",b:"CBSE",t:"Coed",adm:"High",ac:2,se:1,ph:"Verify",url:"narayanaschools.in",no:"Coaching chain model; ZERO SEN data; backup only"},
+{n:"Saini International School",a:"Bardhaman Rd",b:"CBSE",t:"Coed",adm:"High",ac:2,se:1,ph:"Verify",url:"Verify",no:"Newer; ZERO data"},
+{n:"Greenfield Academy",a:"South Kolkata",b:"CBSE",t:"Coed",adm:"High",ac:2,se:1,ph:"Verify",url:"Verify",no:"Backup; ZERO data"},
+{n:"Central Model School",a:"Barrackpore",b:"CBSE",t:"Coed",adm:"High",ac:2,se:1,ph:"Verify",url:"Verify",no:"Backup; ZERO data; north"}
+];
+
+// === ADMISSION DATES LOOKUP (researched from school websites & notices) ===
+// Format: {classes:"entry levels", form:"when forms available", window:"application window", next:"plan for next year"}
+const DATES = {
+"Calcutta International School":{classes:"PN,NUR,LKG,UKG,C1",form:"Year-round (rolling)",window:"No deadline; apply anytime",next:"Apply directly; rolling intake",src:"calcuttais.edu.in/admissions"},
+"The Heritage School":{classes:"PN,NUR,LKG,UKG,C1",form:"Online reg open periodically",window:"Verify on theheritageschool.org; point-based selection",next:"Register by Oct-Nov for Apr session; check site from Jul",src:"theheritageschool.org/admission.php"},
+"South Point School":{classes:"PN,NUR",form:"Late Jun (25 Jun 2025 for 2026-27)",window:"25 Jun – 9 Jul 2025 (closed)",next:"Set reminder: Jun 2026. Forms likely 3rd/4th week Jun.",src:"southpoint.ac.in"},
+"Birla High School":{classes:"PN,NUR,LKG,UKG",form:"Late Jun (26 Jun 2025 for 2026-27)",window:"26 Jun – 3 Aug 2025 via admissiontree.in",next:"Set reminder: Jun 2026. Watch birlahighschool.com from Jun.",src:"birlahighschool.com/admissions"},
+"La Martiniere for Boys":{classes:"NUR",form:"Jul (Lower Nursery only)",window:"Forms on lamartiniere.co in Jul 2025 (DOB Jan-Dec 2023)",next:"Watch lamartiniere.co from Jun 2026. DOB window shifts each yr.",src:"lamartiniere.co"},
+"La Martiniere for Girls":{classes:"NUR",form:"Jul (same as LMB)",window:"Jul 2025; same process as LMB",next:"Watch lamartiniere.co from Jun 2026",src:"lamartiniere.co"},
+"Sushila Birla Girls' School":{classes:"NUR,LKG",form:"Late Jun (23 Jun 2025)",window:"23 Jun – 13 Aug 2025 via admissiontree.in",next:"Set reminder: Jun 2026. Both parents must attend interaction.",src:"sbgskolkata.ac.in/nursery"},
+"Calcutta Boys School":{classes:"NUR",form:"Aug (1-31 Aug 2024 for 2025-26)",window:"1-31 Aug; online form + ₹1,000 fee",next:"Watch calcuttaboysschool.edu.in from Jul 2026. Age 4+ as on Apr.",src:"calcuttaboysschool.edu.in"},
+"Don Bosco School (Park Circus)":{classes:"LKG",form:"Verify (KG primary entry)",window:"Catholic/Christian priority zones; interaction-based",next:"Contact donboscoschool.in from Nov-Dec for next session",src:"donboscoschool.in/admission"},
+"Mahadevi Birla World Academy":{classes:"NUR,LKG,UKG",form:"Verify (competitive; date-bound)",window:"Check mbwa.org.in; admissions links seen for 2026-27",next:"Monitor from May-Jun 2026 for next cycle",src:"mbwa.org.in"},
+"Lakshmipat Singhania Academy":{classes:"NUR,LKG",form:"Verify",window:"Fee PDFs exist; confirm Nursery/LKG intake timing",next:"Contact office@lsakolkata.com by May 2026",src:"lsakolkata.com"},
+"Delhi Public School Ruby Park":{classes:"NUR,LKG",form:"Verify (competitive)",window:"Not publicly posted; contact school",next:"Contact 033 71300258 from Apr-May 2026",src:"dpskolkata.com"},
+"B. D. M. International":{classes:"NUR,LKG",form:"Verify",window:"Contact admissions office for dates",next:"Contact admission@bdmi.org from Apr-May 2026",src:"bdmi.org"},
+"South City International School":{classes:"PN,NUR,LKG,UKG",form:"Open now (2026-27 stated)",window:"Toddlers(2+)/LN/UN/KG explicitly open for 2026-27",next:"May still have seats; contact +91 9147064360 now",src:"scis.co.in"},
+"Army Public School Kolkata":{classes:"NUR",form:"Per admission notice",window:"Applications till 30 Apr 2026 via AWES ERP",next:"Watch apskolkata.co.in from Jan 2027",src:"apskolkata.co.in"},
+"Shri Shikshayatan School":{classes:"NUR,LKG,UKG,C1",form:"Online forms ACTIVE now",window:"Nursery-V forms open for 2026-27; +91 8100975564",next:"Forms currently active; apply now if eligible",src:"shrishikshayatanschool.com"},
+"DPS Barasat":{classes:"NUR,LKG,UKG",form:"Open (rolling)",window:"Admissions OPEN; Nursery-KG via observation (no test)",next:"Apply now at dpsbarasat.com/admission",src:"dpsbarasat.com/admission"},
+"DPS Megacity":{classes:"NUR",form:"Open (2026-27)",window:"2026-27 stated open on dpsmegacity.in",next:"Apply now; contact 08065138333",src:"dpsmegacity.in"},
+"DPS Howrah":{classes:"NUR,LKG,UKG",form:"Verify",window:"Online admission available; contact school",next:"Check dpshowrah.in from Mar-Apr 2026",src:"dpshowrah.in"},
+"DPS Joka":{classes:"PN,NUR,LKG,UKG,C1",form:"Online open",window:"Online admission 2026-27; forms on dpsjoka.com; ₹2,600 Class I-IX",next:"Apply now for Playgroup-XII",src:"dpsjoka.com"},
+"DPS Newtown":{classes:"NUR",form:"Verify (JS-blocked page)",window:"Not confirmed; try 98306 88888",next:"Call school from Apr-May 2026",src:"dpsnewtownkolkata.com"},
+"DPS South Kolkata":{classes:"NUR,LKG",form:"Verify",window:"Contact DPS Joka south Kolkata office",next:"Verify with dpsjoka.com office",src:"dpsjoka.com"},
+"G.D. Goenka Public School":{classes:"NUR,LKG,UKG,C1",form:"Open (first-come-first-served)",window:"2026-27 open; online + offline 8:30-1:30 Mon-Sat",next:"Apply now at gdgkolkata.com",src:"gdgkolkata.com/admission-guidelines"},
+"Orchids International School":{classes:"PN,NUR,LKG,UKG,C1",form:"Open (chain; rolling)",window:"2026-27 OPEN; call 9999431999",next:"Apply now; typically flexible intake",src:"orchids.edu.in"},
+"The Newtown School":{classes:"PN,NUR,LKG,UKG,C1",form:"Open (2026-27)",window:"Pre-Nursery to IX explicitly open; teacher assessment",next:"Apply now via school admissions page",src:"Verify"},
+"Adamas International School":{classes:"NUR,LKG,UKG",form:"Open (2026-27)",window:"Nursery-UKG; contact +91 8335008844",next:"Apply now",src:"adamasinternationalschool.com"},
+"The BSS School":{classes:"NUR",form:"Open (2026-27 Nursery)",window:"Merit lists published; 51 Gariahat Rd",next:"Apply now at thebssschool.com",src:"thebssschool.com"},
+"Techno India Group Public School":{classes:"PN,NUR,LKG,UKG,C1",form:"Sep-Oct typically",window:"Forms usually Sep-Oct; admission on merit + observation for KG",next:"Watch tigpublicschool.org from Aug 2026",src:"tigpublicschool.org"},
+"Future Foundation School":{classes:"C1",form:"Verify (Class 1 primary entry)",window:"Class 1 name lists published for 2026-27; ICSE",next:"Monitor sriaurobindoschools.org/tffs from May-Jun 2026",src:"sriaurobindoschools.org/tffs"},
+"Loreto House":{classes:"NUR",form:"Mid-year (Jun-Jul typical)",window:"2026-27 cycle CLOSED; selected candidates published",next:"Watch site from May-Jun 2026",src:"Verify"},
+"Loreto Day School Dharamtala":{classes:"NUR",form:"Mid-year typical",window:"2026-27 CLOSED; selected lists published",next:"Watch loretodharamtala.in from May-Jun 2026",src:"loretodharamtala.in"},
+"Modern High School for Girls":{classes:"NUR",form:"Mid-year",window:"Nursery notice posted for 2026-27; date-bound",next:"Watch mhsforgirls.edu.in from May-Jun 2026",src:"mhsforgirls.edu.in"},
+"South Point High School":{classes:"NUR",form:"Same as South Point School",window:"Verify; may share intake window with SP School",next:"Check southpoint.ac.in from Jun 2026",src:"southpoint.ac.in"},
+"Kendriya Vidyalaya (multiple)":{classes:"C1",form:"Online portal (central govt)",window:"KV online admission; typically opens Jan-Mar for Class 1 (age 6+)",next:"Watch kvsonlineadmission.kvs.gov.in from Jan 2027",src:"kvsonlineadmission.kvs.gov.in"},
+"Ruby Park Public School":{classes:"NUR,LKG",form:"Open (online portal)",window:"Admission Open shown; admission.rubypark.com",next:"Apply now",src:"admission.rubypark.com"},
+};
+// Default for schools not in lookup
+const DEFAULT_DATES = {classes:"Verify",form:"Verify with school",window:"Not publicly posted",next:"Contact school from Apr-May 2026 for next cycle",src:""};
+
+const PER_PAGE=15;
+let page=1, filtered=[], sortKey='se', sortDir=-1;
+const admVal={High:3,Medium:2,Low:1};
+
+function stars(n){return '★'.repeat(n)+'☆'.repeat(5-n);}
+function senBadge(v){
+  const c=v>=4?'var(--green)':v>=2?'var(--amber)':'var(--red)';
+  const bg=v>=4?'var(--green-bg)':v>=2?'var(--amber-bg)':'var(--red-bg)';
+  return `<span style="background:${bg};color:${c};padding:2px 7px;border-radius:4px;font-size:0.72rem;font-weight:700;">${v}/5</span>`;
+}
+function admBadge(v){
+  const c=v==='High'?'var(--green)':v==='Medium'?'var(--amber)':'var(--red)';
+  return `<span style="color:${c};font-weight:600;font-size:0.78rem;">${v}</span>`;
+}
+
+function renderDates(schoolName){
+  const d = DATES[schoolName] || DEFAULT_DATES;
+  const w = d.window || '';
+  const f = d.form || '';
+  const isOpen = w.toLowerCase().includes('open') || f.toLowerCase().includes('open') || f.toLowerCase().includes('active') || f.toLowerCase().includes('year-round') || f.toLowerCase().includes('rolling');
+  const isClosed = w.toLowerCase().includes('closed');
+  const fc = isOpen ? '#1B6B3A' : isClosed ? '#B83030' : '#8A8279';
+  let html = '<div style="margin-bottom:2px;"><strong style="color:'+fc+';">'+f+'</strong></div>';
+  html += '<div style="color:#4A463E;line-height:1.35;">'+w+'</div>';
+  html += '<div style="margin-top:3px;padding-top:3px;border-top:1px dashed #EDE8E0;color:#B84A1C;font-weight:500;">📅 '+d.next+'</div>';
+  return html;
+}
+
+function getSchoolClasses(schoolName){
+  const d = DATES[schoolName];
+  return d ? d.classes : 'Verify';
+}
+
+function toggleDetail(schoolName){
+  // Remove any existing detail row
+  const existing = document.querySelector('.detail-row');
+  const wasThisSchool = existing && existing.getAttribute('data-school') === schoolName;
+  if(existing) existing.remove();
+  if(wasThisSchool) return; // Toggle off
+
+  // Find the row for this school
+  const rows = document.querySelectorAll('#mainTable tbody tr:not(.detail-row)');
+  let targetRow = null;
+  rows.forEach(r => { if(r.querySelector('td')?.textContent.trim() === schoolName) targetRow = r; });
+  if(!targetRow) return;
+
+  const s = S.find(x => x.n === schoolName);
+  if(!s) return;
+  const d = DATES[schoolName] || DEFAULT_DATES;
+  const note = getNote(schoolName);
+  const colCount = targetRow.querySelectorAll('td').length;
+
+  // SEN evidence block
+  let senHtml = '';
+  if(s.se >= 5 && s.ev) senHtml = `<a href="https://${s.ev}" target="_blank" rel="noopener">🔗 ${s.ev}</a>`;
+  else if(s.ev && s.ev.includes('.')) senHtml = `<a href="https://${s.ev}" target="_blank" rel="noopener">🔗 ${s.ev}</a>`;
+  else if(s.ev) senHtml = s.ev;
+  else if(s.se >= 3) senHtml = '<span style="color:var(--amber);">Score based on stated ethos/philosophy — no dedicated SEN page found</span>';
+  else if(s.se >= 2) senHtml = '<span style="color:var(--text-muted);">Compliance-level listing only (CBSE disclosure) — no SEN programme described</span>';
+  else senHtml = '<span style="color:var(--red);">No SEN evidence found in any searched source</span>';
+
+  // User note preview
+  let noteHtml = '<span style="color:var(--text-muted);font-style:italic;">No personal notes yet. Click "+ Note" to start tracking.</span>';
+  if(note){
+    const st = {researching:'🔍 Researching',shortlisted:'⭐ Shortlisted',applied:'📝 Applied',visited:'👁 Visited',waitlist:'⏳ Waitlist',admitted:'✅ Admitted',rejected:'❌ Rejected'};
+    noteHtml = `<div style="margin-bottom:6px;"><strong>${st[note.status]||note.status}</strong>${note.admStatus?' · Adm: '+note.admStatus:''}</div>`;
+    if(note.contact) noteHtml += `<div>👤 ${note.contact}</div>`;
+    if(note.text) noteHtml += `<div style="margin-top:4px;white-space:pre-wrap;background:var(--bg);padding:6px 8px;border-radius:4px;border:1px solid var(--border-light);">${note.text}</div>`;
+    if(note.followup) noteHtml += `<div style="margin-top:4px;color:var(--accent);font-weight:500;">📌 ${note.followup}</div>`;
+    if(note.date) noteHtml += `<div style="margin-top:2px;font-size:0.72rem;color:var(--text-muted);">Last contact: ${note.date}</div>`;
+  }
+
+  const detailRow = document.createElement('tr');
+  detailRow.className = 'detail-row';
+  detailRow.setAttribute('data-school', schoolName);
+  detailRow.innerHTML = `<td colspan="${colCount}">
+    <div class="detail-inner">
+      <div class="detail-block" style="flex:2;min-width:280px;">
+        <h5>📋 School Notes &amp; Details</h5>
+        <p>${s.no}</p>
+      </div>
+      <div class="detail-block">
+        <h5>📅 Admission Window</h5>
+        <div><strong style="color:${d.form.toLowerCase().includes('open')||d.form.toLowerCase().includes('active')||d.form.toLowerCase().includes('year-round')?'var(--green)':d.window.toLowerCase().includes('closed')?'var(--red)':'var(--text-secondary)'};">${d.form}</strong></div>
+        <div style="margin-top:4px;">${d.window}</div>
+        <div style="margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);color:var(--accent);font-weight:600;">📅 Plan: ${d.next}</div>
+        <div style="margin-top:4px;font-size:0.72rem;color:var(--text-muted);">Entry levels: ${d.classes.replace(/PN/g,'Pre-Nur').replace(/NUR/g,'Nursery').replace(/LKG/g,'LKG').replace(/UKG/g,'UKG').replace(/C1/g,'Class 1')}</div>
+      </div>
+      <div class="detail-block">
+        <h5>🧩 SEN Evidence (Score: ${s.se}/5)</h5>
+        <div>${senHtml}</div>
+      </div>
+      <div class="detail-block">
+        <h5>📝 My Notes</h5>
+        <div>${noteHtml}</div>
+        <div style="margin-top:8px;"><button class="${noteBtnClass(s.n)}" onclick="openModal('${s.n.replace(/'/g,"\\'")}')">${note ? 'Edit Notes' : '+ Add Notes'}</button></div>
+      </div>
+    </div>
+  </td>`;
+
+  targetRow.after(detailRow);
+  detailRow.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// === STORAGE ENGINE (Firebase primary + localStorage cache) ===
+const NOTES_KEY = 'kolkata_k1_notes';
+const PIN_KEY = 'kolkata_k1_pin';
+let fbDb = null;
+let fbRef = null;
+let userPin = '';
+let notesCache = {};
+let firebaseReady = false;
+
+// --- Firebase Init ---
+function initFirebase(pin){
+  if(!FIREBASE_ENABLED) return false;
+  try {
+    if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    fbDb = firebase.database();
+    fbRef = fbDb.ref('users/' + pin + '/notes');
+    // Listen for realtime changes
+    fbRef.on('value', snap => {
+      const data = snap.val() || {};
+      notesCache = data;
+      localStorage.setItem(NOTES_KEY, JSON.stringify(data));
+      // Refresh UI if visible
+      if(typeof render === 'function') render();
+      if(typeof renderTracker === 'function') renderTracker();
+      updateSyncBadge(true);
+    });
+    firebaseReady = true;
+    updateSyncBadge(true);
+    return true;
+  } catch(e) {
+    console.error('Firebase init failed:', e);
+    firebaseReady = false;
+    updateSyncBadge(false);
+    return false;
+  }
+}
+
+function updateSyncBadge(online){
+  const badge = document.getElementById('syncBadge');
+  const text = document.getElementById('syncText');
+  if(!badge) return;
+  badge.style.display = 'flex';
+  if(online && FIREBASE_ENABLED){
+    badge.className = 'sync-indicator online';
+    text.textContent = '☁️ Synced — ' + userPin;
+  } else if(FIREBASE_ENABLED){
+    badge.className = 'sync-indicator offline';
+    text.textContent = '⚠️ Offline — using local cache';
+  } else {
+    badge.className = 'sync-indicator offline';
+    text.textContent = '💾 Local only (Firebase not configured)';
+  }
+}
+
+// --- PIN Management ---
+function enterPin(){
+  const input = document.getElementById('pinInput');
+  const pin = (input.value||'').trim().toLowerCase().replace(/[^a-z0-9_-]/g,'');
+  if(pin.length < 3){ alert('PIN must be at least 3 characters (letters, numbers, dash, underscore).'); return; }
+  userPin = pin;
+  localStorage.setItem(PIN_KEY, pin);
+  document.getElementById('pinScreen').classList.add('hidden');
+  initFirebase(pin);
+}
+
+function checkSavedPin(){
+  const saved = localStorage.getItem(PIN_KEY);
+  if(saved && FIREBASE_ENABLED){
+    userPin = saved;
+    document.getElementById('pinScreen').classList.add('hidden');
+    initFirebase(saved);
+    return true;
+  } else if(FIREBASE_ENABLED){
+    document.getElementById('pinScreen').classList.remove('hidden');
+    return false;
+  }
+  // Firebase not enabled — skip PIN, use localStorage
+  document.getElementById('pinScreen').classList.add('hidden');
+  updateSyncBadge(false);
+  return true;
+}
+
+// --- CRUD Operations (Firebase primary, localStorage fallback) ---
+function loadAllNotes(){
+  if(firebaseReady) return notesCache;
+  try { return JSON.parse(localStorage.getItem(NOTES_KEY)||'{}'); } catch(e){ return {}; }
+}
+
+function saveAllNotes(d){
+  localStorage.setItem(NOTES_KEY, JSON.stringify(d));
+  if(firebaseReady && fbRef){
+    fbRef.set(d).catch(e => console.error('Firebase save error:', e));
+  }
+  notesCache = d;
+}
+
+function getNote(schoolName){ return loadAllNotes()[schoolName]||null; }
+
+function setNote(schoolName, data){
+  const all = loadAllNotes();
+  all[schoolName] = data;
+  saveAllNotes(all);
+}
+
+function removeNote(schoolName){
+  const all = loadAllNotes();
+  delete all[schoolName];
+  saveAllNotes(all);
+}
+
+// Load local cache on start
+try { notesCache = JSON.parse(localStorage.getItem(NOTES_KEY)||'{}'); } catch(e){ notesCache = {}; }
+
+let currentModalSchool = null;
+
+function openModal(schoolName){
+  currentModalSchool = schoolName;
+  const s = S.find(x=>x.n===schoolName);
+  document.getElementById('modalTitle').textContent = schoolName;
+  document.getElementById('modalSub').textContent = s ? `${s.a} · ${s.b} · ${s.t}` : '';
+  
+  const existing = getNote(schoolName);
+  document.getElementById('noteStatus').value = existing?.status || 'researching';
+  document.getElementById('noteAdmStatus').value = existing?.admStatus || '';
+  document.getElementById('noteContact').value = existing?.contact || '';
+  document.getElementById('noteDate').value = existing?.date || '';
+  document.getElementById('noteText').value = existing?.text || '';
+  document.getElementById('noteFollowup').value = existing?.followup || '';
+  
+  document.getElementById('noteModal').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('noteModal').classList.remove('open');
+  currentModalSchool = null;
+}
+
+function saveNote(){
+  if(!currentModalSchool) return;
+  setNote(currentModalSchool, {
+    status: document.getElementById('noteStatus').value,
+    admStatus: document.getElementById('noteAdmStatus').value,
+    contact: document.getElementById('noteContact').value,
+    date: document.getElementById('noteDate').value,
+    text: document.getElementById('noteText').value,
+    followup: document.getElementById('noteFollowup').value,
+    updatedAt: new Date().toISOString()
+  });
+  closeModal();
+  render();
+  renderTracker();
+}
+
+function deleteNote(){
+  if(!currentModalSchool) return;
+  if(confirm('Remove all notes for ' + currentModalSchool + '?')){
+    removeNote(currentModalSchool);
+    closeModal();
+    render();
+    renderTracker();
+  }
+}
+
+function noteBtnClass(schoolName){
+  const n = getNote(schoolName);
+  if(!n) return 'note-btn';
+  return 'note-btn ' + (n.status||'has-note');
+}
+
+function noteBtnLabel(schoolName){
+  const n = getNote(schoolName);
+  if(!n) return '+ Note';
+  const labels = {researching:'🔍',shortlisted:'⭐',applied:'📝',visited:'👁',waitlist:'⏳',admitted:'✅',rejected:'❌'};
+  return (labels[n.status]||'📌') + ' ' + (n.status||'Note');
+}
+
+// === TRACKER RENDERING ===
+function renderTracker(){
+  const all = loadAllNotes();
+  const filter = document.getElementById('trackerFilter')?.value || '';
+  const entries = Object.entries(all).filter(([k,v])=> !filter || v.status===filter);
+  const container = document.getElementById('trackerContainer');
+  const countEl = document.getElementById('trackerCount');
+  
+  if(countEl) countEl.textContent = `${Object.keys(all).length} schools tracked`;
+  
+  if(entries.length === 0){
+    container.innerHTML = `<div class="tracker-empty">${Object.keys(all).length===0 ? 'No schools tracked yet. Click "+ Note" on any school in the directory to start tracking.' : 'No schools match this filter.'}</div>`;
+    return;
+  }
+  
+  entries.sort((a,b)=> (b[1].updatedAt||'').localeCompare(a[1].updatedAt||''));
+  
+  const statusColors = {applied:'var(--green)',shortlisted:'var(--purple)',visited:'var(--amber)',rejected:'var(--red)',waitlist:'var(--blue)',admitted:'var(--green)',researching:'var(--text-muted)'};
+  const statusBg = {applied:'var(--green-bg)',shortlisted:'var(--purple-bg)',visited:'var(--amber-bg)',rejected:'var(--red-bg)',waitlist:'var(--blue-bg)',admitted:'var(--green-bg)',researching:'var(--bg-warm)'};
+  
+  container.innerHTML = '<div class="tracker-grid">' + entries.map(([name, d])=>{
+    const s = S.find(x=>x.n===name);
+    return `<div class="tracker-card st-${d.status||''}">
+      <h4>${name}</h4>
+      <div class="tc-meta">${s?s.a+' · '+s.b:''}</div>
+      <span class="tc-status" style="background:${statusBg[d.status]||'var(--bg-warm)'};color:${statusColors[d.status]||'var(--text-muted)'};">${(d.status||'note').toUpperCase()}</span>
+      ${d.admStatus ? `<span class="tc-status" style="background:var(--bg-warm);color:var(--text-secondary);margin-left:4px;">Adm: ${d.admStatus}</span>` : ''}
+      ${d.contact ? `<div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.3rem;">👤 ${d.contact}</div>` : ''}
+      ${d.text ? `<div class="tc-notes">${d.text.length>200?d.text.substring(0,200)+'…':d.text}</div>` : ''}
+      ${d.followup ? `<div style="font-size:0.78rem;color:var(--accent);margin-top:0.3rem;">📌 ${d.followup}</div>` : ''}
+      ${d.date ? `<div class="tc-date">Last contact: ${d.date}</div>` : ''}
+      <div class="tc-actions">
+        <button class="note-btn" onclick="openModal('${name.replace(/'/g,"\\'")}')">Edit</button>
+      </div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+function exportNotes(){
+  const all = loadAllNotes();
+  const entries = Object.entries(all);
+  if(entries.length===0){alert('No notes to export.');return;}
+  let txt = 'KOLKATA K1 ADMISSIONS — MY NOTES EXPORT\n' + '='.repeat(50) + '\nExported: ' + new Date().toLocaleString() + '\n\n';
+  entries.forEach(([name,d])=>{
+    txt += '── ' + name + ' ──\n';
+    txt += 'Status: ' + (d.status||'-') + '\n';
+    txt += 'Adm Status: ' + (d.admStatus||'-') + '\n';
+    txt += 'Contact: ' + (d.contact||'-') + '\n';
+    txt += 'Last Contact: ' + (d.date||'-') + '\n';
+    txt += 'Notes: ' + (d.text||'-') + '\n';
+    txt += 'Follow-up: ' + (d.followup||'-') + '\n\n';
+  });
+  const blob = new Blob([txt],{type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'kolkata_school_notes_'+new Date().toISOString().slice(0,10)+'.txt';
+  a.click();
+}
+
+// Close modal on ESC or overlay click
+document.getElementById('noteModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+
+// === TABLE RENDERING ===
+function applyFilters(){
+  const q=document.getElementById('tSearch').value.toLowerCase();
+  const fb=document.getElementById('fBoard').value;
+  const ft=document.getElementById('fType').value;
+  const fa=document.getElementById('fAdm').value;
+  const fs=document.getElementById('fSEN').value;
+  const fc=document.getElementById('fClass').value;
+  const so=document.getElementById('fSort').value;
+
+  filtered=S.filter(s=>{
+    const txt=(s.n+' '+s.a+' '+s.b+' '+s.t+' '+s.no).toLowerCase();
+    if(q&&!txt.includes(q)) return false;
+    if(fb){
+      if(fb==='CBSE'&&!s.b.includes('CBSE')) return false;
+      if(fb==='CISCE'&&!s.b.includes('CISCE')&&!s.b.includes('ICSE')) return false;
+      if(fb==='IB'&&!s.b.includes('IB')&&!s.b.includes('Cambridge')) return false;
+      if(fb==='Verify'&&!['Verify'].includes(s.b)&&s.b.includes('B')) return false;
+    }
+    if(ft&&s.t!==ft) return false;
+    if(fa&&s.adm!==fa) return false;
+    if(fs&&s.se<parseInt(fs)) return false;
+    if(fc){
+      const cls = getSchoolClasses(s.n);
+      if(!cls.includes(fc) && cls!=='Verify') return false;
+    }
+    return true;
+  });
+
+  const [key,dir]=so.split('-');
+  filtered.sort((a,b)=>{
+    const d=dir==='d'?-1:1;
+    if(key==='sen') return (a.se-b.se)*d;
+    if(key==='acad') return (a.ac-b.ac)*d;
+    if(key==='name') return a.n.localeCompare(b.n)*d;
+    if(key==='adm') return ((admVal[a.adm]||0)-(admVal[b.adm]||0))*d;
+    if(key==='combo') return ((a.se+a.ac)-(b.se+b.ac))*d;
+    return 0;
+  });
+
+  page=1;
+  render();
+}
+
+function sortCol(k){
+  const so=document.getElementById('fSort');
+  const map={n:'name-a',adm:'adm-d',acad:'acad-d',sen:'sen-d'};
+  so.value=map[k]||'sen-d';
+  applyFilters();
+}
+
+function render(){
+  const total=filtered.length;
+  const pages=Math.ceil(total/PER_PAGE);
+  const start=(page-1)*PER_PAGE;
+  const slice=filtered.slice(start,start+PER_PAGE);
+  
+  document.getElementById('resultBar').textContent=`Showing ${start+1}–${Math.min(start+PER_PAGE,total)} of ${total} schools (page ${page}/${pages||1})`;
+
+  // Close any expanded detail row
+  const existingDetail = document.querySelector('.detail-row');
+  if(existingDetail) existingDetail.remove();
+
+  const tbody=document.getElementById('tBody');
+  tbody.innerHTML=slice.map(s=>{
+    const urlLink = s.url && !s.url.startsWith('Verify') && !s.url.startsWith('CISCE') 
+      ? `<a href="${s.url.startsWith('http')?s.url:'https://'+s.url}" target="_blank" rel="noopener" style="color:var(--blue);font-size:0.74rem;word-break:break-all;">${s.url}</a>` 
+      : `<span style="font-size:0.74rem;color:var(--text-muted);">${s.url||'Verify'}</span>`;
+    return `<tr>
+    <td style="font-weight:600;min-width:170px;">${s.n}</td>
+    <td style="white-space:nowrap;font-size:0.78rem;">${s.a}</td>
+    <td style="font-size:0.72rem;">${s.b}</td>
+    <td style="font-size:0.78rem;">${s.t}</td>
+    <td>${admBadge(s.adm)}</td>
+    <td><span style="color:var(--amber);letter-spacing:-1px;">${stars(s.ac)}</span><br><span style="font-size:0.66rem;color:var(--text-muted);">${['','Low','Low-Med','Medium','High','Very High'][s.ac]}</span></td>
+    <td>${senBadge(s.se)}</td>
+    <td style="font-size:0.74rem;min-width:130px;white-space:nowrap;">${s.ph||'Verify'}</td>
+    <td style="min-width:120px;">${urlLink}</td>
+    <td style="text-align:center;white-space:nowrap;">
+      <button class="info-btn" onclick="toggleDetail('${s.n.replace(/'/g,"\\'")}')">ℹ️ Details</button>
+      <button class="${noteBtnClass(s.n)}" onclick="openModal('${s.n.replace(/'/g,"\\'")}')" style="margin-left:4px;">${noteBtnLabel(s.n)}</button>
+    </td>
+  </tr>`}).join('');
+
+  // Pagination
+  const pg=document.getElementById('pagination');
+  if(pages<=1){pg.innerHTML='';return;}
+  let html='';
+  if(page>1) html+=`<button onclick="goPage(${page-1})" style="padding:5px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg-card);cursor:pointer;font-size:0.78rem;">‹ Prev</button>`;
+  for(let i=1;i<=pages;i++){
+    if(i===page) html+=`<button style="padding:5px 10px;border:1px solid var(--accent);border-radius:4px;background:var(--accent);color:#fff;font-size:0.78rem;font-weight:700;">${i}</button>`;
+    else if(Math.abs(i-page)<=2||i===1||i===pages) html+=`<button onclick="goPage(${i})" style="padding:5px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg-card);cursor:pointer;font-size:0.78rem;">${i}</button>`;
+    else if(Math.abs(i-page)===3) html+=`<span style="padding:5px 4px;font-size:0.78rem;color:var(--text-muted);">…</span>`;
+  }
+  if(page<pages) html+=`<button onclick="goPage(${page+1})" style="padding:5px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg-card);cursor:pointer;font-size:0.78rem;">Next ›</button>`;
+  pg.innerHTML=html;
+}
+
+function goPage(p){page=p;render();document.getElementById('directory').scrollIntoView({behavior:'smooth',block:'start'});}
+
+// Init
+filtered=[...S];
+filtered.sort((a,b)=>b.se-a.se||(b.ac-a.ac));
+checkSavedPin();
+render();
+renderTracker();
+
+// Nav highlighting
+const navLinks=document.querySelectorAll('.topnav a:not(.brand)');
+const sections=document.querySelectorAll('.section[id]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(pageYOffset>=s.offsetTop-100)current=s.id;});
+  navLinks.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+current);});
+});
+
+// Change PIN
+function changePin(){
+  if(confirm('Change your sync PIN? Your notes stay saved under the old PIN — you will switch to a new namespace.')){
+    localStorage.removeItem(PIN_KEY);
+    if(fbRef) fbRef.off();
+    firebaseReady = false;
+    fbRef = null;
+    notesCache = {};
+    document.getElementById('pinScreen').classList.remove('hidden');
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+  }
+}
+
+// JSON Export (for backup/migration)
+function exportNotesJSON(){
+  const all = loadAllNotes();
+  if(Object.keys(all).length===0){ alert('No notes to export.'); return; }
+  const blob = new Blob([JSON.stringify(all, null, 2)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'kolkata_school_notes_'+userPin+'_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+}
+
+// JSON Import
+function importNotesJSON(){
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json';
+  input.onchange = async function(){
+    const file = input.files[0]; if(!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if(typeof data !== 'object') throw new Error('Invalid format');
+      const count = Object.keys(data).length;
+      if(confirm('Import '+count+' school notes? This will MERGE with existing notes (existing notes for same schools will be overwritten).')){
+        const all = loadAllNotes();
+        Object.assign(all, data);
+        saveAllNotes(all);
+        render(); renderTracker();
+        alert('Imported '+count+' notes successfully!');
+      }
+    } catch(e){ alert('Import failed: '+e.message); }
+  };
+  input.click();
+}
+</script>
+</body>
+</html>
