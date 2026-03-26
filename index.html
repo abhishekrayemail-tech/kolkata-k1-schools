@@ -745,6 +745,20 @@ footer {
   padding: 1rem 1.2rem; display: flex; gap: 1.2rem; flex-wrap: wrap;
   animation: fadeUp 0.25s ease-out;
 }
+.detail-tabs {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border-light);
+  margin: 0.6rem 1.2rem 0; flex-shrink: 0;
+}
+.detail-tab-btn {
+  padding: 0.5rem 1rem; font-size: 0.78rem; font-weight: 600;
+  color: var(--text-muted); background: none; border: none; cursor: pointer;
+  border-bottom: 2px solid transparent; transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.detail-tab-btn:hover { color: var(--text-primary); }
+.detail-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.detail-tab-content { display: none; }
+.detail-tab-content.active { display: flex; flex-wrap: wrap; gap: 1.2rem; }
 .detail-block {
   flex: 1; min-width: 220px; background: var(--bg-card);
   border-radius: var(--radius-sm); padding: 0.9rem 1rem;
@@ -759,6 +773,18 @@ footer {
   font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55;
 }
 .detail-block a { color: var(--blue); word-break: break-all; }
+.review-aspect { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+.review-aspect-icon { flex-shrink: 0; width: 20px; text-align: center; }
+.review-aspect-label { font-weight: 600; color: var(--text-primary); min-width: 90px; flex-shrink: 0; }
+.review-rating-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  background: var(--bg); border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm); padding: 0.3rem 0.6rem;
+  font-size: 0.85rem; font-weight: 700; margin-bottom: 0.6rem;
+}
+.review-rating-badge.high { color: var(--green); border-color: var(--green); }
+.review-rating-badge.mid { color: var(--amber); border-color: var(--amber); }
+.review-rating-badge.low { color: var(--red); border-color: var(--red); }
 
 /* TRACKER CARDS */
 .tracker-grid {
@@ -1773,6 +1799,9 @@ const DATES = {
 // Default for schools not in lookup
 const DEFAULT_DATES = {classes:"Verify",form:"Verify with school",window:"Not publicly posted",next:"Contact school from Apr-May 2026 for next cycle",src:""};
 
+// REVIEWS: {g:"rating/5", rc:"N reviews", t:teaching, i:infra, s:SEN, p:parents, f:fees, e:extras, sf:safety}
+const REVIEWS = {};
+
 const PER_PAGE=15;
 let page=1, filtered=[], sortKey='se', sortDir=-1;
 const admVal={High:3,Medium:2,Low:1};
@@ -1807,23 +1836,30 @@ function getSchoolClasses(schoolName){
 }
 
 function toggleDetail(schoolName){
-  // Remove any existing detail row
-  const existing = document.querySelector('.detail-row');
+  // Remove any existing detail row/card
+  const existing = document.querySelector('.detail-row, .detail-card-expand');
   const wasThisSchool = existing && existing.getAttribute('data-school') === schoolName;
   if(existing) existing.remove();
   if(wasThisSchool) return; // Toggle off
 
-  // Find the row for this school
-  const rows = document.querySelectorAll('#mainTable tbody tr:not(.detail-row)');
-  let targetRow = null;
-  rows.forEach(r => { if(r.querySelector('td')?.textContent.trim() === schoolName) targetRow = r; });
-  if(!targetRow) return;
+  // Check if table view is visible (above 900px breakpoint)
+  const tableVisible = document.getElementById('mainTable')?.offsetHeight > 0;
+  let targetRow = null, targetCard = null;
+
+  if(tableVisible){
+    const rows = document.querySelectorAll('#mainTable tbody tr:not(.detail-row)');
+    rows.forEach(r => { if(r.querySelector('td')?.textContent.trim() === schoolName) targetRow = r; });
+  } else {
+    document.querySelectorAll('.m-card').forEach(c => {
+      if(c.querySelector('h4')?.textContent.trim() === schoolName) targetCard = c;
+    });
+  }
+  if(!targetRow && !targetCard) return;
 
   const s = S.find(x => x.n === schoolName);
   if(!s) return;
   const d = DATES[schoolName] || DEFAULT_DATES;
   const note = getNote(schoolName);
-  const colCount = targetRow.querySelectorAll('td').length;
 
   // SEN evidence block
   let senHtml = '';
@@ -1845,36 +1881,93 @@ function toggleDetail(schoolName){
     if(note.date) noteHtml += `<div style="margin-top:2px;font-size:0.72rem;color:var(--text-muted);">Last contact: ${note.date}</div>`;
   }
 
-  const detailRow = document.createElement('tr');
-  detailRow.className = 'detail-row';
-  detailRow.setAttribute('data-school', schoolName);
-  detailRow.innerHTML = `<td colspan="${colCount}">
-    <div class="detail-inner">
-      <div class="detail-block" style="flex:2;min-width:280px;">
-        <h5>📋 School Notes &amp; Details</h5>
-        <p>${s.no}</p>
-      </div>
-      <div class="detail-block">
-        <h5>📅 Admission Window</h5>
-        <div><strong style="color:${d.form.toLowerCase().includes('open')||d.form.toLowerCase().includes('active')||d.form.toLowerCase().includes('year-round')?'var(--green)':d.window.toLowerCase().includes('closed')?'var(--red)':'var(--text-secondary)'};">${d.form}</strong></div>
-        <div style="margin-top:4px;">${d.window}</div>
-        <div style="margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);color:var(--accent);font-weight:600;">📅 Plan: ${d.next}</div>
-        <div style="margin-top:4px;font-size:0.72rem;color:var(--text-muted);">Entry levels: ${d.classes.replace(/PN/g,'Pre-Nur').replace(/NUR/g,'Nursery').replace(/LKG/g,'LKG').replace(/UKG/g,'UKG').replace(/C1/g,'Class 1')}</div>
-      </div>
-      <div class="detail-block">
-        <h5>🧩 SEN Evidence (Score: ${s.se}/5)</h5>
-        <div>${senHtml}</div>
-      </div>
-      <div class="detail-block">
-        <h5>📝 My Notes</h5>
-        <div>${noteHtml}</div>
-        <div style="margin-top:8px;"><button class="${noteBtnClass(s.n)}" onclick="openModal('${s.n.replace(/'/g,"\\'")}')">${note ? 'Edit Notes' : '+ Add Notes'}</button></div>
-      </div>
-    </div>
-  </td>`;
+  // Build review HTML
+  const rv = REVIEWS[schoolName];
+  let reviewHtml = '';
+  if(rv){
+    const rn = parseFloat(rv.g);
+    const rc = rn >= 4.0 ? 'high' : rn >= 3.0 ? 'mid' : 'low';
+    reviewHtml = `<div class="review-rating-badge ${rc}">⭐ ${rv.g}</div> <span style="font-size:0.78rem;color:var(--text-muted);">${rv.rc} reviews</span>`;
+    const aspects = [
+      {icon:'📚', label:'Teaching', val:rv.t},
+      {icon:'🏫', label:'Infrastructure', val:rv.i},
+      {icon:'🧩', label:'SEN/Inclusion', val:rv.s},
+      {icon:'👨‍👩‍👧', label:'Parents Say', val:rv.p},
+      {icon:'💰', label:'Fees Value', val:rv.f},
+      {icon:'🎨', label:'Extracurriculars', val:rv.e},
+      {icon:'🛡️', label:'Safety', val:rv.sf}
+    ];
+    reviewHtml += '<div style="margin-top:0.6rem;">';
+    aspects.forEach(a => {
+      if(a.val && a.val !== 'N/A') reviewHtml += `<div class="review-aspect"><span class="review-aspect-icon">${a.icon}</span><span class="review-aspect-label">${a.label}</span><span>${a.val}</span></div>`;
+    });
+    reviewHtml += '</div>';
+  } else {
+    reviewHtml = '<span style="color:var(--text-muted);font-style:italic;">No review data available yet.</span>';
+  }
 
-  targetRow.after(detailRow);
-  detailRow.scrollIntoView({behavior:'smooth', block:'nearest'});
+  // Shared detail content
+  const detailContent = `
+    <div class="detail-tabs">
+      <button class="detail-tab-btn active" onclick="switchDetailTab(this,'overview')">Overview</button>
+      <button class="detail-tab-btn" onclick="switchDetailTab(this,'reviews')">Reviews${rv?' ⭐':''}${rv?' '+rv.g:''}</button>
+    </div>
+    <div style="padding:0 1.2rem 1rem;">
+      <div class="detail-tab-content active" data-tab="overview" style="padding-top:0.8rem;">
+        <div class="detail-block" style="flex:2;min-width:280px;">
+          <h5>📋 School Notes &amp; Details</h5>
+          <p>${s.no}</p>
+        </div>
+        <div class="detail-block">
+          <h5>📅 Admission Window</h5>
+          <div><strong style="color:${d.form.toLowerCase().includes('open')||d.form.toLowerCase().includes('active')||d.form.toLowerCase().includes('year-round')?'var(--green)':d.window.toLowerCase().includes('closed')?'var(--red)':'var(--text-secondary)'};">${d.form}</strong></div>
+          <div style="margin-top:4px;">${d.window}</div>
+          <div style="margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);color:var(--accent);font-weight:600;">📅 Plan: ${d.next}</div>
+          <div style="margin-top:4px;font-size:0.72rem;color:var(--text-muted);">Entry levels: ${d.classes.replace(/PN/g,'Pre-Nur').replace(/NUR/g,'Nursery').replace(/LKG/g,'LKG').replace(/UKG/g,'UKG').replace(/C1/g,'Class 1')}</div>
+        </div>
+        <div class="detail-block">
+          <h5>🧩 SEN Evidence (Score: ${s.se}/5)</h5>
+          <div>${senHtml}</div>
+        </div>
+        <div class="detail-block">
+          <h5>📝 My Notes</h5>
+          <div>${noteHtml}</div>
+          <div style="margin-top:8px;"><button class="${noteBtnClass(s.n)}" onclick="openModal('${s.n.replace(/'/g,"\\'")}')">${note ? 'Edit Notes' : '+ Add Notes'}</button></div>
+        </div>
+      </div>
+      <div class="detail-tab-content" data-tab="reviews" style="padding-top:0.8rem;">
+        <div class="detail-block" style="flex:1;min-width:300px;">
+          <h5>⭐ Community Reviews &amp; Ratings</h5>
+          ${reviewHtml}
+        </div>
+      </div>
+    </div>`;
+
+  if(targetRow){
+    const colCount = targetRow.querySelectorAll('td').length;
+    const detailRow = document.createElement('tr');
+    detailRow.className = 'detail-row';
+    detailRow.setAttribute('data-school', schoolName);
+    detailRow.innerHTML = `<td colspan="${colCount}">${detailContent}</td>`;
+    targetRow.after(detailRow);
+    detailRow.scrollIntoView({behavior:'smooth', block:'nearest'});
+  } else if(targetCard){
+    const detailDiv = document.createElement('div');
+    detailDiv.className = 'detail-card-expand';
+    detailDiv.setAttribute('data-school', schoolName);
+    detailDiv.style.cssText = 'background:var(--bg-warm);border:1px solid var(--accent-light);border-radius:var(--radius-sm);margin:-0.3rem 0 0.6rem;animation:fadeUp 0.25s ease-out;';
+    detailDiv.innerHTML = detailContent;
+    targetCard.after(detailDiv);
+    detailDiv.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
+
+function switchDetailTab(btn, tabName){
+  const container = btn.closest('.detail-row') || btn.closest('.detail-card-expand');
+  container.querySelectorAll('.detail-tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.detail-tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  container.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
 }
 
 // === STORAGE ENGINE (Firebase primary + localStorage cache) ===
