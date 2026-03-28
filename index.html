@@ -694,16 +694,65 @@ footer {
 .m-card-actions { display: flex; gap: 6px; margin-top: 0.6rem; }
 
 /* CALENDAR */
-.cal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.6rem; margin-top: 1rem; }
+/* Calendar Status Board */
+.cal-status-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.2rem; }
+.cal-status-col { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.6rem; min-width: 0; }
+.cal-status-col h4 { font-family: 'Fraunces',serif; font-size: 0.8rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.25rem; white-space: nowrap; }
+.cal-status-col.open-now h4 { color: var(--green); }
+.cal-status-col.closing-soon h4 { color: #e67e22; }
+.cal-status-col.upcoming h4 { color: var(--accent); }
+.cal-status-col .cal-pill { font-size: 0.7rem; padding: 4px 6px; margin-bottom: 3px; border-radius: 4px; background: var(--bg-main); color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cal-status-col.open-now .cal-pill { background: var(--green-bg); border-left: 3px solid var(--green); }
+.cal-status-col.closing-soon .cal-pill { background: #fef3e2; border-left: 3px solid #e67e22; }
+.cal-status-col.upcoming .cal-pill { background: var(--accent-bg); border-left: 3px solid var(--accent); }
+.cal-pill-name { font-weight: 600; }
+.cal-pill-info { display: none; }
+.cal-status-more { font-size: 0.65rem; color: var(--text-muted); padding-top: 2px; }
+.cal-status-empty { font-size: 0.72rem; color: var(--text-muted); font-style: italic; padding: 4px 0; }
+
+/* Calendar Filters */
+.cal-controls { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.cal-filter-btn { font-size: 0.78rem; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; color: var(--text-secondary); transition: all 0.15s; }
+.cal-filter-btn:hover { border-color: var(--accent); }
+.cal-filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.cal-rolling-badge { font-size: 0.75rem; background: var(--accent-bg); color: var(--accent); padding: 5px 12px; border-radius: 20px; border: 1px solid var(--accent); cursor: pointer; }
+.cal-rolling-badge:hover { background: var(--accent); color: #fff; }
+
+/* Timeline Grid */
+.cal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
 .cal-month {
   background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 0.8rem; min-height: 120px;
+  padding: 0.9rem; min-height: 80px; transition: box-shadow 0.15s;
 }
-.cal-month h5 { font-family: 'Fraunces',serif; font-size: 0.88rem; margin-bottom: 0.5rem; color: var(--accent); }
-.cal-event { font-size: 0.72rem; padding: 4px 6px; margin-bottom: 3px; border-radius: 3px; border-left: 3px solid var(--accent); background: var(--accent-bg); color: var(--text-secondary); line-height: 1.35; }
+.cal-month:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.cal-month.current-month { border-color: var(--accent); border-width: 2px; box-shadow: 0 2px 12px rgba(139,90,43,0.12); }
+.cal-month.past-month { opacity: 0.45; }
+.cal-month-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem; }
+.cal-month-header h5 { font-family: 'Fraunces',serif; font-size: 0.95rem; color: var(--accent); margin: 0; }
+.cal-month-header .cal-count { font-size: 0.68rem; background: var(--accent-bg); color: var(--accent); padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.cal-month.current-month .cal-month-header h5 { color: var(--green); }
+.cal-month.current-month .cal-month-header h5::after { content: ' (NOW)'; font-size: 0.65rem; font-weight: 700; }
+.cal-event { font-size: 0.75rem; padding: 5px 8px; margin-bottom: 4px; border-radius: 4px; border-left: 3px solid var(--accent); background: var(--accent-bg); color: var(--text-secondary); line-height: 1.35; display: flex; align-items: baseline; gap: 0.3rem; }
+.cal-event .ev-name { font-weight: 600; }
+.cal-event .ev-info { font-size: 0.68rem; color: var(--text-muted); }
 .cal-event.open { border-left-color: var(--green); background: var(--green-bg); }
 .cal-event.closed { border-left-color: var(--red); background: var(--red-bg); }
-.cal-empty { font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
+.cal-event.rolling { border-left-color: #3498db; background: #eef6fc; }
+.cal-empty { font-size: 0.78rem; color: var(--text-muted); font-style: italic; padding: 4px 0; }
+.cal-see-more { font-size: 0.72rem; color: var(--accent); cursor: pointer; padding: 3px 0; text-decoration: underline; }
+
+/* Rolling Schools Modal/Dropdown */
+.cal-rolling-panel { display: none; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem; }
+.cal-rolling-panel.show { display: block; }
+.cal-rolling-panel h4 { font-family: 'Fraunces',serif; font-size: 0.9rem; margin-bottom: 0.6rem; color: #3498db; }
+.cal-rolling-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.4rem; }
+.cal-rolling-item { font-size: 0.75rem; padding: 4px 8px; background: #eef6fc; border-radius: 4px; border-left: 2px solid #3498db; }
+
+@media (max-width: 600px) {
+  .cal-status-board { grid-template-columns: 1fr; }
+  .cal-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .cal-rolling-list { grid-template-columns: 1fr; }
+}
 
 /* COMPARISON */
 .compare-picker { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
@@ -1193,7 +1242,24 @@ footer {
 <section class="section" id="calendar">
   <div class="section-label">Timeline</div>
   <h2>📅 Admission Deadline Calendar</h2>
-  <p>Visual month-by-month view of when to apply. Showing all schools with known admission windows.</p>
+  <p>Track admission windows across all 86 schools. Status board shows what needs attention <strong>right now</strong>.</p>
+
+  <div class="cal-status-board" id="calStatusBoard"></div>
+
+  <div class="cal-controls">
+    <span style="font-size:0.8rem;font-weight:600;color:var(--text-muted);">Show:</span>
+    <button class="cal-filter-btn active" onclick="calFilter('all',this)">All</button>
+    <button class="cal-filter-btn" onclick="calFilter('date',this)">Date-specific only</button>
+    <button class="cal-filter-btn" onclick="calFilter('open',this)">Open now</button>
+    <button class="cal-rolling-badge" onclick="toggleRolling()">🔄 <span id="rollingCount">0</span> Rolling Admissions</button>
+  </div>
+
+  <div class="cal-rolling-panel" id="calRollingPanel">
+    <h4>🔄 Schools with Year-Round / Rolling Admissions</h4>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.6rem;">These schools accept applications anytime — no deadline pressure.</p>
+    <div class="cal-rolling-list" id="calRollingList"></div>
+  </div>
+
   <div class="cal-grid" id="calGrid"></div>
 </section>
 
@@ -2825,40 +2891,146 @@ function printComparison(){ if(compareSelected.length>=2){ buildComparison(); se
 setTimeout(renderCompareChips, 100);
 
 // === DEADLINE CALENDAR ===
-function buildCalendar(){
-  const grid = document.getElementById('calGrid');
-  if(!grid) return;
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+// === CALENDAR ENGINE ===
+let calCurrentFilter = 'all';
+let calData = { rolling: [], months: {} };
+
+function parseCalendarData(){
+  const months = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  const rolling = [];
   const events = {};
   months.forEach(m => events[m] = []);
-  
+
   Object.entries(DATES).forEach(([name, d]) => {
     const f = (d.form + ' ' + d.window + ' ' + d.next).toLowerCase();
-    if(f.includes('year-round')||f.includes('rolling')) { ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].forEach(m => events[m].push({name,text:'Rolling intake',cls:'open'})); return; }
-    if(f.includes('active now')||f.includes('open now')||f.includes('apply now')) { events['Mar'].push({name,text:'OPEN NOW',cls:'open'}); events['Apr'].push({name,text:'May still be open',cls:'open'}); return; }
-    // Parse months
-    const monthMap = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
-    months.forEach((m,i) => {
+
+    // Rolling / year-round → separate bucket
+    if(f.includes('year-round')||f.includes('rolling')) {
+      rolling.push({ name, info: d.form || 'Year-round' });
+      return;
+    }
+
+    // Open now / apply now
+    const isOpenNow = f.includes('active now')||f.includes('open now')||f.includes('apply now')||f.includes('2026-27 open');
+    if(isOpenNow) {
+      events['Mar'].push({ name, text: 'OPEN NOW — Apply!', cls: 'open', priority: 1 });
+      events['Apr'].push({ name, text: 'Likely still open', cls: 'open', priority: 2 });
+      return;
+    }
+
+    // Closed explicitly
+    const isClosed = f.includes('closed');
+
+    // Parse month mentions
+    months.forEach(m => {
       const ml = m.toLowerCase();
       if(f.includes(ml)) {
-        const isClosed = f.includes('closed');
-        events[m].push({name, text: d.form.substring(0,40), cls: isClosed?'closed':'open'});
+        events[m].push({
+          name,
+          text: d.form ? d.form.substring(0,50) : (isClosed ? 'Closed' : 'Window'),
+          cls: isClosed ? 'closed' : 'open',
+          priority: isClosed ? 3 : 1
+        });
       }
     });
   });
-  
+
+  // Sort each month: open first, then by name
+  months.forEach(m => {
+    events[m].sort((a,b) => (a.priority||2) - (b.priority||2) || a.name.localeCompare(b.name));
+  });
+
+  calData = { rolling, months: events };
+  document.getElementById('rollingCount').textContent = rolling.length;
+}
+
+function buildStatusBoard(){
+  const board = document.getElementById('calStatusBoard');
+  if(!board) return;
+  const now = new Date();
+  const curMonth = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][now.getMonth()];
+  const months = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  const curIdx = months.indexOf(curMonth);
+
+  // Open Now = current month open events
+  const openNow = (calData.months[curMonth]||[]).filter(e => e.cls === 'open');
+  // Closing Soon = current month closed OR next month's events
+  const nextMonth = months[(curIdx+1)%12];
+  const closingSoon = (calData.months[nextMonth]||[]).filter(e => e.cls === 'open').slice(0,5);
+  // Upcoming = month after next
+  const upMonth = months[(curIdx+2)%12];
+  const upcoming = (calData.months[upMonth]||[]).filter(e => e.cls === 'open').slice(0,5);
+
+  const maxPills = 4;
+  const renderCol = (cls, title, items) => {
+    const shown = items.slice(0, maxPills);
+    const extra = items.length - maxPills;
+    return `<div class="cal-status-col ${cls}">
+      <h4>${title}</h4>
+      ${shown.length ? shown.map(e => `<div class="cal-pill"><span class="cal-pill-name">${e.name.length>28?e.name.substring(0,28)+'…':e.name}</span></div>`).join('') + (extra>0?`<div class="cal-status-more">+${extra} more</div>`:'') : '<div class="cal-status-empty">None found</div>'}
+    </div>`;
+  };
+  board.innerHTML = renderCol('open-now','🟢 Open Now',openNow)
+    + renderCol('closing-soon','🟠 Next: '+nextMonth,closingSoon)
+    + renderCol('upcoming','🔵 Coming: '+upMonth,upcoming);
+}
+
+function buildCalendar(){
+  const grid = document.getElementById('calGrid');
+  if(!grid) return;
+  const months = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  const now = new Date();
+  const curMonthIdx = now.getMonth(); // 0-11
+  const monthMap = {Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11,Jan:0,Feb:1,Mar:2};
+
   grid.innerHTML = months.map(m => {
-    const evts = events[m];
-    const now = new Date();
-    const monthIdx = months.indexOf(m);
-    const isPast = monthIdx < now.getMonth();
-    return `<div class="cal-month" style="${isPast?'opacity:0.5;':''}">
-      <h5>${m} ${monthIdx < 3 ? '2027' : '2026'}</h5>
-      ${evts.length ? evts.slice(0,5).map(e => `<div class="cal-event ${e.cls}">${e.name.substring(0,25)}: ${e.text}</div>`).join('') + (evts.length>5?`<div style="font-size:0.68rem;color:var(--text-muted);">+${evts.length-5} more</div>`:'') : '<div class="cal-empty">No deadlines found</div>'}
+    let evts = (calData.months[m]||[]);
+    // Apply filter
+    if(calCurrentFilter === 'date') evts = evts.filter(e => e.cls !== 'rolling');
+    if(calCurrentFilter === 'open') evts = evts.filter(e => e.cls === 'open');
+
+    const mIdx = monthMap[m];
+    const isPast = (mIdx < 3 && mIdx < curMonthIdx) || (mIdx >= 3 && mIdx < curMonthIdx);
+    const isCurrent = mIdx === curMonthIdx;
+    const yr = mIdx <= 2 ? '2027' : '2026';
+    const maxShow = isCurrent ? 8 : 5;
+
+    return `<div class="cal-month ${isCurrent?'current-month':''} ${isPast?'past-month':''}">
+      <div class="cal-month-header">
+        <h5>${m} ${yr}</h5>
+        ${evts.length ? `<span class="cal-count">${evts.length}</span>` : ''}
+      </div>
+      ${evts.length ? evts.slice(0,maxShow).map(e => `<div class="cal-event ${e.cls}"><span class="ev-name">${e.name.length>22?e.name.substring(0,22)+'…':e.name}</span> <span class="ev-info">${e.text.length>30?e.text.substring(0,30)+'…':e.text}</span></div>`).join('') + (evts.length>maxShow?`<div class="cal-see-more" onclick="this.parentElement.querySelectorAll('.cal-event-hidden').forEach(e=>e.style.display='flex');this.style.display='none';">+${evts.length-maxShow} more…</div>`+evts.slice(maxShow).map(e=>`<div class="cal-event ${e.cls} cal-event-hidden" style="display:none"><span class="ev-name">${e.name.length>22?e.name.substring(0,22)+'…':e.name}</span> <span class="ev-info">${e.text.length>30?e.text.substring(0,30)+'…':e.text}</span></div>`).join(''):'') : '<div class="cal-empty">No deadlines</div>'}
     </div>`;
   }).join('');
 }
-setTimeout(buildCalendar, 200);
+
+function buildRollingPanel(){
+  const list = document.getElementById('calRollingList');
+  if(!list) return;
+  list.innerHTML = calData.rolling.map(r =>
+    `<div class="cal-rolling-item"><strong>${r.name}</strong> — ${r.info}</div>`
+  ).join('');
+}
+
+function calFilter(mode, btn){
+  calCurrentFilter = mode;
+  document.querySelectorAll('.cal-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildCalendar();
+}
+
+function toggleRolling(){
+  document.getElementById('calRollingPanel').classList.toggle('show');
+}
+
+function initCalendar(){
+  parseCalendarData();
+  buildStatusBoard();
+  buildCalendar();
+  buildRollingPanel();
+}
+setTimeout(initCalendar, 200);
 
 // === WHATSAPP COPY ===
 function copyTemplate(id, btn){
