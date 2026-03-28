@@ -871,6 +871,75 @@ footer {
 .review-rating-badge.mid { color: var(--amber); border-color: var(--amber); }
 .review-rating-badge.low { color: var(--red); border-color: var(--red); }
 
+/* RIGHT DRAWER */
+.drawer-overlay { position: fixed; inset: 0; background: rgba(21,21,21,0.45); backdrop-filter: blur(2px); z-index: 200; display: none; }
+.drawer-overlay.open { display: block; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 540px; z-index: 201; background: var(--bg); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; box-shadow: -4px 0 32px rgba(0,0,0,0.15); }
+.drawer.open { transform: translateX(0); }
+.drawer-header { padding: 1.2rem 1.4rem 0.8rem; border-bottom: 1px solid var(--border); background: var(--bg-card); flex-shrink: 0; }
+.drawer-header h3 { font-family: 'Fraunces',serif; font-size: 1.15rem; color: var(--text-primary); margin: 0 0 0.3rem; padding-right: 2rem; }
+.drawer-meta { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.3rem; }
+.drawer-meta span { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; background: var(--bg-warm); color: var(--text-secondary); }
+.drawer-close { position: absolute; top: 0.8rem; right: 0.8rem; background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+.drawer-close:hover { background: var(--bg-warm); color: var(--text-primary); }
+.drawer-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--bg-card); flex-shrink: 0; padding: 0 1rem; }
+.drawer-tab { padding: 0.55rem 0.8rem; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+.drawer-tab:hover { color: var(--text-secondary); }
+.drawer-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.drawer-body { flex: 1; overflow-y: auto; padding: 1.2rem 1.4rem; }
+.drawer-footer { padding: 0.7rem 1.4rem; border-top: 1px solid var(--border); background: var(--bg-card); flex-shrink: 0; display: flex; gap: 0.5rem; }
+.drawer-footer button { font-size: 0.75rem; padding: 6px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; color: var(--text-secondary); }
+.drawer-footer button:hover { border-color: var(--accent); color: var(--accent); }
+.drawer-tab-content { display: none; }
+.drawer-tab-content.active { display: block; }
+
+/* Drawer content blocks */
+.prep-block { margin-bottom: 1.2rem; }
+.prep-block h4 { font-family: 'Fraunces',serif; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.3rem; }
+.prep-block p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.4rem; }
+.prep-badge { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+.prep-badge.process { background: var(--accent-bg); color: var(--accent); }
+.prep-badge.risk-low { background: var(--green-bg); color: var(--green); }
+.prep-badge.risk-medium { background: #fef3e2; color: #b8760a; }
+.prep-badge.risk-high { background: var(--red-bg); color: var(--red); }
+.prep-badge.risk-very-low { background: #e8f5e9; color: #1B6B3A; }
+.prep-list { list-style: none; padding: 0; margin: 0; }
+.prep-list li { font-size: 0.8rem; color: var(--text-secondary); padding: 6px 0 6px 1.2rem; position: relative; line-height: 1.5; border-bottom: 1px solid var(--border-light); }
+.prep-list li:last-child { border-bottom: none; }
+.prep-list li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.prep-area-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; margin-bottom: 0.4rem; }
+.prep-area-card strong { font-size: 0.78rem; color: var(--text-primary); }
+.prep-area-card span { font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 2px; }
+.prep-callout { background: var(--green-bg); border: 1px solid var(--green); border-radius: var(--radius-sm); padding: 0.7rem 0.9rem; font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.8rem; }
+.prep-callout.warn { background: #fef3e2; border-color: #e67e22; }
+.prep-callout.info { background: #eef6fc; border-color: #3498db; }
+.prep-quote { font-size: 0.78rem; color: var(--text-secondary); padding: 0.5rem 0.8rem; border-left: 3px solid var(--accent); margin-bottom: 0.4rem; background: var(--accent-bg); border-radius: 0 4px 4px 0; font-style: italic; line-height: 1.5; }
+
+/* Interview Prep Section */
+.prep-section-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+.prep-school-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.9rem; cursor: pointer; transition: all 0.15s; }
+.prep-school-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+.prep-school-card h4 { font-family: 'Fraunces',serif; font-size: 0.88rem; margin-bottom: 0.3rem; color: var(--text-primary); }
+.prep-school-card .card-meta { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.prep-school-card .card-badges { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.prep-universal { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+.prep-universal-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; }
+.prep-universal-card h4 { font-family: 'Fraunces',serif; font-size: 0.95rem; margin-bottom: 0.6rem; }
+.prep-universal-card ul { list-style: none; padding: 0; margin: 0; }
+.prep-universal-card li { font-size: 0.78rem; padding: 4px 0; color: var(--text-secondary); line-height: 1.45; }
+.prep-search { width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85rem; background: var(--bg-card); margin-bottom: 0.75rem; }
+.prep-filter-row { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.prep-filter-btn { font-size: 0.72rem; padding: 4px 12px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; color: var(--text-secondary); }
+.prep-filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.prep-btn { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; color: var(--accent); font-weight: 600; }
+.prep-btn:hover { background: var(--accent); color: #fff; }
+
+@media (max-width: 900px) {
+  .drawer { width: 100%; }
+  .prep-universal { grid-template-columns: 1fr; }
+}
+@media print { .drawer-overlay, .drawer { display: none !important; } }
+
 /* TRACKER CARDS */
 .tracker-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -947,6 +1016,9 @@ footer {
     </a>
     <a data-section="visitgen" onclick="showSection('visitgen')">
       <span class="nav-icon">✅</span> Visit Prep
+    </a>
+    <a data-section="interviewprep" onclick="showSection('interviewprep')">
+      <span class="nav-icon">🎯</span> Interview Prep
     </a>
     <div class="sidebar-divider">Reference</div>
     <a data-section="timeline" onclick="showSection('timeline')">
@@ -1393,6 +1465,67 @@ Thank you for considering our request.
   <div id="visitOutput"></div>
 </section>
 
+<!-- INTERVIEW PREP SECTION -->
+<section class="section" id="interviewprep">
+  <div class="section-label">Preparation</div>
+  <h2>🎯 Interview Prep Guide</h2>
+  <p>School-specific preparation for the admission interaction — what to expect, how to prepare your child, parent interview tips, and <strong>speech delay disclosure strategies</strong>.</p>
+
+  <div class="prep-universal" id="prepUniversal">
+    <div class="prep-universal-card" style="border-left:4px solid var(--green);">
+      <h4>👶 Universal Child Prep (Age 3-5)</h4>
+      <ul id="prepChildList"></ul>
+    </div>
+    <div class="prep-universal-card" style="border-left:4px solid var(--accent);">
+      <h4>👨‍👩‍👦 Universal Parent Tips</h4>
+      <ul id="prepParentList"></ul>
+    </div>
+    <div class="prep-universal-card" style="border-left:4px solid var(--purple);">
+      <h4>💬 Speech Delay Toolkit</h4>
+      <ul id="prepSENList"></ul>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:0.5rem;">School-Specific Guides</h3>
+  <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:0.75rem;">Click any school to open its detailed interview prep guide.</p>
+  <input type="text" class="prep-search" id="prepSearch" placeholder="Search schools..." oninput="renderPrepSection()">
+  <div class="prep-filter-row" id="prepFilters">
+    <button class="prep-filter-btn active" onclick="setPrepFilter('all',this)">All</button>
+    <button class="prep-filter-btn" onclick="setPrepFilter('premiumIB',this)">IB / Cambridge</button>
+    <button class="prep-filter-btn" onclick="setPrepFilter('topCBSE',this)">Top CBSE</button>
+    <button class="prep-filter-btn" onclick="setPrepFilter('legacyICSE',this)">Legacy ICSE</button>
+    <button class="prep-filter-btn" onclick="setPrepFilter('midCBSE',this)">Mid CBSE</button>
+    <button class="prep-filter-btn" onclick="setPrepFilter('playschool',this)">Playschool</button>
+  </div>
+  <div class="prep-section-grid" id="prepGrid"></div>
+</section>
+
+<!-- PREP DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="prepDrawer">
+  <div class="drawer-header" style="position:relative;">
+    <button class="drawer-close" onclick="closeDrawer()">&times;</button>
+    <h3 id="drawerTitle"></h3>
+    <div class="drawer-meta" id="drawerMeta"></div>
+  </div>
+  <div class="drawer-tabs" id="drawerTabs">
+    <button class="drawer-tab active" onclick="switchDrawerTab(this,'process')">📋 Process</button>
+    <button class="drawer-tab" onclick="switchDrawerTab(this,'child')">👶 Child Prep</button>
+    <button class="drawer-tab" onclick="switchDrawerTab(this,'parent')">👨‍👩‍👦 Parent Prep</button>
+    <button class="drawer-tab" onclick="switchDrawerTab(this,'sen')">💬 SEN Tips</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-tab-content active" id="dtProcess"></div>
+    <div class="drawer-tab-content" id="dtChild"></div>
+    <div class="drawer-tab-content" id="dtParent"></div>
+    <div class="drawer-tab-content" id="dtSEN"></div>
+  </div>
+  <div class="drawer-footer">
+    <button onclick="closeDrawer();openModal(document.getElementById('drawerTitle').textContent);">📝 Open Notes</button>
+    <button onclick="closeDrawer();showSection('visitgen');document.getElementById('visitSchoolSelect').value=document.getElementById('drawerTitle').textContent;generateVisitChecklist();">✅ Visit Checklist</button>
+  </div>
+</div>
+
 <!-- NOTES MODAL -->
 <div class="modal-overlay" id="noteModal">
   <div class="modal">
@@ -1747,6 +1880,7 @@ Thank you for considering our request.
   <a data-section="vault" onclick="showSection('vault')">📁 Documents</a>
   <a data-section="whatsapp" onclick="showSection('whatsapp')">💬 Templates</a>
   <a data-section="visitgen" onclick="showSection('visitgen')">✅ Visit Prep</a>
+  <a data-section="interviewprep" onclick="showSection('interviewprep')">🎯 Interview Prep</a>
   <a data-section="timeline" onclick="showSection('timeline')">🕒 Admissions Cycle</a>
   <a data-section="clusters" onclick="showSection('clusters')">🗺 Clusters</a>
   <a data-section="checklist" onclick="showSection('checklist')">📄 Checklist</a>
@@ -1903,6 +2037,131 @@ const DATES = {
 };
 // Default for schools not in lookup
 const DEFAULT_DATES = {classes:"Verify",form:"Verify with school",window:"Not publicly posted",next:"Contact school from Apr-May 2026 for next cycle",src:""};
+
+// === INTERVIEW PREP DATA ===
+const SCHOOL_CATEGORY = {
+"Calcutta International School":"premiumIB","The Heritage School":"premiumIB","B. D. M. International":"topCBSE","Mahadevi Birla World Academy":"topCBSE","Lakshmipat Singhania Academy":"topCBSE","South City International School":"premiumIB","Pratt Memorial School":"legacyICSE","Sri Sri Academy":"conventMission","The BSS School":"legacyICSE","RP Goenka International School":"premiumIB","International School Kolkata":"premiumIB","Pathways World School":"premiumIB","Delhi Public School Ruby Park":"topCBSE","South Point School":"topCBSE","South Point High School":"topCBSE","Birla High School":"topCBSE","MP Birla Foundation School":"topCBSE","Modern High School for Girls":"legacyICSE","Sushila Birla Girls' School":"legacyICSE","Shri Shikshayatan School":"legacyICSE","Future Foundation School":"midCBSE","Don Bosco School (Park Circus)":"conventMission","Don Bosco Liluah":"conventMission","Garden High School":"legacyICSE","Assembly of God Church School":"conventMission","DPS Newtown":"midCBSE","DPS Megacity":"midCBSE","DPS Barasat":"midCBSE","DPS Howrah":"midCBSE","DPS Joka":"midCBSE","DPS South Kolkata":"midCBSE","Indus Valley World School":"midCBSE","Orchids International School":"midCBSE","Adamas International School":"midCBSE","Techno India Group Public School":"midCBSE","G.D. Goenka Public School":"midCBSE","The Newtown School":"midCBSE","St. Paul's Mission School":"conventMission","Frank Anthony Public School":"legacyICSE","Salt Lake School":"midCBSE","Army Public School Kolkata":"midCBSE","National Public School Garia":"midCBSE","Oxford House School":"legacyICSE","St. Augustine's Day School":"conventMission","GEMS Akademia":"midCBSE","Kendriya Vidyalaya (multiple)":"midCBSE","DAV Public School (multiple)":"midCBSE","Bharatiya Vidya Bhavan":"midCBSE","Julien Day School":"midCBSE","Adamas World School":"midCBSE","St. Augustine's Shyamnagar":"conventMission","Bodhicariya Senior Secondary":"midCBSE","Adamas International (IB wing)":"premiumIB","The Cambridge School Kolkata":"midCBSE","Mount Litera Zee School":"midCBSE","Delhi World Public School":"midCBSE","La Martiniere for Boys":"legacyICSE","La Martiniere for Girls":"legacyICSE","St. Xavier's Collegiate School":"legacyICSE","St. James School":"legacyICSE","Calcutta Boys School":"legacyICSE","Calcutta Girls High School":"legacyICSE","Loreto House":"legacyICSE","Loreto Convent Entally":"legacyICSE","Loreto Day School Dharamtala":"legacyICSE","Loreto Day School Bowbazar":"legacyICSE","Auxilium Convent":"conventMission","Ruby Park Public School":"midCBSE","Narayana School Newtown":"midCBSE","Saini International School":"midCBSE","Greenfield Academy":"midCBSE","Central Model School":"midCBSE","Patha Bhavan":"legacyICSE","Nava Nalanda Group of Schools":"midCBSE","Hare School":"legacyICSE","Hindu School":"legacyICSE","Carmel Convent School":"conventMission","South Suburban School":"legacyICSE","Bidya Bhaban School":"midCBSE","Kangaroo Kids International Preschool":"playschool","Kidzee":"playschool","EuroKids":"playschool","Podar Jumbo Kids":"playschool","Shemrock Preschool":"playschool","Bachpan Play School":"playschool","Little Millennium":"playschool"
+};
+
+const DEFAULT_INTERVIEW_PREP = {
+premiumIB:{
+  process:{type:"Parent Interview + Child Observation",format:"One-on-one parent meeting with admissions team followed by play-based child observation in group setting. IB schools emphasize inquiry and curiosity over rote knowledge.",duration:"45-60 min",rounds:"1"},
+  child:[{t:"Social interaction",d:"Engaging with other children and adults in play"},{t:"Language & communication",d:"Responding to name, following simple instructions, naming objects"},{t:"Motor skills",d:"Holding crayons, stacking blocks, basic coordination"},{t:"Cognitive readiness",d:"Sorting by color/shape, matching, interest in books"},{t:"Self-help skills",d:"Washroom awareness, eating, drinking from cup"},{t:"Emotional regulation",d:"Separation from parent, adapting to new environment"}],
+  notTested:"No written test. IB philosophy prioritizes curiosity and disposition over academic achievement at this age.",
+  parentQ:["Why did you choose our school / IB curriculum?","Tell us about your child — personality, interests, daily routine","What is your parenting philosophy?","How do you handle screen time at home?","What are your expectations from early-years education?","Is there anything about your child's development we should know?"],
+  parentTips:["Research the IB PYP / Cambridge philosophy before the meeting","Be genuine — IB schools value reflective, involved parenting","Mention your role in your child's learning journey","Ask thoughtful questions about the school's approach"],
+  docs:["Completed application form","Birth certificate (original + copy)","4-6 passport photos (child + parents)","Aadhaar card (child + parents)","Address proof","Medical/therapy reports (if applicable)","Previous school report (if any)"],
+  sen:{disclosure:"recommended-early",risk:"low",approach:"IB schools structurally accommodate diverse learners through differentiated pacing. Proactive disclosure generally helps.",tips:["Share speech therapist's latest assessment report","Frame positively: 'Making excellent progress in therapy, receptive language is age-appropriate'","Ask about IEP (Individualized Education Plan) options","Mention willingness to collaborate with school SLP","Request extra warm-up time during observation if needed"]}
+},
+topCBSE:{
+  process:{type:"Parent Interview + Child Interaction",format:"Formal interaction round where child meets teachers in small group. Parent interview covers family background, values, and educational expectations.",duration:"30-45 min",rounds:"1-2"},
+  child:[{t:"Name & family",d:"What is your name? Papa/Mama's name?"},{t:"Colors & shapes",d:"Identify 6-8 colors and 4 basic shapes"},{t:"Counting",d:"Count to 10, identify quantities up to 5"},{t:"Rhymes",d:"Recite 1-2 simple nursery rhymes"},{t:"General awareness",d:"Animals, fruits, body parts, common objects"},{t:"Social behavior",d:"Greeting adults, sitting in a group, following instructions"}],
+  notTested:"No written test at Nursery/LKG level. Schools assess readiness and social behavior, not academic knowledge.",
+  parentQ:["Why this school?","Father's and mother's occupation?","What values do you emphasize at home?","How do you support your child's learning?","Any siblings in this or other schools?","Who helps with homework/school activities?"],
+  parentTips:["Both parents should attend — top CBSE schools expect this","Dress smart-casual, conservative but not overly formal","Have specific answers about your child's routine and interests","Research the school's achievements and mention specific aspects you admire"],
+  docs:["Completed application form","Birth certificate (original + copy)","4-6 passport photos","Aadhaar card (child + parents)","Address proof","Income certificate (if applicable)","Previous school transfer certificate (if any)"],
+  sen:{disclosure:"recommended-with-framing",risk:"medium",approach:"Top CBSE schools have special educators but admission is competitive. Frame speech delay as a temporary developmental variation with active therapy.",tips:["Carry therapy reports but share them strategically during the interview","Lead with strengths: 'He is very observant, loves building things, and understands everything'","Ask about their special educator and support model","If child doesn't speak during interaction, gently narrate: 'He understands perfectly, he's showing you through gestures'"]}
+},
+legacyICSE:{
+  process:{type:"Interaction / Lottery",format:"Some use lottery (La Martiniere), others use interaction-based selection. Very high demand with limited seats. Parent presence required.",duration:"20-30 min",rounds:"1"},
+  child:[{t:"Name & basic info",d:"Name, age, parent names"},{t:"Recognition",d:"Colors, animals, common objects from picture cards"},{t:"Social skills",d:"Sitting calmly, responding to teacher, basic manners"},{t:"Motor skills",d:"Holding pencil/crayon, simple drawing"},{t:"Independence",d:"Can sit without parent for short period"},{t:"Temperament",d:"How child reacts to new people and environment"}],
+  notTested:"Legacy schools at Nursery level focus on the child's temperament and family values, not academics.",
+  parentQ:["Why this particular school? (Family tradition? Reputation?)","Are you alumni of this school?","What is your child's daily routine?","How will you manage school logistics (drop/pick, homework)?","What are your expectations from the school?"],
+  parentTips:["If lottery-based, the interview may be post-selection — focus on completing forms correctly","Legacy schools value tradition — mention any alumni connections","Be respectful of the school's heritage and ethos","Arrive very early — some have first-come queuing for forms"],
+  docs:["Completed application form (may require advance registration)","Birth certificate","Passport photos (specific count varies)","Parent Aadhaar + PAN","Address proof","Baptism certificate (for some Christian schools)","Alumni proof (if applicable)"],
+  sen:{disclosure:"strategic",risk:"medium-high",approach:"Legacy schools have large applicant pools. If lottery-based, disclose post-selection. If interaction-based, prepare child for basic communication tasks.",tips:["If process is lottery, focus on paperwork first — disclosure comes after selection","For interaction rounds, practice the specific tasks (name, colors, sit quietly)","Carry therapy reports but present only if directly asked about development","Consider whether this school can truly support your child vs. a more SEN-friendly option"]}
+},
+conventMission:{
+  process:{type:"Parent Interview (values-based)",format:"Interview focuses on family values, religious background (for mission schools), and commitment to school ethos. Light child interaction.",duration:"20-30 min",rounds:"1"},
+  child:[{t:"Basic greeting",d:"Saying hello/namaste, making eye contact"},{t:"Name recall",d:"Own name, parent names"},{t:"Comfort level",d:"Ability to sit with parent during interview"},{t:"Simple tasks",d:"Point to objects, follow one-step instructions"},{t:"Temperament",d:"General demeanor and behavior"}],
+  notTested:"Convent/mission schools at pre-primary focus on family alignment with school values, not child assessment.",
+  parentQ:["What is your faith/religion?","Why did you choose a mission school?","How do you practice your values at home?","Do you attend church/temple regularly?","Are you willing to participate in school community activities?","How will you ensure regular attendance?"],
+  parentTips:["Understand the school's religious affiliation and ethos","Be honest about your faith — most schools accept all religions but value honesty","Emphasize values: discipline, community, service","Show willingness to participate in school events"],
+  docs:["Completed application form","Birth certificate","Passport photos","Baptism/christening certificate (if applicable)","Parish priest recommendation (for some)","Parent Aadhaar + address proof"],
+  sen:{disclosure:"recommended-with-framing",risk:"medium",approach:"Mission schools generally have a nurturing ethos. Frame speech delay within a values-based narrative about supporting your child's unique journey.",tips:["Emphasize that you are seeking a nurturing environment for your child","Mention therapy and your proactive approach to supporting his development","Ask about their experience with children who need extra time to develop","Frame it as: 'We believe every child is unique and develops at their own pace'"]}
+},
+midCBSE:{
+  process:{type:"Informal Interaction / First-come",format:"Light parent-child interaction with a teacher. Many use first-come-first-served or rolling admission. Less competitive, more welcoming.",duration:"15-20 min",rounds:"1"},
+  child:[{t:"Name & age",d:"Basic self-introduction"},{t:"Colors",d:"Identify primary colors"},{t:"Shapes",d:"Circle, square, triangle"},{t:"Social comfort",d:"Sitting calmly, not distressed"},{t:"Following instructions",d:"Simple one-step directions"}],
+  notTested:"No formal testing. These schools assess basic readiness and whether the child is comfortable in a school setting.",
+  parentQ:["Why this school?","Tell us about your family","What does your child enjoy doing?","Any specific needs we should know about?"],
+  parentTips:["These are generally welcoming — be natural and relaxed","Focus on showing you're an involved parent","Ask about class size and teacher-student ratio","Visit the campus and classrooms if offered"],
+  docs:["Application form","Birth certificate","Passport photos","Aadhaar (parent + child)","Address proof"],
+  sen:{disclosure:"optional-at-admission",risk:"low",approach:"Lower competition means speech delay is rarely a barrier. You can disclose to class teacher after admission for classroom support.",tips:["These schools are generally accommodating — don't stress about disclosure","If you do share, keep it brief and positive","Focus on what your child CAN do rather than limitations","Ask about their approach to children who are still developing speech"]}
+},
+playschool:{
+  process:{type:"Parent Chat + Trial Class",format:"Informal parent orientation and campus tour. Child may attend a trial/demo class. No formal assessment at all.",duration:"30-45 min (including tour)",rounds:"0"},
+  child:[{t:"Comfort level",d:"Can the child be in a room without parent nearby?"},{t:"Play behavior",d:"Engages with toys, materials, other children"},{t:"Basic responsiveness",d:"Looks up when called, follows gaze/pointing"},{t:"Sensory comfort",d:"Comfortable with classroom sounds, textures, light"}],
+  notTested:"Playschools do not test children. The trial class is for the parent to observe the environment, not for the school to assess the child.",
+  parentQ:["What are you looking for in a preschool?","What is your child's current routine?","Any allergies or dietary needs?","How does your child interact with other children?"],
+  parentTips:["This is more about YOU choosing the right playschool","Observe: teacher-child ratio, hygiene, safety measures, activity variety","Ask about curriculum philosophy (Montessori? Play-based? Structured?)","Visit during active hours to see real classroom dynamics"],
+  docs:["Application/registration form","Birth certificate copy","Passport photos","Parent ID proof","Medical records/vaccination card"],
+  sen:{disclosure:"recommended-early",risk:"very-low",approach:"Playschools are designed for developmental variation. Share therapy details early so they can provide appropriate classroom support.",tips:["Playschools are the most accommodating environment — share freely","Ask if they have experience with speech delay","Discuss whether they can incorporate therapy goals into daily activities","A good playschool will be your partner in early intervention"]}
+}
+};
+
+// Specific school entries override category defaults
+const INTERVIEW_PREP = {
+"Calcutta International School":{process:{type:"Parent Interview + Child Observation",format:"Rolling admissions. Schedule a campus visit first, then formal parent interview with admissions coordinator. Play-based child observation in a small group (3-5 children) with two facilitators. IB PYP inquiry approach — they look for curiosity, not knowledge.",duration:"45-60 min",rounds:"1"},sen:{disclosure:"recommended-early",risk:"low",approach:"CIS has a dedicated SEN department with IEP support. This is one of the safest schools to disclose speech delay — they actively welcome neurodiverse learners.",tips:["Request to meet the SEN coordinator during your visit","Share therapy reports proactively — they view it as parental awareness, not a red flag","Ask about their 1:8 SEN student-teacher ratio","CIS offers customized education plans — ask how this works at Nursery level","Your child's speech delay is well within their support capability"]}},
+"The Heritage School":{process:{type:"Application + Parent Interaction + Child Observation",format:"Online application first, then scheduled campus visit. Parent interaction with senior teachers. Child observation in a structured play session. Heritage uses a point-based selection system considering multiple factors.",duration:"60 min",rounds:"1-2"},sen:{disclosure:"recommended-early",risk:"low",approach:"Heritage has the strongest SEN programme in Kolkata — 100 SEN children, 12 special educators, resource centres. Proactive disclosure is strongly recommended.",tips:["Heritage is THE most SEN-friendly school in Kolkata — be completely open","Ask to visit the SEN resource centre during your campus tour","Request meeting a special educator who works with pre-primary","They support autism, ADHD, dyslexia, and speech delays specifically","Mention you want a school that will partner in your child's therapy journey"]}},
+"South City International School":{process:{type:"Parent Interview + Child Observation",format:"Application via school website. Parent interview with academic head. Montessori-aligned toddler observation — they watch how children explore materials independently.",duration:"40-50 min",rounds:"1"},sen:{disclosure:"recommended-with-framing",risk:"low-medium",approach:"SCIS has a nurturing early-years program with Montessori influence. They value independence and self-paced learning, which suits speech delay.",tips:["Montessori approach naturally accommodates different developmental timelines","Emphasize your child's independence and curiosity","Ask about their approach to language development in early years","SCIS values the whole child — speech is just one aspect they consider"]}},
+"Delhi Public School Ruby Park":{process:{type:"Registration + Interaction Round",format:"Online registration opens in specific window (check website). Interaction round with teachers assessing the child. Parent interview covers family background and expectations. Very competitive — limited Nursery seats.",duration:"30-40 min",rounds:"1"},sen:{disclosure:"strategic",risk:"medium-high",approach:"DPS Ruby Park is highly competitive with limited seats. Speech delay may be a factor in selection. Prepare your child thoroughly for the interaction round.",tips:["Practice name, colors, shapes, and simple rhymes intensively before the interaction","If child uses gestures, prepare a brief explanation for the teacher","Consider whether DPS Ruby Park's competitive environment is right for your child","Their SE support is compliance-level — verify actual classroom support"]}},
+"Birla High School":{process:{type:"Online Form + Interaction",format:"Application through admissiontree.com portal. Interaction round for child with senior teachers. Parent interview may be combined. Very high demand — forms sell out quickly.",duration:"30 min",rounds:"1"},sen:{disclosure:"strategic",risk:"medium",approach:"Birla High is prestigious but competitive. They have some support structures but it's primarily an academic-focused environment.",tips:["Focus on preparing your child for confident basic interaction (name, colors, rhymes)","Birla values discipline and structure — show your child can follow basic routines","Keep disclosure brief if asked directly about development","Consider whether the academic pressure at Birla suits your child's needs"]}},
+"La Martiniere for Boys":{process:{type:"Lottery + Interaction",format:"Application forms available in specific window. Selection may involve lottery for initial shortlist, followed by parent-child interaction. Alumni preference exists. Extremely high demand.",duration:"20-30 min",rounds:"1"},sen:{disclosure:"post-selection",risk:"high",approach:"La Martiniere has massive applicant numbers. If lottery-based, focus on paperwork first. Disclose after selection if interaction round follows.",tips:["Priority: Get the application form submitted correctly and on time","If selected for interaction, prepare child for basic tasks (name, greeting)","La Martiniere is a legacy school — mention any family/alumni connections","Realistically assess if this traditional, competitive environment suits your child","Have backup schools ready — selection odds are very low regardless of speech delay"]}},
+"La Martiniere for Girls":{process:{type:"Lottery + Interaction",format:"Same process as LMB — application in specific window, possible lottery, parent-child interaction.",duration:"20-30 min",rounds:"1"},sen:{disclosure:"post-selection",risk:"high",approach:"Same approach as La Martiniere for Boys. Legacy school with very high competition.",tips:["Same tips as LMB — focus on timely application and form completion","Prepare child for basic interaction tasks","Have realistic expectations about selection odds"]}},
+"South Point School":{process:{type:"Registration + Interaction",format:"Online form with specific opening window. Child interaction with teachers — relatively formal. Extremely competitive with one of the highest applicant-to-seat ratios in Kolkata.",duration:"20-30 min",rounds:"1"},sen:{disclosure:"strategic",risk:"high",approach:"South Point is extremely competitive and primarily academic-focused. SEN support is minimal. Consider whether this environment is ideal for your child.",tips:["South Point receives thousands of applications — competition is fierce regardless","If you apply, prepare child for confident self-introduction","Consider this as a stretch option with strong backup schools","Their large class sizes may not suit a child needing extra attention"]}},
+"Don Bosco School (Park Circus)":{process:{type:"Parent Interview (values-based) + Light Child Interaction",format:"Application form collection followed by parent interview focusing on values and family background. Christian families may have priority in some categories. Light child interaction to assess temperament.",duration:"25-35 min",rounds:"1"},sen:{disclosure:"recommended-with-framing",risk:"medium",approach:"Don Bosco has a Salesian ethos emphasizing care for every child. Frame speech delay within this values context.",tips:["Emphasize Don Bosco's 'Preventive System' of loving kindness when discussing your child","Ask about their pastoral care approach for children with developmental differences","Mention that you chose Don Bosco for its nurturing reputation","Be honest but positive about speech delay — Salesian schools value authenticity"]}},
+"Loreto House":{process:{type:"Application + Interaction",format:"Application in specific window (typically mid-year for next session). Very competitive — one of the most sought-after girls' schools. Interaction round assesses child's comfort and basic readiness.",duration:"20-30 min",rounds:"1"},sen:{disclosure:"strategic",risk:"medium-high",approach:"Loreto is extremely competitive. Focus on a strong application and prepare child for basic interaction tasks.",tips:["Application timing is critical — watch the website closely","Prepare child for name, greeting, simple tasks","Loreto values well-rounded children — highlight your child's non-verbal strengths","Consider Loreto Day School branches as alternatives with potentially easier admission"]}},
+"Sushila Birla Girls' School":{process:{type:"Parent Interview + Child Interaction",format:"Both parents expected to attend. Formal interview covers family values, education philosophy. Child interaction tests basic readiness. States 'progressive and inclusive' approach.",duration:"30-40 min",rounds:"1"},sen:{disclosure:"recommended-with-framing",risk:"medium",approach:"SBGS states 'progressive and inclusive' on their website. This suggests openness to diverse learners. Frame speech delay positively.",tips:["Both parents MUST attend — this is expected","SBGS's inclusive philosophy means you can be more open about speech delay","Prepare talking points about how you support your child's development at home","Ask about their approach to differentiated learning in early years"]}},
+"Kidzee":{process:{type:"Parent Orientation + Trial Class",format:"Walk into any centre. Parent orientation covers curriculum (iLLUME methodology), fees, and schedule. Child attends a free trial class. No formal assessment whatsoever.",duration:"30-45 min (tour + trial)",rounds:"0"},sen:{disclosure:"recommended-early",risk:"very-low",approach:"Kidzee is a playschool chain — developmental variation is expected and welcomed. Share speech delay so teachers can support appropriately in class.",tips:["Kidzee's play-based approach naturally accommodates speech delay","Ask about the specific centre's experience with developmental differences","Discuss how therapy goals can be reinforced during school activities","Visit during active hours to see how teachers interact with quieter children","Multiple Kolkata centres — choose one closest to home and with the best staff"]}},
+"EuroKids":{process:{type:"Parent Orientation + Campus Tour",format:"Walk-in or schedule online. Parent orientation about EUNOIA curriculum. Campus tour. Child may do a trial session. Rolling admission.",duration:"30-40 min",rounds:"0"},sen:{disclosure:"recommended-early",risk:"very-low",approach:"EuroKids is designed for early development — they expect children at various developmental stages.",tips:["EuroKids' activity-based learning works well for children developing speech","Ask about their approach to language development and communication skills","Visit multiple centres to find the one with the most experienced teachers","Fees are mid-range — focus on teacher quality over facilities"]}},
+"Kangaroo Kids International Preschool":{process:{type:"Parent Meeting + Child Observation",format:"Schedule a visit. Parent meeting with centre head. Child may join a demo class. Multiple Intelligence approach — they observe how children learn, not what they know.",duration:"30-45 min",rounds:"0"},sen:{disclosure:"recommended-early",risk:"very-low",approach:"Kangaroo Kids uses a Multiple Intelligence approach which naturally values different developmental paths including language.",tips:["Their MI approach means they value non-verbal intelligence equally","Highlight your child's strengths in spatial, musical, or kinesthetic areas","Ask about how they support language development across activities","Premium pricing — ensure the specific centre justifies the cost"]}}
+};
+
+const COMMON_PREP = {
+childActivities:[
+  {a:"Colors & shapes",d:"Practice naming 6-8 colors and 4 basic shapes (circle, square, triangle, rectangle) using everyday objects around the house"},
+  {a:"Family members",d:"Practice 'What is your name?', 'Papa\\'s name?', 'Mama\\'s name?' — even pointing at family photos counts"},
+  {a:"Rhymes & songs",d:"2-3 simple rhymes (Twinkle Twinkle, Wheels on the Bus, Johny Johny). Even humming the tune shows engagement"},
+  {a:"Social practice",d:"Arrange playdates with 2-3 children. Practice sharing, turn-taking, sitting in a small group for 10 minutes"},
+  {a:"Self-help skills",d:"Drinking from a cup, using a spoon, attempting to put on shoes, washroom awareness — schools notice independence"},
+  {a:"Following instructions",d:"Simple 2-step directions: 'Pick up the ball AND put it in the box.' Gradually increase complexity"},
+  {a:"Fine motor skills",d:"Scribbling with crayons, stacking 5+ blocks, threading large beads, tearing paper — builds hand control"},
+  {a:"Separation practice",d:"Leave child with trusted relative/friend for 30-60 minutes, building up gradually over 2-3 weeks before the interview"}
+],
+parentTips:[
+  "Both parents should attend if possible — many Kolkata schools expect this",
+  "Dress smart-casual. Conservative but not overly formal.",
+  "Research the school\\'s specific philosophy (IB inquiry vs CBSE structure vs ICSE balance)",
+  "Have specific answers ready for: Why this school? What do you value in education?",
+  "Do NOT over-coach your child — trained teachers can immediately tell",
+  "Carry an organized folder with all documents + extra copies of everything",
+  "Arrive 10-15 minutes early. Late arrival creates a negative first impression.",
+  "If both parents work, prepare for: 'Who will support homework and school activities?'"
+],
+speechToolkit:{
+  before:[
+    "Get a fresh assessment letter from your speech therapist dated within the last 30 days",
+    "Practice 'interview scenarios' at home: sitting at a table while an adult asks questions",
+    "Identify your child\\'s strongest communication mode (words, gestures, pointing, pictures)",
+    "Prepare a one-page 'About My Child' sheet: strengths, interests, therapy progress, what he enjoys"
+  ],
+  during:[
+    "If your child doesn\\'t respond verbally, gently prompt: 'Show aunty the [object]' to demonstrate comprehension",
+    "Allow 5-7 seconds of wait time before jumping in — some children need processing time",
+    "If child uses gestures, tell the assessor: 'He uses pointing to communicate and understands everything spoken to him'",
+    "Carry a small comfort object (favourite toy or book) to help child settle in the new environment",
+    "If child gets overwhelmed, calmly request a brief break rather than forcing interaction"
+  ],
+  framing:[
+    "He has a mild speech delay and is making excellent progress with therapy",
+    "His receptive language is age-appropriate — he understands everything",
+    "We have been doing speech therapy for [X months] and his therapist reports [specific progress]",
+    "We are looking for a school that will partner with us in his development",
+    "Can you share how the school supports children still developing their expressive language?"
+  ]
+}
+};
 
 // REVIEWS: {g:"rating/5", rc:"N reviews", t:teaching, i:infra, s:SEN, p:parents, f:fees, e:extras, sf:safety}
 const REVIEWS = {
@@ -2686,6 +2945,7 @@ function render(){
     <td style="text-align:center;white-space:nowrap;">
       <button class="info-btn" onclick="toggleDetail('${s.n.replace(/'/g,"\\'")}')">ℹ️ Details</button>
       <button class="${noteBtnClass(s.n)}" onclick="openModal('${s.n.replace(/'/g,"\\'")}')" style="margin-left:4px;">${noteBtnLabel(s.n)}</button>
+      <button class="prep-btn" onclick="openPrepDrawer('${s.n.replace(/'/g,"\\'")}')" style="margin-left:4px;">🎯 Prep</button>
     </td>
   </tr>`}).join('');
 
@@ -2704,6 +2964,7 @@ function render(){
       <div class="m-card-actions">
         <button class="info-btn" onclick="toggleDetail('${s.n.replace(/'/g,"\\'")}')">ℹ️ Details</button>
         <button class="${noteBtnClass(s.n)}" onclick="openModal('${s.n.replace(/'/g,"\\'")}')">${noteBtnLabel(s.n)}</button>
+        <button class="prep-btn" onclick="openPrepDrawer('${s.n.replace(/'/g,"\\'")}')">🎯 Prep</button>
       </div>
     </div>`).join('');
   }
@@ -2754,6 +3015,178 @@ checkSavedPin();
 render();
 renderTracker();
 renderDashboard();
+
+// === INTERVIEW PREP DRAWER ===
+let prepCurrentFilter = 'all';
+
+function getPrepData(schoolName){
+  const specific = INTERVIEW_PREP[schoolName];
+  const cat = SCHOOL_CATEGORY[schoolName] || 'midCBSE';
+  const def = DEFAULT_INTERVIEW_PREP[cat];
+  if(specific) return { ...def, ...specific, process: specific.process || def.process, sen: specific.sen || def.sen, category: cat };
+  return { ...def, category: cat };
+}
+
+function openPrepDrawer(schoolName){
+  const s = S.find(x => x.n === schoolName);
+  if(!s) return;
+  const prep = getPrepData(schoolName);
+
+  document.getElementById('drawerTitle').textContent = schoolName;
+  document.getElementById('drawerMeta').innerHTML =
+    `<span>${s.b}</span><span>${s.a}</span><span>SEN ${s.se}/5</span><span class="prep-badge ${prep.sen?.risk==='low'||prep.sen?.risk==='very-low'?'risk-low':prep.sen?.risk==='medium'?'risk-medium':'risk-high'}">${prep.sen?.risk||'unknown'} risk</span>`;
+
+  // Tab 1: Process
+  document.getElementById('dtProcess').innerHTML = `
+    <div class="prep-block">
+      <h4>📋 Admission Process</h4>
+      <div style="margin-bottom:0.6rem;"><span class="prep-badge process">${prep.process?.type||'Interaction'}</span></div>
+      <p>${prep.process?.format||''}</p>
+      <div style="display:flex;gap:1rem;margin-top:0.5rem;">
+        <div style="font-size:0.75rem;"><strong>Duration:</strong> ${prep.process?.duration||'Varies'}</div>
+        <div style="font-size:0.75rem;"><strong>Rounds:</strong> ${prep.process?.rounds||'1'}</div>
+      </div>
+    </div>
+    <div class="prep-block">
+      <h4>📄 Documents to Carry</h4>
+      <ul class="prep-list">${(prep.docs||[]).map(d=>`<li>${d}</li>`).join('')}</ul>
+    </div>
+    ${prep.notTested?`<div class="prep-callout info">💡 <strong>Not tested:</strong> ${prep.notTested}</div>`:''}
+  `;
+
+  // Tab 2: Child Prep
+  const childAreas = prep.child || [];
+  document.getElementById('dtChild').innerHTML = `
+    <div class="prep-block">
+      <h4>🔍 What They Assess</h4>
+      ${childAreas.map(c=>`<div class="prep-area-card"><strong>${c.t}</strong><span>${c.d}</span></div>`).join('')}
+    </div>
+    ${prep.notTested?`<div class="prep-callout info">💡 ${prep.notTested}</div>`:''}
+    <div class="prep-block">
+      <h4>🏠 Home Practice Activities</h4>
+      <ul class="prep-list">${COMMON_PREP.childActivities.map(a=>`<li><strong>${a.a}:</strong> ${a.d}</li>`).join('')}</ul>
+    </div>
+  `;
+
+  // Tab 3: Parent Prep
+  document.getElementById('dtParent').innerHTML = `
+    <div class="prep-block">
+      <h4>❓ Likely Questions</h4>
+      <ul class="prep-list">${(prep.parentQ||[]).map((q,i)=>`<li><strong>${i+1}.</strong> ${q}</li>`).join('')}</ul>
+    </div>
+    <div class="prep-block">
+      <h4>💡 Tips for This School</h4>
+      <ul class="prep-list">${(prep.parentTips||[]).map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>
+    <div class="prep-block">
+      <h4>📝 General Interview Tips</h4>
+      <ul class="prep-list">${COMMON_PREP.parentTips.map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>
+  `;
+
+  // Tab 4: SEN Tips
+  const sen = prep.sen || {};
+  const riskClass = sen.risk==='low'||sen.risk==='very-low'?'risk-low':sen.risk==='medium'?'risk-medium':'risk-high';
+  const riskLabel = {'very-low':'Very Low — No concern','low':'Low — Generally safe to disclose','medium':'Medium — Frame carefully','medium-high':'Medium-High — Be strategic','high':'High — Consider alternatives'}[sen.risk]||sen.risk;
+  document.getElementById('dtSEN').innerHTML = `
+    <div class="prep-block">
+      <h4>📊 Risk Assessment</h4>
+      <div style="margin-bottom:0.5rem;"><span class="prep-badge ${riskClass}" style="font-size:0.8rem;padding:5px 14px;">${riskLabel}</span></div>
+      <p><strong>Disclosure strategy:</strong> ${sen.disclosure?.replace(/-/g,' ')||'Recommended'}</p>
+      ${sen.approach?`<p style="margin-top:0.3rem;">${sen.approach}</p>`:''}
+    </div>
+    <div class="prep-block">
+      <h4>🎯 School-Specific SEN Tips</h4>
+      <ul class="prep-list">${(sen.tips||[]).map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>
+    <div class="prep-block">
+      <h4>🗣️ Before the Interview</h4>
+      <ul class="prep-list">${COMMON_PREP.speechToolkit.before.map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>
+    <div class="prep-block">
+      <h4>🤝 During the Interview</h4>
+      <ul class="prep-list">${COMMON_PREP.speechToolkit.during.map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>
+    <div class="prep-block">
+      <h4>💬 How to Frame Speech Delay</h4>
+      ${COMMON_PREP.speechToolkit.framing.map(f=>`<div class="prep-quote">"${f}"</div>`).join('')}
+    </div>
+  `;
+
+  // Reset to first tab
+  document.querySelectorAll('.drawer-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.querySelectorAll('.drawer-tab-content').forEach((c,i) => c.classList.toggle('active', i===0));
+
+  // Open drawer
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.getElementById('prepDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer(){
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.getElementById('prepDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchDrawerTab(btn, tabName){
+  document.querySelectorAll('.drawer-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const tabs = {process:'dtProcess',child:'dtChild',parent:'dtParent',sen:'dtSEN'};
+  document.querySelectorAll('.drawer-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(tabs[tabName]).classList.add('active');
+}
+
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && document.getElementById('prepDrawer').classList.contains('open')) closeDrawer(); });
+
+function setPrepFilter(mode, btn){
+  prepCurrentFilter = mode;
+  document.querySelectorAll('.prep-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPrepSection();
+}
+
+function renderPrepSection(){
+  const grid = document.getElementById('prepGrid');
+  if(!grid) return;
+  const search = (document.getElementById('prepSearch')?.value||'').toLowerCase();
+
+  const schools = S.filter(s => {
+    if(search && !s.n.toLowerCase().includes(search) && !s.a.toLowerCase().includes(search)) return false;
+    if(prepCurrentFilter !== 'all') {
+      const cat = SCHOOL_CATEGORY[s.n] || 'midCBSE';
+      if(cat !== prepCurrentFilter) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = schools.map(s => {
+    const cat = SCHOOL_CATEGORY[s.n] || 'midCBSE';
+    const prep = getPrepData(s.n);
+    const riskClass = prep.sen?.risk==='low'||prep.sen?.risk==='very-low'?'risk-low':prep.sen?.risk==='medium'?'risk-medium':'risk-high';
+    const hasSpecific = !!INTERVIEW_PREP[s.n];
+    return `<div class="prep-school-card" onclick="openPrepDrawer('${s.n.replace(/'/g,"\\'")}')">
+      <h4>${s.n}${hasSpecific?' <span style="font-size:0.65rem;color:var(--green);">★ DETAILED</span>':''}</h4>
+      <div class="card-meta">${s.a} · ${s.b} · SEN ${s.se}/5</div>
+      <div class="card-badges">
+        <span class="prep-badge process">${prep.process?.type?.split('+')[0]?.trim()||'Interaction'}</span>
+        <span class="prep-badge ${riskClass}">${prep.sen?.risk||'?'} risk</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function initPrepSection(){
+  // Populate universal cards
+  const cl = document.getElementById('prepChildList');
+  const pl = document.getElementById('prepParentList');
+  const sl = document.getElementById('prepSENList');
+  if(cl) cl.innerHTML = COMMON_PREP.childActivities.map(a=>`<li><strong>${a.a}:</strong> ${a.d}</li>`).join('');
+  if(pl) pl.innerHTML = COMMON_PREP.parentTips.map(t=>`<li>${t}</li>`).join('');
+  if(sl) sl.innerHTML = COMMON_PREP.speechToolkit.before.concat(COMMON_PREP.speechToolkit.during.slice(0,3)).map(t=>`<li>${t}</li>`).join('');
+  renderPrepSection();
+}
+setTimeout(initPrepSection, 300);
 
 // === SECTION SWITCHING ===
 function showSection(id) {
