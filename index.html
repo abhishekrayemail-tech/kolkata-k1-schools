@@ -2299,10 +2299,10 @@ function toggleDetail(schoolName){
 
   if(tableVisible){
     const rows = document.querySelectorAll('#mainTable tbody tr:not(.detail-row)');
-    rows.forEach(r => { if(r.querySelector('td')?.textContent.trim() === schoolName) targetRow = r; });
+    rows.forEach(r => { if(r.querySelector('td')?.textContent.trim().startsWith(schoolName)) targetRow = r; });
   } else {
     document.querySelectorAll('.m-card').forEach(c => {
-      if(c.querySelector('h4')?.textContent.trim() === schoolName) targetCard = c;
+      if(c.querySelector('h4')?.textContent.trim().startsWith(schoolName)) targetCard = c;
     });
   }
   if(!targetRow && !targetCard) return;
